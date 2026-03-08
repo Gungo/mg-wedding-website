@@ -5,18 +5,31 @@ const DATA_DIR = join(process.cwd(), 'data');
 const DB_PATH = join(DATA_DIR, 'rsvps.json');
 
 function ensureDir() {
-  if (!existsSync(DATA_DIR)) mkdirSync(DATA_DIR, { recursive: true });
+  try {
+    if (!existsSync(DATA_DIR)) mkdirSync(DATA_DIR, { recursive: true });
+    return true;
+  } catch {
+    return false;
+  }
 }
 
 function readDB() {
-  ensureDir();
-  if (!existsSync(DB_PATH)) return [];
-  return JSON.parse(readFileSync(DB_PATH, 'utf-8'));
+  try {
+    if (!existsSync(DB_PATH)) return [];
+    return JSON.parse(readFileSync(DB_PATH, 'utf-8'));
+  } catch {
+    return [];
+  }
 }
 
 function writeDB(data) {
-  ensureDir();
-  writeFileSync(DB_PATH, JSON.stringify(data, null, 2));
+  if (!ensureDir()) return false;
+  try {
+    writeFileSync(DB_PATH, JSON.stringify(data, null, 2));
+    return true;
+  } catch {
+    return false;
+  }
 }
 
 export function addRsvp(rsvp) {
