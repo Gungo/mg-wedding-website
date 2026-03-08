@@ -1,6 +1,7 @@
 /* ===== Palette ===== */
 :root {
   --color-sand:           #E4CBA9;
+  --color-sand-light:     #F1EADF;
   --color-sky-blue:       #7FC7CC;
   --color-deep-sea:       #092F33;
   --color-moss-green:     #4B5B34;
@@ -9,7 +10,7 @@
   --color-red-wine:       #9B0204;
   --color-sunshine:       #EA8913;
 
-  --color-bg:          var(--color-sand);
+  --color-bg:          var(--color-sand-light);
   --color-text:        var(--color-deep-sea);
   --color-text-muted:  #6b6b6b;
   --color-accent:      var(--color-deep-sea);
