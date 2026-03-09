@@ -101,6 +101,7 @@
         <button class="action-btn refresh-btn" type="button" onclick={refresh} disabled={refreshing}>
           {refreshing ? 'Refreshing...' : 'Refresh'}
         </button>
+        <a class="action-btn back-btn" href="/">Back</a>
         <button class="action-btn logout-btn" type="button" onclick={onLogout}>Log Out</button>
       </div>
     </header>
@@ -271,6 +272,17 @@
   .refresh-btn:disabled {
     opacity: 0.4;
     cursor: default;
+  }
+
+  .back-btn {
+    color: var(--color-text);
+    background: transparent;
+    border: 1px solid var(--color-border);
+    text-decoration: none;
+  }
+
+  .back-btn:hover {
+    border-color: var(--color-text);
   }
 
   .logout-btn {

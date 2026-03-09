@@ -19,14 +19,24 @@
 </script>
 
 <section class="hero">
-  <div class="lace-frame hero-frame">
-    <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
+  <!-- svelte-ignore a11y_no_static_element_interactions -->
+  <div class="lace-frame hero-frame" onclick={handleTap}>
     <img
       src="/images/hero.png"
       alt="Mariluz Del Pilar & Germán Ignacio — ocean waves crashing on rocks"
-      class="hero-image"
-      onclick={handleTap}
+      class="hero-image hero-desktop"
     />
+    <!-- svelte-ignore a11y_media_has_caption -->
+    <video
+      class="hero-video hero-mobile"
+      autoplay
+      muted
+      playsinline
+      disablepictureinpicture
+    >
+      <source src="/images/hero-mobile.mp4" type="video/mp4" />
+      <source src="/images/hero-mobile.mov" type="video/quicktime" />
+    </video>
   </div>
 </section>
 
@@ -49,5 +59,28 @@
     cursor: default;
     -webkit-user-select: none;
     user-select: none;
+  }
+
+  .hero-video {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    cursor: default;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  .hero-mobile {
+    display: none;
+  }
+
+  @media (max-width: 768px) {
+    .hero-desktop {
+      display: none;
+    }
+    .hero-mobile {
+      display: block;
+    }
   }
 </style>
