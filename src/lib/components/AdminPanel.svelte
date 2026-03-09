@@ -1,5 +1,5 @@
 <script>
-  let { rsvps: initialRsvps = [], password = '', onLogout } = $props();
+  let { rsvps: initialRsvps = [], onLogout } = $props();
 
   let rsvps = $state(initialRsvps);
   let searchQuery = $state('');
@@ -33,11 +33,7 @@
   async function refresh() {
     refreshing = true;
     try {
-      const res = await fetch('/api/admin', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ password })
-      });
+      const res = await fetch('/api/admin');
       if (res.ok) {
         const data = await res.json();
         rsvps = data.rsvps;
@@ -53,7 +49,7 @@
   }
 </script>
 
-<section class="admin-section">
+<div class="admin-page">
   <div class="admin-panel">
     <header class="admin-header">
       <h2 class="admin-title">Guest List</h2>
@@ -133,16 +129,13 @@
       </div>
     {/if}
   </div>
-</section>
+</div>
 
 <style>
-  .admin-section {
-    position: fixed;
-    inset: 0;
-    z-index: 900;
+  .admin-page {
+    min-height: 100vh;
     background: var(--color-bg);
-    overflow-y: auto;
-    padding: clamp(1rem, 3vw, 2rem);
+    padding: clamp(1.5rem, 4vw, 3rem);
   }
 
   .admin-panel {
