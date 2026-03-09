@@ -1,8 +1,8 @@
 import { redirect } from '@sveltejs/kit';
 import { addRsvp, updateRsvpByDevice, getRsvpByDevice } from '$lib/server/db.js';
 
-export function load({ locals }) {
-  const existing = getRsvpByDevice(locals.deviceId);
+export async function load({ locals }) {
+  const existing = await getRsvpByDevice(locals.deviceId);
   return {
     existing: existing ? {
       name: existing.name,
@@ -29,11 +29,11 @@ export const actions = {
       message: data.get('message')
     };
 
-    const existing = getRsvpByDevice(locals.deviceId);
+    const existing = await getRsvpByDevice(locals.deviceId);
     if (existing) {
-      updateRsvpByDevice(locals.deviceId, rsvp);
+      await updateRsvpByDevice(locals.deviceId, rsvp);
     } else {
-      addRsvp(rsvp);
+      await addRsvp(rsvp);
     }
 
     cookies.set('has_submitted', 'true', {

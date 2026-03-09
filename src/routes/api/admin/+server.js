@@ -7,6 +7,6 @@ export async function POST({ request }) {
   if (!env.ADMIN_PASSWORD || password !== env.ADMIN_PASSWORD) {
     return json({ error: 'Invalid password' }, { status: 401 });
   }
-  const rsvps = getRsvps();
+  const rsvps = await getRsvps();
   return json({ rsvps });
 }
