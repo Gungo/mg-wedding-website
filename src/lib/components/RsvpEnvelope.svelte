@@ -7,7 +7,7 @@
         class="envelope-image"
       />
     </div>
-    <button class="rsvp-button" type="button">RSVP</button>
+    <a class="rsvp-button" href="/rsvp">RSVP</a>
   </div>
 </section>
 
@@ -42,6 +42,7 @@
     font-weight: var(--font-weight-medium);
     letter-spacing: 0.2em;
     text-transform: uppercase;
+    text-decoration: none;
     color: var(--color-text);
     background: transparent;
     border: 1.5px solid var(--color-text);
