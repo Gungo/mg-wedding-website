@@ -5,36 +5,23 @@
   import ThankYou from '$lib/components/ThankYou.svelte';
   import BrickBreaker from '$lib/components/BrickBreaker.svelte';
   import AdminPasswordPrompt from '$lib/components/AdminPasswordPrompt.svelte';
-  import AdminPanel from '$lib/components/AdminPanel.svelte';
 
   let { data } = $props();
 
   let showPasswordPrompt = $state(false);
-  let showAdmin = $state(false);
-  let adminRsvps = $state([]);
-  let adminPassword = $state('');
+
+  function openAdminPrompt() {
+    showPasswordPrompt = true;
+  }
 
   function handleKeydown(e) {
     if ((e.metaKey || e.ctrlKey) && e.shiftKey && e.key === 'p') {
       e.preventDefault();
-      if (!showAdmin) showPasswordPrompt = true;
+      openAdminPrompt();
     }
-    if (e.key === 'Escape') {
-      if (showPasswordPrompt) showPasswordPrompt = false;
+    if (e.key === 'Escape' && showPasswordPrompt) {
+      showPasswordPrompt = false;
     }
-  }
-
-  function handleAdminSuccess(rsvps, pw) {
-    adminRsvps = rsvps;
-    adminPassword = pw;
-    showPasswordPrompt = false;
-    showAdmin = true;
-  }
-
-  function handleLogout() {
-    showAdmin = false;
-    adminRsvps = [];
-    adminPassword = '';
   }
 
   onMount(() => {
@@ -43,7 +30,7 @@
   });
 </script>
 
-<Hero />
+<Hero onAdminTrigger={openAdminPrompt} />
 
 {#if data.hasSubmitted}
   <ThankYou />
@@ -53,16 +40,5 @@
 {/if}
 
 {#if showPasswordPrompt}
-  <AdminPasswordPrompt
-    onSuccess={handleAdminSuccess}
-    onCancel={() => showPasswordPrompt = false}
-  />
-{/if}
-
-{#if showAdmin}
-  <AdminPanel
-    rsvps={adminRsvps}
-    password={adminPassword}
-    onLogout={handleLogout}
-  />
+  <AdminPasswordPrompt onCancel={() => showPasswordPrompt = false} />
 {/if}

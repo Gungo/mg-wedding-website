@@ -1,5 +1,7 @@
 <script>
-  let { onSuccess, onCancel } = $props();
+  import { goto } from '$app/navigation';
+
+  let { onCancel } = $props();
 
   let password = $state('');
   let error = $state('');
@@ -25,8 +27,7 @@
         loading = false;
         return;
       }
-      const data = await res.json();
-      onSuccess(data.rsvps, password);
+      goto('/admin');
     } catch {
       error = 'Something went wrong';
       loading = false;

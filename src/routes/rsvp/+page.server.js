@@ -1,5 +1,6 @@
 import { redirect } from '@sveltejs/kit';
 import { addRsvp, updateRsvpByDevice, getRsvpByDevice } from '$lib/server/db.js';
+import { sendRsvpNotification } from '$lib/server/email.js';
 
 export async function load({ locals }) {
   const existing = await getRsvpByDevice(locals.deviceId);
@@ -29,11 +30,16 @@ export const actions = {
       message: data.get('message')
     };
 
-    const existing = await getRsvpByDevice(locals.deviceId);
-    if (existing) {
-      await updateRsvpByDevice(locals.deviceId, rsvp);
-    } else {
-      await addRsvp(rsvp);
+    try {
+      const existing = await getRsvpByDevice(locals.deviceId);
+      if (existing) {
+        await updateRsvpByDevice(locals.deviceId, rsvp);
+      } else {
+        await addRsvp(rsvp);
+        sendRsvpNotification(rsvp).catch(() => {});
+      }
+    } catch (err) {
+      console.error('RSVP save error:', err.message);
     }
 
     cookies.set('has_submitted', 'true', {

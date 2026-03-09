@@ -84,9 +84,7 @@
 
     <button class="submit-button" type="submit">{e ? 'Update RSVP' : 'Send RSVP'}</button>
 
-    {#if e}
-      <a class="back-link" href="/">Never mind, go back</a>
-    {/if}
+    <a class="back-link" href="/">Never mind, go back</a>
   </form>
 </section>
 

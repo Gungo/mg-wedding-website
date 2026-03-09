@@ -3,7 +3,8 @@
 ## Tech Stack
 
 - **Framework**: SvelteKit 2 + Svelte 5
-- **Database**: Supabase (Postgres) — falls back to local JSON file if no Supabase vars set
+- **Database**: Supabase (Postgres) — falls back to local JSON file in dev
+- **Email**: Resend (production only)
 - **Hosting**: Vercel (auto-deploys from `main`)
 - **Node**: 20.x
 
@@ -19,13 +20,14 @@ Copy the example env file and fill in your values:
 cp .env.example .env
 ```
 
-| Variable | Description |
-|---|---|
-| `ADMIN_PASSWORD` | Password for the admin panel |
-| `SUPABASE_URL` | Supabase project URL |
-| `SUPABASE_SERVICE_KEY` | Supabase service role key (secret) |
+| Variable | Description | Required locally? |
+|---|---|---|
+| `ADMIN_PASSWORD` | Password for the admin panel | Yes |
+| `SUPABASE_URL` | Supabase project URL | No — falls back to local JSON |
+| `SUPABASE_SERVICE_KEY` | Supabase service role key (secret) | No — falls back to local JSON |
+| `RESEND_API_KEY` | Resend API key for email notifications | No — skipped in dev |
 
-Without the Supabase vars, RSVP data saves to a local `data/rsvps.json` file instead.
+Everything works locally without Supabase or Resend configured. RSVP data saves to `data/rsvps.json` and emails are skipped.
 
 ## Run
 
@@ -35,8 +37,11 @@ npm run dev
 
 ## Admin Panel
 
-Press `Cmd+Shift+P` (or `Ctrl+Shift+P`) on the home page to open the admin login.
+- **Desktop**: Press `Cmd+Shift+P` (or `Ctrl+Shift+P`)
+- **Mobile**: Tap the hero image 3 times
+
+Enter the admin password to access the guest list and manage notification emails.
 
 ## Deploy
 
-Pushes to `main` auto-deploy to Vercel. Make sure the same env vars are set in **Vercel → Settings → Environment Variables**.
+Pushes to `main` auto-deploy to Vercel. Set all env vars in **Vercel → Settings → Environment Variables**.
