@@ -1,13 +1,34 @@
 import { json } from '@sveltejs/kit';
 import { env } from '$env/dynamic/private';
-import { getRsvps } from '$lib/server/db.js';
+import { getRsvps, getNotificationEmails, addNotificationEmail, removeNotificationEmail } from '$lib/server/db.js';
+
+function isAuthed(cookies) {
+  return cookies.get('admin_session') === 'authenticated';
+}
 
 export async function POST({ request, cookies }) {
-  const { password, action } = await request.json();
+  const body = await request.json();
+  const { password, action, email } = body;
 
   if (action === 'logout') {
     cookies.delete('admin_session', { path: '/' });
     return json({ ok: true });
+  }
+
+  if (action === 'add_email') {
+    if (!isAuthed(cookies)) return json({ error: 'Unauthorized' }, { status: 401 });
+    if (!email) return json({ error: 'Email required' }, { status: 400 });
+    await addNotificationEmail(email);
+    const emails = await getNotificationEmails();
+    return json({ emails });
+  }
+
+  if (action === 'remove_email') {
+    if (!isAuthed(cookies)) return json({ error: 'Unauthorized' }, { status: 401 });
+    if (!email) return json({ error: 'Email required' }, { status: 400 });
+    await removeNotificationEmail(email);
+    const emails = await getNotificationEmails();
+    return json({ emails });
   }
 
   if (!env.ADMIN_PASSWORD || password !== env.ADMIN_PASSWORD) {
@@ -26,9 +47,9 @@ export async function POST({ request, cookies }) {
 }
 
 export async function GET({ cookies }) {
-  if (cookies.get('admin_session') !== 'authenticated') {
+  if (!isAuthed(cookies)) {
     return json({ error: 'Unauthorized' }, { status: 401 });
   }
-  const rsvps = await getRsvps();
-  return json({ rsvps });
+  const [rsvps, emails] = await Promise.all([getRsvps(), getNotificationEmails()]);
+  return json({ rsvps, emails });
 }

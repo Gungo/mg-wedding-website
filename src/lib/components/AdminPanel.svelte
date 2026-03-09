@@ -1,10 +1,14 @@
 <script>
-  let { rsvps: initialRsvps = [], onLogout } = $props();
+  let { rsvps: initialRsvps = [], notificationEmails: initialEmails = [], onLogout } = $props();
 
   let rsvps = $state(initialRsvps);
   let searchQuery = $state('');
   let filterAttending = $state('all');
   let refreshing = $state(false);
+
+  let emails = $state(initialEmails);
+  let newEmail = $state('');
+  let emailLoading = $state(false);
 
   let filtered = $derived(() => {
     let list = rsvps;
@@ -37,9 +41,49 @@
       if (res.ok) {
         const data = await res.json();
         rsvps = data.rsvps;
+        emails = data.emails;
       }
     } catch { /* silent */ }
     refreshing = false;
+  }
+
+  async function addEmail() {
+    const trimmed = newEmail.trim();
+    if (!trimmed) return;
+    emailLoading = true;
+    try {
+      const res = await fetch('/api/admin', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'add_email', email: trimmed })
+      });
+      if (res.ok) {
+        const data = await res.json();
+        emails = data.emails;
+        newEmail = '';
+      }
+    } catch { /* silent */ }
+    emailLoading = false;
+  }
+
+  async function removeEmail(email) {
+    emailLoading = true;
+    try {
+      const res = await fetch('/api/admin', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'remove_email', email })
+      });
+      if (res.ok) {
+        const data = await res.json();
+        emails = data.emails;
+      }
+    } catch { /* silent */ }
+    emailLoading = false;
+  }
+
+  function handleEmailKeydown(e) {
+    if (e.key === 'Enter') addEmail();
   }
 
   function formatDate(iso) {
@@ -128,6 +172,40 @@
         </table>
       </div>
     {/if}
+
+    <section class="notifications-section">
+      <h3 class="section-title">Notification Emails</h3>
+      <p class="section-desc">Get an email whenever a new RSVP comes in.</p>
+
+      <div class="email-add-row">
+        <input
+          class="email-input"
+          type="email"
+          placeholder="email@example.com"
+          bind:value={newEmail}
+          onkeydown={handleEmailKeydown}
+          disabled={emailLoading}
+        />
+        <button class="action-btn add-btn" type="button" onclick={addEmail} disabled={emailLoading || !newEmail.trim()}>
+          Add
+        </button>
+      </div>
+
+      {#if emails.length > 0}
+        <ul class="email-list">
+          {#each emails as email}
+            <li class="email-item">
+              <span class="email-text">{email}</span>
+              <button class="remove-btn" type="button" onclick={() => removeEmail(email)} disabled={emailLoading}>
+                Remove
+              </button>
+            </li>
+          {/each}
+        </ul>
+      {:else}
+        <p class="email-empty">No notification emails configured yet.</p>
+      {/if}
+    </section>
   </div>
 </div>
 
@@ -381,6 +459,129 @@
   .badge-no {
     background: rgba(160, 96, 96, 0.15);
     color: #a06060;
+  }
+
+  /* ── Notifications Section ── */
+
+  .notifications-section {
+    margin-top: clamp(1rem, 2vh, 1.5rem);
+    padding-top: clamp(1.25rem, 2.5vh, 2rem);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-weight: var(--font-weight-normal);
+    font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+    font-style: italic;
+    color: var(--color-text);
+    letter-spacing: 0.02em;
+  }
+
+  .section-desc {
+    font-family: var(--font-body);
+    font-size: clamp(0.8rem, 1.3vw, 0.88rem);
+    color: var(--color-text-muted);
+    margin-top: 0.25rem;
+  }
+
+  .email-add-row {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: clamp(0.75rem, 1.5vh, 1rem);
+    max-width: 480px;
+  }
+
+  .email-input {
+    flex: 1;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: var(--color-text);
+    background: transparent;
+    border: 1px solid var(--color-border);
+    border-radius: 2px;
+    padding: 0.5em 0.75em;
+    outline: none;
+    transition: border-color var(--duration-normal) var(--ease-elegant);
+  }
+
+  .email-input:focus {
+    border-color: var(--color-text);
+  }
+
+  .email-input::placeholder {
+    color: var(--color-border);
+    font-style: italic;
+  }
+
+  .add-btn {
+    color: var(--color-bg);
+    background: var(--color-text);
+    border: 1px solid var(--color-text);
+  }
+
+  .add-btn:hover:not(:disabled) {
+    opacity: 0.85;
+  }
+
+  .add-btn:disabled {
+    opacity: 0.4;
+    cursor: default;
+  }
+
+  .email-list {
+    list-style: none;
+    padding: 0;
+    margin: clamp(0.75rem, 1.5vh, 1rem) 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    max-width: 480px;
+  }
+
+  .email-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5em 0.75em;
+    border: 1px solid var(--color-border);
+    border-radius: 2px;
+  }
+
+  .email-text {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: var(--color-text);
+  }
+
+  .remove-btn {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #a06060;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity var(--duration-normal) var(--ease-elegant);
+  }
+
+  .remove-btn:hover:not(:disabled) {
+    opacity: 1;
+  }
+
+  .remove-btn:disabled {
+    opacity: 0.3;
+    cursor: default;
+  }
+
+  .email-empty {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    font-style: italic;
+    margin-top: 0.75rem;
   }
 
   @media (max-width: 640px) {

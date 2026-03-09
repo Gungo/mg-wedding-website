@@ -14,4 +14,4 @@
   }
 </script>
 
-<AdminPanel rsvps={data.rsvps} onLogout={handleLogout} />
+<AdminPanel rsvps={data.rsvps} notificationEmails={data.notificationEmails} onLogout={handleLogout} />
