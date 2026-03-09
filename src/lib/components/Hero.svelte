@@ -1,4 +1,6 @@
 <script>
+  import LaceBorder from './LaceBorder.svelte';
+
   let { onAdminTrigger } = $props();
 
   let tapCount = 0;
@@ -20,23 +22,25 @@
 
 <section class="hero">
   <!-- svelte-ignore a11y_no_static_element_interactions -->
-  <div class="lace-frame hero-frame" onclick={handleTap}>
-    <img
-      src="/images/hero.png"
-      alt="Mariluz Del Pilar & Germán Ignacio — ocean waves crashing on rocks"
-      class="hero-image hero-desktop"
-    />
-    <!-- svelte-ignore a11y_media_has_caption -->
-    <video
-      class="hero-video hero-mobile"
-      autoplay
-      muted
-      playsinline
-      disablepictureinpicture
-    >
-      <source src="/images/hero-mobile.mp4" type="video/mp4" />
-      <source src="/images/hero-mobile.mov" type="video/quicktime" />
-    </video>
+  <div class="hero-frame" onclick={handleTap}>
+    <LaceBorder pattern={1} size="60px" color="#fff" left={false} right={false}>
+      <img
+        src="/images/hero.png"
+        alt="Mariluz Del Pilar & Germán Ignacio — ocean waves crashing on rocks"
+        class="hero-image hero-desktop"
+      />
+      <!-- svelte-ignore a11y_media_has_caption -->
+      <video
+        class="hero-video hero-mobile"
+        autoplay
+        muted
+        playsinline
+        disablepictureinpicture
+      >
+        <source src="/images/hero-mobile.mp4" type="video/mp4" />
+        <source src="/images/hero-mobile.mov" type="video/quicktime" />
+      </video>
+    </LaceBorder>
   </div>
 </section>
 
@@ -46,7 +50,6 @@
   }
 
   .hero-frame {
-    overflow: hidden;
     border-radius: 2px;
   }
 

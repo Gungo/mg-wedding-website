@@ -1,12 +1,18 @@
+<script>
+  import LaceBorder from './LaceBorder.svelte';
+</script>
+
 <section class="rsvp-section">
-  <div class="lace-frame rsvp-frame">
-    <div class="envelope-wrapper">
-      <img
-        src="/images/envelope.png"
-        alt="Wedding envelope with lace heart"
-        class="envelope-image"
-      />
-    </div>
+  <div class="rsvp-frame">
+    <LaceBorder pattern={2} size="60px" color="#fff">
+      <div class="envelope-wrapper">
+        <img
+          src="/images/envelope.png"
+          alt="Wedding envelope with lace heart"
+          class="envelope-image"
+        />
+      </div>
+    </LaceBorder>
     <a class="rsvp-button" href="/rsvp">RSVP</a>
   </div>
 </section>
