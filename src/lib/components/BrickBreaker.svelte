@@ -104,6 +104,8 @@
   function resetBall() {
     balls = [makeBall(paddle.x + paddle.w / 2, paddle.y - w * BALL_RADIUS_RATIO - 2, 0, 0)];
     multiBallSpawned = destroyedCount >= MULTIBALL_THRESHOLD;
+    currentSpeed = w * BALL_SPEED_RATIO;
+
   }
 
   function launchBall(ball, speed) {
