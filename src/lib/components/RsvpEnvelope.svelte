@@ -1,18 +1,15 @@
-<script>
-  import LaceBorder from './LaceBorder.svelte';
-</script>
+<script></script>
 
 <section class="rsvp-section">
   <div class="rsvp-frame">
-    <div class="envelope-lace-wrap">
-        <img
-          src="/images/main/open-brown-envelope-transparent.png"
-          alt="Wedding envelope with lace heart"
-          class="her"
-        />
+    <div class="envelope-wrap">
+      <img
+        src="/images/main/open-brown-envelope-transparent.png"
+        alt="Wedding envelope with lace heart"
+        class="envelope-image"
+      />
+      <a class="rsvp-button" href="/rsvp">RSVP</a>
     </div>
-
-    <a class="rsvp-button" href="/rsvp">RSVP</a>
   </div>
 </section>
 
@@ -25,13 +22,12 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: clamp(1.25rem, 2.5vh, 2rem);
   }
 
-  .envelope-lace-wrap {
+  .envelope-wrap {
+    position: relative;
     display: flex;
     justify-content: center;
-    padding: 65px;
   }
 
   .envelope-image {
@@ -42,7 +38,11 @@
     object-fit: contain;
   }
 
-  .rsvp-button {    
+  .rsvp-button {
+    position: absolute;
+    bottom: 12%;
+    left: 50%;
+    transform: translateX(-50%);
     font-family: var(--font-display);
     font-size: clamp(0.95rem, 2vw, 1.15rem);
     font-weight: var(--font-weight-medium);
@@ -66,9 +66,6 @@
   @media (max-width: 768px) {
     .envelope-image {
       max-width: 280px;
-    }
-    .envelope-lace-wrap {
-      padding: 50px;
     }
   }
 </style>
