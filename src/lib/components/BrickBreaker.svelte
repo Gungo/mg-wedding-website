@@ -2,14 +2,14 @@
   import { onMount } from 'svelte';
 
   const ROWS = 4;
-  const COLS = 12;
+  const COLS = 10;
   const TOTAL_BRICKS = ROWS * COLS;
   const BRICK_GAP_RATIO = 0.010;
   const BRICK_TOP_RATIO = 0.06;
   const BRICK_HEIGHT_RATIO = 0.065;
   const BALL_RADIUS_RATIO = 0.018;
   const BALL_SPEED_RATIO = 0.007;
-  const SPEED_BUMP = 1.07;
+  const SPEED_BUMP = 1.06;
   const PADDLE_WIDTH_RATIO = 0.15;
   const PADDLE_HEIGHT_RATIO = 0.02;
   const PADDLE_BOTTOM_RATIO = 0.05;
