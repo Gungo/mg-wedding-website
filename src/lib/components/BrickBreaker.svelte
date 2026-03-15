@@ -349,7 +349,7 @@
     heartImg.onload = checkLoaded;
     ballImg.onload = checkLoaded;
     heartImg.src = '/images/game/heart.svg';
-    ballImg.src = '/images/game/ball.svg';
+    ballImg.src = '/images/game/soccer-ball.png';
 
     initGame();
 
