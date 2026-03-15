@@ -36,7 +36,7 @@ export const actions = {
         await updateRsvpByDevice(locals.deviceId, rsvp);
       } else {
         await addRsvp(rsvp);
-        sendRsvpNotification(rsvp).catch(() => {});
+        await sendRsvpNotification(rsvp);
       }
     } catch (err) {
       console.error('RSVP save error:', err.message);
