@@ -1,5 +1,6 @@
 <script>
   import { onMount } from 'svelte';
+  import LaceBorder from './LaceBorder.svelte';
 
   const ROWS = 4;
   const COLS = 10;
@@ -397,69 +398,72 @@
     <h2 class="game-title">While You Wait...</h2>
   </header>
 
-  <div class="game-container">
-    <div class="canvas-wrapper">
-      {#if gameState === 'playing' || gameState === 'paused'}
-        <button
-          class="pause-btn"
-          type="button"
-          onclick={togglePause}
-          aria-label={gameState === 'playing' ? 'Pause' : 'Resume'}
-        >
-          {#if gameState === 'playing'}
-            <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
-              <rect x="5" y="3" width="5" height="18" rx="1"/>
-              <rect x="14" y="3" width="5" height="18" rx="1"/>
-            </svg>
-          {:else}
-            <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
-              <polygon points="5,3 21,12 5,21"/>
-            </svg>
-          {/if}
-        </button>
-      {/if}
+  <!-- if mobile make alce border 3 times as big   -->
+<LaceBorder pattern={1} size={window.innerWidth > 768 ? '50px' : '20px'} color="#fff">
+    <div class="game-container">
+      <div class="canvas-wrapper">
+        {#if gameState === 'playing' || gameState === 'paused'}
+          <button
+            class="pause-btn"
+            type="button"
+            onclick={togglePause}
+            aria-label={gameState === 'playing' ? 'Pause' : 'Resume'}
+          >
+            {#if gameState === 'playing'}
+              <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
+                <rect x="5" y="3" width="5" height="18" rx="1"/>
+                <rect x="14" y="3" width="5" height="18" rx="1"/>
+              </svg>
+            {:else}
+              <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
+                <polygon points="5,3 21,12 5,21"/>
+              </svg>
+            {/if}
+          </button>
+        {/if}
 
-      <canvas
-        bind:this={canvas}
-        onmousemove={handleMouse}
-        onmouseleave={handleMouseLeave}
-        ontouchmove={handleTouch}
-        ontouchstart={handleTouch}
-      ></canvas>
+        <canvas
+          bind:this={canvas}
+          onmousemove={handleMouse}
+          onmouseleave={handleMouseLeave}
+          ontouchmove={handleTouch}
+          ontouchstart={handleTouch}
+        ></canvas>
 
-      {#if gameState === 'idle'}
-        <div class="overlay">
-          <button class="play-button" type="button" onclick={startGame}>Play</button>
-        </div>
-      {/if}
+        {#if gameState === 'idle'}
+          <div class="overlay">
+            <button class="play-button" type="button" onclick={startGame}>Play</button>
+          </div>
+        {/if}
 
-      {#if gameState === 'paused'}
-        <div class="overlay">
-          <p class="overlay-text">Paused</p>
-          <button class="play-button" type="button" onclick={resumeGame}>Resume</button>
-        </div>
-      {/if}
+        {#if gameState === 'paused'}
+          <div class="overlay">
+            <p class="overlay-text">Paused</p>
+            <button class="play-button" type="button" onclick={resumeGame}>Resume</button>
+          </div>
+        {/if}
 
-      {#if gameState === 'won'}
-        <div class="overlay">
-          <p class="overlay-text">You Win!</p>
-          <button class="play-button" type="button" onclick={startGame}>Play Again</button>
-        </div>
-      {/if}
+        {#if gameState === 'won'}
+          <div class="overlay">
+            <p class="overlay-text">You Win!</p>
+            <button class="play-button" type="button" onclick={startGame}>Play Again</button>
+          </div>
+        {/if}
 
-      {#if gameState === 'lost'}
-        <div class="overlay">
-          <p class="overlay-text">Game Over</p>
-          <button class="play-button" type="button" onclick={startGame}>Try Again</button>
-        </div>
-      {/if}
+        {#if gameState === 'lost'}
+          <div class="overlay">
+            <p class="overlay-text">Game Over</p>
+            <button class="play-button" type="button" onclick={startGame}>Try Again</button>
+          </div>
+        {/if}
+      </div>
     </div>
-  </div>
+  </LaceBorder>
 </section>
 
 <style>
   .game-section {
-    margin-top: clamp(1.5rem, 3vh, 2.5rem);
+    margin-top: clamp(1.5rem, 3vh, 0.5rem);
     width: 100%;
   }
 
@@ -481,6 +485,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: 3.25rem;
   }
 
   .canvas-wrapper {

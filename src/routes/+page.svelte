@@ -34,7 +34,8 @@
 
 {#if data.hasSubmitted}
   <ThankYou />
-  <BrickBreaker />
+  <BrickBreaker /> 
+  
 {:else}
   <RsvpEnvelope />
 {/if}
