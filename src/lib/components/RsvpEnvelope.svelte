@@ -5,15 +5,16 @@
 <section class="rsvp-section">
   <div class="rsvp-frame">
     <div class="envelope-lace-wrap">
-      <!-- <LaceBorder pattern={1} size="60px" color="#fff"> -->
         <img
-          src="/images/envelope.png"
+          src="/images/main/open-brown-envelope-transparent.png"
           alt="Wedding envelope with lace heart"
           class="her"
         />
-      <!-- </LaceBorder> -->
     </div>
+    <LaceBorder pattern={1} size="50px" color="#fff">
+
     <a class="rsvp-button" href="/rsvp">RSVP</a>
+    </LaceBorder>
   </div>
 </section>
 
@@ -43,7 +44,7 @@
     object-fit: contain;
   }
 
-  .rsvp-button {
+  .rsvp-button {    
     font-family: var(--font-display);
     font-size: clamp(0.95rem, 2vw, 1.15rem);
     font-weight: var(--font-weight-medium);

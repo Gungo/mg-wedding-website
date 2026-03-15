@@ -23,9 +23,9 @@
 <section class="hero">
   <!-- svelte-ignore a11y_no_static_element_interactions -->
   <div class="hero-frame" onclick={handleTap}>
-    <LaceBorder pattern={1} size="50px" color="#fff">
+    <LaceBorder pattern={1} size="60px" color="#fff">
       <img
-        src="/images/hero.png"
+        src="/images/main/hero.png"
         alt="Mariluz Del Pilar & Germán Ignacio — ocean waves crashing on rocks"
         class="hero-image hero-desktop"
       />
@@ -37,8 +37,8 @@
         playsinline
         disablepictureinpicture
       >
-        <source src="/images/hero-mobile.mp4" type="video/mp4" />
-        <source src="/images/hero-mobile.mov" type="video/quicktime" />
+        <source src="/images/main/hero-mobile.mp4" type="video/mp4" />
+        <source src="/images/main/hero-mobile.mov" type="video/quicktime" />
       </video>
     </LaceBorder>
   </div>
