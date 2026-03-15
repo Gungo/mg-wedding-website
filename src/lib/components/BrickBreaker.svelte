@@ -2,21 +2,21 @@
   import { onMount } from 'svelte';
 
   const ROWS = 4;
-  const COLS = 7;
+  const COLS = 12;
   const TOTAL_BRICKS = ROWS * COLS;
-  const BRICK_GAP_RATIO = 0.012;
+  const BRICK_GAP_RATIO = 0.010;
   const BRICK_TOP_RATIO = 0.06;
   const BRICK_HEIGHT_RATIO = 0.065;
   const BALL_RADIUS_RATIO = 0.018;
-  const BALL_SPEED_RATIO = 0.01;
-  const SPEED_BUMP = 1.04;
+  const BALL_SPEED_RATIO = 0.007;
+  const SPEED_BUMP = 1.07;
   const PADDLE_WIDTH_RATIO = 0.15;
   const PADDLE_HEIGHT_RATIO = 0.02;
   const PADDLE_BOTTOM_RATIO = 0.05;
   const CREEP_PX_RATIO = 0.008;
   const CREEP_BASE_INTERVAL = 300;
   const CREEP_MIN_INTERVAL = 60;
-  const MAX_LIVES = 3;
+  const MAX_LIVES = 5;
   const MULTIBALL_THRESHOLD = Math.ceil(TOTAL_BRICKS / 2);
 
   let canvas;
@@ -39,6 +39,8 @@
 
   let balls = [];
   let paddle = { x: 0, y: 0, w: 0, h: 0 };
+  let paddleVx = 0;
+  let lastPaddleX = 0;
   let bricks = [];
 
   function makeBall(x, y, dx, dy) {
@@ -176,9 +178,10 @@
     ) {
       ball.y = paddle.y - ball.r;
       const hit = (ball.x - paddle.x) / paddle.w;
-      const angle = (hit * 120 + 30) * (Math.PI / 180);
+      // 150° (left) → 30° (right), center = 90° (straight up)
+      const angle = (150 - hit * 120) * (Math.PI / 180);
       const speed = Math.sqrt(ball.dx * ball.dx + ball.dy * ball.dy);
-      ball.dx = Math.cos(angle) * speed * (hit < 0.5 ? -1 : 1);
+      ball.dx = Math.cos(angle) * speed + paddleVx * 0.3;
       ball.dy = -Math.sin(angle) * speed;
     }
 
@@ -312,7 +315,9 @@
     if (!canvas) return;
     const rect = canvas.getBoundingClientRect();
     const x = clientX - rect.left;
-    paddle.x = Math.max(0, Math.min(w - paddle.w, x - paddle.w / 2));
+    const newX = Math.max(0, Math.min(w - paddle.w, x - paddle.w / 2));
+    paddleVx = newX - paddle.x;
+    paddle.x = newX;
     if (gameState === 'idle') {
       balls[0].x = paddle.x + paddle.w / 2;
       draw();
