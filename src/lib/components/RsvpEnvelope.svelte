@@ -5,13 +5,13 @@
 <section class="rsvp-section">
   <div class="rsvp-frame">
     <div class="envelope-lace-wrap">
-      <LaceBorder pattern={2} size="60px" color="#fff">
+      <!-- <LaceBorder pattern={1} size="60px" color="#fff"> -->
         <img
           src="/images/envelope.png"
           alt="Wedding envelope with lace heart"
-          class="envelope-image"
+          class="her"
         />
-      </LaceBorder>
+      <!-- </LaceBorder> -->
     </div>
     <a class="rsvp-button" href="/rsvp">RSVP</a>
   </div>
