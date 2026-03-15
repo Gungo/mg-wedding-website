@@ -5,6 +5,7 @@
   import ThankYou from '$lib/components/ThankYou.svelte';
   import BrickBreaker from '$lib/components/BrickBreaker.svelte';
   import AdminPasswordPrompt from '$lib/components/AdminPasswordPrompt.svelte';
+  import LaceBorder from '$lib/components/LaceBorder.svelte';
 
   let { data } = $props();
 
@@ -34,9 +35,11 @@
 
 {#if data.hasSubmitted}
   <ThankYou />
-  <BrickBreaker />
+  <BrickBreaker /> 
+  
 {:else}
-  <RsvpEnvelope />
+    <RsvpEnvelope />
+  
 {/if}
 
 {#if showPasswordPrompt}

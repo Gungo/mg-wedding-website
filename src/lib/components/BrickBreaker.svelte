@@ -1,22 +1,23 @@
 <script>
   import { onMount } from 'svelte';
+  import LaceBorder from './LaceBorder.svelte';
 
   const ROWS = 4;
-  const COLS = 7;
+  const COLS = 10;
   const TOTAL_BRICKS = ROWS * COLS;
-  const BRICK_GAP_RATIO = 0.012;
+  const BRICK_GAP_RATIO = 0.010;
   const BRICK_TOP_RATIO = 0.06;
   const BRICK_HEIGHT_RATIO = 0.065;
   const BALL_RADIUS_RATIO = 0.018;
-  const BALL_SPEED_RATIO = 0.005;
-  const SPEED_BUMP = 1.04;
+  const BALL_SPEED_RATIO = 0.007;
+  const SPEED_BUMP = 1.06;
   const PADDLE_WIDTH_RATIO = 0.15;
   const PADDLE_HEIGHT_RATIO = 0.02;
   const PADDLE_BOTTOM_RATIO = 0.05;
   const CREEP_PX_RATIO = 0.008;
   const CREEP_BASE_INTERVAL = 300;
   const CREEP_MIN_INTERVAL = 60;
-  const MAX_LIVES = 3;
+  const MAX_LIVES = 5;
   const MULTIBALL_THRESHOLD = Math.ceil(TOTAL_BRICKS / 2);
 
   let canvas;
@@ -39,6 +40,8 @@
 
   let balls = [];
   let paddle = { x: 0, y: 0, w: 0, h: 0 };
+  let paddleVx = 0;
+  let lastPaddleX = 0;
   let bricks = [];
 
   function makeBall(x, y, dx, dy) {
@@ -101,6 +104,8 @@
   function resetBall() {
     balls = [makeBall(paddle.x + paddle.w / 2, paddle.y - w * BALL_RADIUS_RATIO - 2, 0, 0)];
     multiBallSpawned = destroyedCount >= MULTIBALL_THRESHOLD;
+    currentSpeed = w * BALL_SPEED_RATIO;
+
   }
 
   function launchBall(ball, speed) {
@@ -176,9 +181,10 @@
     ) {
       ball.y = paddle.y - ball.r;
       const hit = (ball.x - paddle.x) / paddle.w;
-      const angle = (hit * 120 + 30) * (Math.PI / 180);
+      // 150° (left) → 30° (right), center = 90° (straight up)
+      const angle = (150 - hit * 120) * (Math.PI / 180);
       const speed = Math.sqrt(ball.dx * ball.dx + ball.dy * ball.dy);
-      ball.dx = Math.cos(angle) * speed * (hit < 0.5 ? -1 : 1);
+      ball.dx = Math.cos(angle) * speed + paddleVx * 0.3;
       ball.dy = -Math.sin(angle) * speed;
     }
 
@@ -312,7 +318,9 @@
     if (!canvas) return;
     const rect = canvas.getBoundingClientRect();
     const x = clientX - rect.left;
-    paddle.x = Math.max(0, Math.min(w - paddle.w, x - paddle.w / 2));
+    const newX = Math.max(0, Math.min(w - paddle.w, x - paddle.w / 2));
+    paddleVx = newX - paddle.x;
+    paddle.x = newX;
     if (gameState === 'idle') {
       balls[0].x = paddle.x + paddle.w / 2;
       draw();
@@ -343,7 +351,7 @@
     heartImg.onload = checkLoaded;
     ballImg.onload = checkLoaded;
     heartImg.src = '/images/game/heart.svg';
-    ballImg.src = '/images/game/ball.svg';
+    ballImg.src = '/images/game/soccer-ball.png';
 
     initGame();
 
@@ -392,70 +400,79 @@
     <h2 class="game-title">While You Wait...</h2>
   </header>
 
-  <div class="game-container">
-    <div class="canvas-wrapper">
-      {#if gameState === 'playing' || gameState === 'paused'}
-        <button
-          class="pause-btn"
-          type="button"
-          onclick={togglePause}
-          aria-label={gameState === 'playing' ? 'Pause' : 'Resume'}
-        >
-          {#if gameState === 'playing'}
-            <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
-              <rect x="5" y="3" width="5" height="18" rx="1"/>
-              <rect x="14" y="3" width="5" height="18" rx="1"/>
-            </svg>
-          {:else}
-            <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
-              <polygon points="5,3 21,12 5,21"/>
-            </svg>
-          {/if}
-        </button>
-      {/if}
+  <LaceBorder pattern={1} size="var(--game-lace-size)" color="#fff">
+    <div class="game-container">
+      <div class="canvas-wrapper">
+        {#if gameState === 'playing' || gameState === 'paused'}
+          <button
+            class="pause-btn"
+            type="button"
+            onclick={togglePause}
+            aria-label={gameState === 'playing' ? 'Pause' : 'Resume'}
+          >
+            {#if gameState === 'playing'}
+              <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
+                <rect x="5" y="3" width="5" height="18" rx="1"/>
+                <rect x="14" y="3" width="5" height="18" rx="1"/>
+              </svg>
+            {:else}
+              <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
+                <polygon points="5,3 21,12 5,21"/>
+              </svg>
+            {/if}
+          </button>
+        {/if}
 
-      <canvas
-        bind:this={canvas}
-        onmousemove={handleMouse}
-        onmouseleave={handleMouseLeave}
-        ontouchmove={handleTouch}
-        ontouchstart={handleTouch}
-      ></canvas>
+        <canvas
+          bind:this={canvas}
+          onmousemove={handleMouse}
+          onmouseleave={handleMouseLeave}
+          ontouchmove={handleTouch}
+          ontouchstart={handleTouch}
+        ></canvas>
 
-      {#if gameState === 'idle'}
-        <div class="overlay">
-          <button class="play-button" type="button" onclick={startGame}>Play</button>
-        </div>
-      {/if}
+        {#if gameState === 'idle'}
+          <div class="overlay">
+            <button class="play-button" type="button" onclick={startGame}>Play</button>
+          </div>
+        {/if}
 
-      {#if gameState === 'paused'}
-        <div class="overlay">
-          <p class="overlay-text">Paused</p>
-          <button class="play-button" type="button" onclick={resumeGame}>Resume</button>
-        </div>
-      {/if}
+        {#if gameState === 'paused'}
+          <div class="overlay">
+            <p class="overlay-text">Paused</p>
+            <button class="play-button" type="button" onclick={resumeGame}>Resume</button>
+          </div>
+        {/if}
 
-      {#if gameState === 'won'}
-        <div class="overlay">
-          <p class="overlay-text">You Win!</p>
-          <button class="play-button" type="button" onclick={startGame}>Play Again</button>
-        </div>
-      {/if}
+        {#if gameState === 'won'}
+          <div class="overlay">
+            <p class="overlay-text">You Win!</p>
+            <button class="play-button" type="button" onclick={startGame}>Play Again</button>
+          </div>
+        {/if}
 
-      {#if gameState === 'lost'}
-        <div class="overlay">
-          <p class="overlay-text">Game Over</p>
-          <button class="play-button" type="button" onclick={startGame}>Try Again</button>
-        </div>
-      {/if}
+        {#if gameState === 'lost'}
+          <div class="overlay">
+            <p class="overlay-text">Game Over</p>
+            <button class="play-button" type="button" onclick={startGame}>Try Again</button>
+          </div>
+        {/if}
+      </div>
     </div>
-  </div>
+  </LaceBorder>
 </section>
 
 <style>
   .game-section {
-    margin-top: clamp(1.5rem, 3vh, 2.5rem);
+    --game-lace-size: 50px;
+    margin-top: clamp(1.5rem, 3vh, 0.5rem);
     width: 100%;
+  }
+
+  @media (max-width: 768px) {
+    .game-section {
+      --game-lace-size: 20px;
+    }
   }
 
   .game-header {
@@ -476,6 +493,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: 3.25rem;
   }
 
   .canvas-wrapper {
