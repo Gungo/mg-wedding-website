@@ -11,10 +11,8 @@
           class="her"
         />
     </div>
-    <LaceBorder pattern={1} size="50px" color="#fff">
 
     <a class="rsvp-button" href="/rsvp">RSVP</a>
-    </LaceBorder>
   </div>
 </section>
 
