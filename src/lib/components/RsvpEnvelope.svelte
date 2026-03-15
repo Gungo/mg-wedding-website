@@ -1,20 +1,33 @@
-<script></script>
+<script>
+  import LaceBorder from './LaceBorder.svelte';
+</script>
 
 <section class="rsvp-section">
+
   <div class="rsvp-frame">
+    <LaceBorder pattern={1} size="50px" color="#f4eaea">
+
     <div class="envelope-wrap">
-      <img
-        src="/images/main/open-brown-envelope-transparent.png"
-        alt="Wedding envelope with lace heart"
-        class="envelope-image"
-      />
+      <!-- svelte-ignore a11y_media_has_caption -->
+      <video
+        class="envelope-video"
+        autoplay
+        muted
+      
+        playsinline
+      >
+        <source src="/images/main/envelopejuly17.mov" type="video/quicktime" />
+        <source src="/images/main/envelopejuly17.mp4" type="video/mp4" />
+      </video>
       <a class="rsvp-button" href="/rsvp">RSVP</a>
     </div>
+    </LaceBorder>
   </div>
 </section>
 
 <style>
   .rsvp-section {
+    padding-top: 1rem;
     margin-top: clamp(3rem, 8vh, 5rem);
   }
 
@@ -30,8 +43,8 @@
     justify-content: center;
   }
 
-  .envelope-image {
-    max-width: 350px;
+  .envelope-video {
+    max-width: 800px;
     width: 100%;
     height: auto;
     display: block;
@@ -40,7 +53,7 @@
 
   .rsvp-button {
     position: absolute;
-    bottom: 12%;
+    bottom: 22%;
     left: 50%;
     transform: translateX(-50%);
     font-family: var(--font-display);
@@ -64,7 +77,7 @@
   }
 
   @media (max-width: 768px) {
-    .envelope-image {
+    .envelope-video {
       max-width: 280px;
     }
   }

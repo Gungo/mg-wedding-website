@@ -19,6 +19,7 @@
 </script>
 
 <section class="hero">
+
   <!-- svelte-ignore a11y_no_static_element_interactions -->
   <div class="hero-frame" onclick={handleTap}>
     <img
