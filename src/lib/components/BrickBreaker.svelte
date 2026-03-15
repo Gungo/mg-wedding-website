@@ -398,8 +398,7 @@
     <h2 class="game-title">While You Wait...</h2>
   </header>
 
-  <!-- if mobile make alce border 3 times as big   -->
-<LaceBorder pattern={1} size={window.innerWidth > 768 ? '50px' : '20px'} color="#fff">
+  <LaceBorder pattern={1} size="var(--game-lace-size)" color="#fff">
     <div class="game-container">
       <div class="canvas-wrapper">
         {#if gameState === 'playing' || gameState === 'paused'}
@@ -463,8 +462,15 @@
 
 <style>
   .game-section {
+    --game-lace-size: 50px;
     margin-top: clamp(1.5rem, 3vh, 0.5rem);
     width: 100%;
+  }
+
+  @media (max-width: 768px) {
+    .game-section {
+      --game-lace-size: 20px;
+    }
   }
 
   .game-header {
