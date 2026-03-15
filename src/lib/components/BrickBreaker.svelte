@@ -8,7 +8,7 @@
   const BRICK_TOP_RATIO = 0.06;
   const BRICK_HEIGHT_RATIO = 0.065;
   const BALL_RADIUS_RATIO = 0.018;
-  const BALL_SPEED_RATIO = 0.005;
+  const BALL_SPEED_RATIO = 0.01;
   const SPEED_BUMP = 1.04;
   const PADDLE_WIDTH_RATIO = 0.15;
   const PADDLE_HEIGHT_RATIO = 0.02;

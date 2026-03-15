@@ -62,13 +62,31 @@ await makeTransparent(src2, join(OUT, 'strip-2.png'), {
   threshold: 180
 });
 
-// Create vertical (rotated) versions for left/right edges
+// Generate all 4 edge variants per pattern:
+//   strip-N.png       = original horizontal     → top edge (scallops up)
+//   strip-N-flip.png  = flipped vertically       → bottom edge (scallops down)
+//   strip-N-v.png     = rotated 90° CW           → right edge (scallops right)
+//   strip-N-v-flip.png= rotated 90° CW + flip X  → left edge (scallops left)
 for (const n of [1, 2]) {
   const src = join(OUT, `strip-${n}.png`);
-  const dst = join(OUT, `strip-${n}-v.png`);
-  await sharp(src).rotate(90).png({ compressionLevel: 9 }).toFile(dst);
-  const m = await sharp(dst).metadata();
-  console.log(`Saved ${dst}: ${m.width}x${m.height}`);
+
+  // Bottom: flip the horizontal strip vertically
+  const flipDst = join(OUT, `strip-${n}-flip.png`);
+  await sharp(src).flip().png({ compressionLevel: 9 }).toFile(flipDst);
+  let m = await sharp(flipDst).metadata();
+  console.log(`Saved ${flipDst}: ${m.width}x${m.height}`);
+
+  // Right: rotate 90° CW (original top → right side)
+  const vDst = join(OUT, `strip-${n}-v.png`);
+  await sharp(src).rotate(90).png({ compressionLevel: 9 }).toFile(vDst);
+  m = await sharp(vDst).metadata();
+  console.log(`Saved ${vDst}: ${m.width}x${m.height}`);
+
+  // Left: rotate 90° CCW so original top (scallops) faces left
+  const vFlipDst = join(OUT, `strip-${n}-v-flip.png`);
+  await sharp(src).rotate(270).png({ compressionLevel: 9 }).toFile(vFlipDst);
+  m = await sharp(vFlipDst).metadata();
+  console.log(`Saved ${vFlipDst}: ${m.width}x${m.height}`);
 }
 
 console.log('Done!');

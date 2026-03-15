@@ -23,7 +23,7 @@
 <section class="hero">
   <!-- svelte-ignore a11y_no_static_element_interactions -->
   <div class="hero-frame" onclick={handleTap}>
-    <LaceBorder pattern={1} size="60px" color="#fff" left={false} right={false}>
+    <LaceBorder pattern={1} size="50px" color="#fff">
       <img
         src="/images/hero.png"
         alt="Mariluz Del Pilar & Germán Ignacio — ocean waves crashing on rocks"
@@ -51,6 +51,7 @@
 
   .hero-frame {
     border-radius: 2px;
+    padding: 55px;
   }
 
   .hero-image {
@@ -84,6 +85,9 @@
     }
     .hero-mobile {
       display: block;
+    }
+    .hero-frame {
+      padding: 40px;
     }
   }
 </style>

@@ -4,15 +4,15 @@
 
 <section class="rsvp-section">
   <div class="rsvp-frame">
-    <LaceBorder pattern={2} size="60px" color="#fff">
-      <div class="envelope-wrapper">
+    <div class="envelope-lace-wrap">
+      <LaceBorder pattern={2} size="60px" color="#fff">
         <img
           src="/images/envelope.png"
           alt="Wedding envelope with lace heart"
           class="envelope-image"
         />
-      </div>
-    </LaceBorder>
+      </LaceBorder>
+    </div>
     <a class="rsvp-button" href="/rsvp">RSVP</a>
   </div>
 </section>
@@ -29,14 +29,15 @@
     gap: clamp(1.25rem, 2.5vh, 2rem);
   }
 
-  .envelope-wrapper {
-    width: 100%;
+  .envelope-lace-wrap {
     display: flex;
     justify-content: center;
+    padding: 65px;
   }
 
   .envelope-image {
-    width: 50%;
+    max-width: 350px;
+    width: 100%;
     height: auto;
     display: block;
     object-fit: contain;
@@ -61,5 +62,14 @@
   .rsvp-button:hover {
     background-color: var(--color-text);
     color: var(--color-bg);
+  }
+
+  @media (max-width: 768px) {
+    .envelope-image {
+      max-width: 280px;
+    }
+    .envelope-lace-wrap {
+      padding: 50px;
+    }
   }
 </style>
