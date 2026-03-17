@@ -5,7 +5,7 @@
 <section class="rsvp-section">
 
   <div class="rsvp-frame">
-    <LaceBorder pattern={1} size="50px" color="#f4eaea">
+    <LaceBorder pattern={1} size="60px" color="#f4eaea">
 
     <div class="envelope-wrap">
       <!-- svelte-ignore a11y_media_has_caption -->
@@ -13,7 +13,6 @@
         class="envelope-video"
         autoplay
         muted
-      
         playsinline
       >
         <source src="/images/main/envelopejuly17.mov" type="video/quicktime" />
@@ -58,13 +57,13 @@
     transform: translateX(-50%);
     font-family: var(--font-display);
     font-size: clamp(0.95rem, 2vw, 1.15rem);
-    font-weight: var(--font-weight-medium);
+    font-weight: var(--font-weight-heavy);
     letter-spacing: 0.2em;
     text-transform: uppercase;
     text-decoration: none;
     color: var(--color-text);
     background: transparent;
-    border: 1.5px solid var(--color-text);
+    border: 2px solid var(--color-text);
     padding: 0.75em 2.5em;
     cursor: pointer;
     transition: background-color var(--duration-normal) var(--ease-elegant),

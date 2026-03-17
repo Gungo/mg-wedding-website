@@ -28,7 +28,7 @@
     letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--color-text);
-    opacity: 0.5;
+    opacity: 0.65;
     text-decoration: none;
     border-bottom: 1px solid currentColor;
     padding-bottom: 2px;
