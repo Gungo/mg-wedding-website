@@ -6,7 +6,7 @@
 <section class="rsvp-form-section">
   <header class="form-header">
     <h2 class="form-title">{e ? 'Update Your Response' : 'Kindly Respond'}</h2>
-    <p class="form-subtitle">{e ? 'Make any changes below' : 'We would be honored by your presence'}</p>
+    <p class="form-subtitle">{e ? 'Make any changes below' : 'Honor us in attending'}</p>
   </header>
 
   <form class="rsvp-form" method="POST">
@@ -109,7 +109,7 @@
 
   .form-subtitle {
     font-family: var(--font-body);
-    font-size: clamp(0.85rem, 1.5vw, 1rem);
+    font-size: clamp(1.25rem, 1.5vw, 1rem);
     color: var(--color-text-muted);
     margin-top: 0.5rem;
     letter-spacing: 0.08em;
@@ -134,7 +134,7 @@
 
   .field-label {
     font-family: var(--font-body);
-    font-size: clamp(0.8rem, 1.3vw, 0.9rem);
+    font-size: clamp(1.25rem, 1.3vw, 0.9rem);
     font-weight: var(--font-weight-medium);
     letter-spacing: 0.1em;
     text-transform: uppercase;
@@ -143,7 +143,7 @@
 
   .field-input {
     font-family: var(--font-body);
-    font-size: 1rem;
+    font-size: 1.5rem;
     color: var(--color-text);
     background: transparent;
     border: none;
@@ -160,7 +160,7 @@
   }
 
   .field-input::placeholder {
-    color: var(--color-border);
+    color: var(--color-text-muted);
     font-style: italic;
   }
 
@@ -192,7 +192,7 @@
     align-items: center;
     gap: 0.5em;
     font-family: var(--font-body);
-    font-size: clamp(0.9rem, 1.5vw, 1.05rem);
+    font-size: clamp(1.25rem, 1.5vw, 1.05rem);
     color: var(--color-text);
     cursor: pointer;
     font-style: italic;
@@ -200,8 +200,8 @@
 
   .radio-label input[type="radio"] {
     accent-color: var(--color-text);
-    width: 1em;
-    height: 1em;
+    width: 1.2em;
+    height: 1.2em;
     cursor: pointer;
   }
 
@@ -229,7 +229,7 @@
 
   .back-link {
     font-family: var(--font-body);
-    font-size: clamp(0.8rem, 1.4vw, 0.9rem);
+    font-size: clamp(1rem, 1.4vw, 0.9rem);
     color: var(--color-text-muted);
     text-align: center;
     text-decoration: underline;

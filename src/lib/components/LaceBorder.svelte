@@ -84,8 +84,8 @@
     position: absolute;
     z-index: 2;
     pointer-events: none;
-    filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.08))
-            drop-shadow(0 0 1px rgba(0, 0, 0, 0.08));
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.25))
+            drop-shadow(0 0 1px rgba(0, 0, 0, 0.25));
   }
 
   /* Inner fill: mask + clip define the lace shape */

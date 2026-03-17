@@ -1,6 +1,7 @@
 /* ===== Palette ===== */
 :root {
   --color-sand:           #E4CBA9;
+  --color-sand-medium:    #e4cba9eb;
   --color-sand-light:     #F1EADF;
   --color-sky-blue:       #7FC7CC;
   --color-deep-sea:       #092F33;
@@ -10,9 +11,9 @@
   --color-red-wine:       #9B0204;
   --color-sunshine:       #EA8913;
 
-  --color-bg:          var(--color-sand);
+  --color-bg:          var(--color-sand-medium);
   --color-text:        var(--color-deep-sea);
-  --color-text-muted:  #6b6b6b;
+  --color-text-muted:  #555454;
   --color-accent:      var(--color-deep-sea);
   --color-border:      #d4c4a8;
   --color-surface:     #efe0c9;
@@ -23,6 +24,8 @@
   --font-weight-normal: 400;
   --font-weight-medium: 500;
   --font-weight-bold: 600;
+  --font-weight-heavy: 800;
+
 
   /* ===== Spacing: vine / lace margin ===== */
   --margin-vine: clamp(24px, 5vw, 80px);
