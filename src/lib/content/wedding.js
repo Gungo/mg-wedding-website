@@ -75,10 +75,30 @@ export const wedding = {
     title: 'Order of Events',
     note: 'Para los locos: anyone still partying after 1 AM is welcome to continue the festivities with us down by the beach and private lawn at Crook House.',
     items: [
-      { name: 'Ceremony', time: '3:00 PM — 3:45 PM', place: 'Crook Point' },
-      { name: 'Cocktail hour', time: '4:00 PM — 5:00 PM', place: 'Crook Point' },
-      { name: 'Reception', time: '6:00 PM', place: 'Crook Point' },
-      { name: 'First throwdown', time: '8:00 PM — 12 AM', place: 'Crook Point' }
+      {
+        name: 'Ceremony',
+        time: '3:00 PM — 3:45 PM',
+        place: 'Crook Point',
+        icon: '/images/canva/decor/icon-ceremony.png'
+      },
+      {
+        name: 'Cocktail hour',
+        time: '4:00 PM — 5:00 PM',
+        place: 'Crook Point',
+        icon: '/images/canva/decor/icon-cocktail.png'
+      },
+      {
+        name: 'Reception',
+        time: '6:00 PM',
+        place: 'Crook Point',
+        icon: '/images/canva/decor/icon-reception.png'
+      },
+      {
+        name: 'First throwdown',
+        time: '8:00 PM — 12 AM',
+        place: 'Crook Point',
+        icon: '/images/canva/decor/icon-throwdown.png'
+      }
     ]
   },
 

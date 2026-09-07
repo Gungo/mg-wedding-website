@@ -5,33 +5,58 @@
   const s = wedding.schedule;
 </script>
 
-<Section id="order-of-events" title={s.title} titleStyle="display">
-  <div class="wrap">
-    <img class="koi" src="/images/canva/decor/koi.png" alt="" />
-    <ol>
-      {#each s.items as item}
-        <li>
-          <p class="name">{item.name}</p>
-          <p class="time">{item.time}</p>
-          {#if item.place}
-            <p class="place">{item.place}</p>
-          {/if}
-        </li>
-      {/each}
-    </ol>
-    <img class="moon" src="/images/canva/decor/moon.png" alt="" />
-  </div>
-  {#if s.note}
-    <p class="note">{s.note}</p>
-  {/if}
-</Section>
+<div class="schedule">
+  <Section id="order-of-events" title={s.title} titleStyle="display">
+    <div class="wrap">
+      <img class="koi" src="/images/canva/decor/koi.png" alt="" />
+      <ol>
+        {#each s.items as item}
+          <li>
+            {#if item.icon}
+              <img
+                class="icon"
+                class:icon-throwdown={item.name === 'First throwdown'}
+                src={item.icon}
+                alt=""
+              />
+            {/if}
+            <p class="name">{item.name}</p>
+            <p class="time">{item.time}</p>
+            {#if item.place}
+              <p class="place">{item.place}</p>
+            {/if}
+          </li>
+        {/each}
+      </ol>
+    </div>
+    {#if s.note}
+      <p class="note">{s.note}</p>
+    {/if}
+  </Section>
+
+  <!-- Decor lives on the schedule shell so it stays in the side gutters -->
+  <img
+    class="sparkles"
+    src="/images/canva/decor/sparkles-tall.png?v=4"
+    alt=""
+  />
+  <img class="moon" src="/images/canva/decor/moon.png" alt="" />
+</div>
 
 <style>
+  .schedule {
+    position: relative;
+    background: #e5e3ff;
+    width: 100%;
+    overflow: visible;
+  }
+
   .wrap {
     position: relative;
-    max-width: 36rem;
+    max-width: 26rem;
     margin: 0 auto;
-    padding-inline: clamp(3.5rem, 10vw, 5rem);
+    padding-inline: 1rem;
+    overflow: visible;
   }
 
   ol {
@@ -39,7 +64,28 @@
     text-align: center;
     display: flex;
     flex-direction: column;
-    gap: clamp(1.5rem, 4vh, 2.25rem);
+    gap: clamp(1.75rem, 4.5vh, 2.5rem);
+  }
+
+  li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .icon {
+    height: 3.5rem;
+    width: auto;
+    max-width: 6.5rem;
+    margin-bottom: 0.65rem;
+    object-fit: contain;
+    pointer-events: none;
+  }
+
+  .icon-throwdown {
+    height: 3.5rem;
+    width: auto;
+    max-width: 2.25rem;
   }
 
   .name {
@@ -74,21 +120,68 @@
   }
 
   .koi,
-  .moon {
+  .moon,
+  .sparkles {
     position: absolute;
-    width: clamp(4.5rem, 14vw, 7.5rem);
-    height: auto;
     pointer-events: none;
+    z-index: 1;
   }
 
   .koi {
-    top: -1rem;
-    left: 0;
+    top: -0.5rem;
+    left: clamp(-5.5rem, -12vw, -3.5rem);
+    width: clamp(5rem, 15vw, 8rem);
+    height: auto;
+  }
+
+  .sparkles {
+    right: clamp(1.25rem, 10vw, 7rem);
+    top: 18%;
+    width: clamp(3.25rem, 10vw, 5rem);
+    height: auto;
+    max-height: 45%;
+    object-fit: contain;
+    object-position: top center;
+    filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.95))
+      drop-shadow(0 0 6px rgba(255, 255, 255, 0.85));
   }
 
   .moon {
-    right: 0;
-    top: 30%;
-    width: clamp(3.5rem, 12vw, 6rem);
+    top: 50%;
+    right: clamp(0.75rem, 8vw, 5.5rem);
+    width: clamp(5.5rem, 15vw, 8.5rem);
+    height: auto;
+    transform: translateY(-50%);
+  }
+
+  @media (max-width: 720px) {
+    .wrap {
+      max-width: 20rem;
+    }
+
+    .icon {
+      height: 3rem;
+    }
+
+    .icon-throwdown {
+      height: 3rem;
+      max-width: 1.85rem;
+    }
+
+    .koi {
+      left: -3.25rem;
+      width: 4.5rem;
+    }
+
+    .moon {
+      width: 4.5rem;
+      right: 0.35rem;
+    }
+
+    .sparkles {
+      width: 2.5rem;
+      right: 0.5rem;
+      top: 16%;
+    }
   }
 </style>
