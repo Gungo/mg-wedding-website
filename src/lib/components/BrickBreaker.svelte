@@ -467,6 +467,9 @@
     --game-lace-size: 50px;
     margin-top: clamp(1.5rem, 3vh, 0.5rem);
     width: 100%;
+    max-width: var(--content-narrow);
+    margin-inline: auto;
+    padding-inline: clamp(1.25rem, 4vw, 2.5rem);
   }
 
   @media (max-width: 768px) {

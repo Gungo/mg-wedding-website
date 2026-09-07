@@ -43,13 +43,7 @@
 
 <style>
   .hero {
-    width: 100vw;
-    position: relative;
-    left: 50%;
-    right: 50%;
-    margin-left: -50vw;
-    margin-right: -50vw;
-    margin-top: calc(-1 * var(--margin-vine-top));
+    width: 100%;
   }
 
   .hero-frame {

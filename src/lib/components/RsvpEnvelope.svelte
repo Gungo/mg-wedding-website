@@ -5,7 +5,7 @@
 <section class="rsvp-section">
 
   <div class="rsvp-frame">
-    <LaceBorder pattern={1} size="50px" color="#f4eaea">
+    <LaceBorder pattern={1} size="50px" color="#f8f5f1">
 
     <div class="envelope-wrap">
       <!-- svelte-ignore a11y_media_has_caption -->
@@ -27,8 +27,7 @@
 
 <style>
   .rsvp-section {
-    padding-top: 1rem;
-    margin-top: clamp(3rem, 8vh, 5rem);
+    padding: clamp(2.5rem, 6vh, 4rem) clamp(1.25rem, 4vw, 2.5rem) 0;
   }
 
   .rsvp-frame {
@@ -44,7 +43,7 @@
   }
 
   .envelope-video {
-    max-width: 800px;
+    max-width: 920px;
     width: 100%;
     height: auto;
     display: block;

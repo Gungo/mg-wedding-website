@@ -6,6 +6,7 @@
 <style>
   .thankyou-section {
     margin-top: clamp(2.5rem, 6vh, 4rem);
+    padding-inline: clamp(1.25rem, 4vw, 2.5rem);
     text-align: center;
     display: flex;
     flex-direction: column;

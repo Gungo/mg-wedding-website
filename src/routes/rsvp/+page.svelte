@@ -91,6 +91,9 @@
 <style>
   .rsvp-form-section {
     width: 100%;
+    max-width: var(--content-narrow);
+    margin-inline: auto;
+    padding: clamp(2rem, 6vh, 4rem) clamp(1.25rem, 4vw, 2.5rem);
   }
 
   .form-header {
