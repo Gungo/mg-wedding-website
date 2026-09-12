@@ -1,0 +1,23 @@
+{
+  "schedule.icon.2": {
+    "x": 0,
+    "y": 0
+  },
+  "schedule.sparkles": {
+    "x": -48,
+    "y": 36,
+    "scale": 3,
+    "rotate": 0
+  },
+  "schedule.moon": {
+    "x": -41,
+    "y": 115,
+    "scale": 1.44,
+    "rotate": 21
+  },
+  "schedule.koi": {
+    "x": 28,
+    "y": 4,
+    "scale": 1.21
+  }
+}

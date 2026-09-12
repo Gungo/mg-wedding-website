@@ -1,5 +1,6 @@
 <script>
   import Section from '$lib/components/Section.svelte';
+  import Editable from '$lib/components/edit/Editable.svelte';
   import { wedding } from '$lib/content/wedding.js';
 
   const s = wedding.schedule;
@@ -8,17 +9,20 @@
 <div class="schedule">
   <Section id="order-of-events" title={s.title} titleStyle="display">
     <div class="wrap">
-      <img class="koi" src="/images/canva/decor/koi.png" alt="" />
+      <Editable id="schedule.koi" class="koi">
+        <img src="/images/canva/decor/koi.png" alt="" />
+      </Editable>
+
       <ol>
-        {#each s.items as item}
+        {#each s.items as item, i}
           <li>
             {#if item.icon}
-              <img
-                class="icon"
-                class:icon-throwdown={item.name === 'First throwdown'}
-                src={item.icon}
-                alt=""
-              />
+              <Editable
+                id={`schedule.icon.${i}`}
+                class={item.name === 'First throwdown' ? 'icon icon-throwdown' : 'icon'}
+              >
+                <img src={item.icon} alt="" />
+              </Editable>
             {/if}
             <p class="name">{item.name}</p>
             <p class="time">{item.time}</p>
@@ -29,18 +33,21 @@
         {/each}
       </ol>
     </div>
+
     {#if s.note}
-      <p class="note">{s.note}</p>
+      <Editable id="schedule.note" type="text" class="note" text={s.note} />
     {/if}
   </Section>
 
-  <!-- Decor lives on the schedule shell so it stays in the side gutters -->
-  <img
-    class="sparkles"
-    src="/images/canva/decor/sparkles-tall.png?v=4"
-    alt=""
-  />
-  <img class="moon" src="/images/canva/decor/moon.png" alt="" />
+  <Editable id="schedule.sparkles" class="sparkles">
+    <img src="/images/canva/decor/sparkles-tall.png?v=4" alt="" />
+  </Editable>
+
+  <div class="moon-slot">
+    <Editable id="schedule.moon" class="moon-edit">
+      <img src="/images/canva/decor/moon.png" alt="" />
+    </Editable>
+  </div>
 </div>
 
 <style>
@@ -73,18 +80,25 @@
     align-items: center;
   }
 
-  .icon {
+  :global(.schedule .icon) {
+    position: relative;
     height: 3.5rem;
     width: auto;
     max-width: 6.5rem;
     margin-bottom: 0.65rem;
+  }
+
+  :global(.schedule .icon img) {
+    height: 3.5rem;
+    width: auto;
+    max-width: 6.5rem;
     object-fit: contain;
+    display: block;
     pointer-events: none;
   }
 
-  .icon-throwdown {
-    height: 3.5rem;
-    width: auto;
+  :global(.schedule .icon-throwdown),
+  :global(.schedule .icon-throwdown img) {
     max-width: 2.25rem;
   }
 
@@ -107,7 +121,8 @@
     color: var(--color-text-muted);
   }
 
-  .note {
+  :global(.schedule .note) {
+    display: block;
     max-width: 38rem;
     margin: clamp(2.5rem, 5vh, 3.5rem) auto 0;
     text-align: center;
@@ -119,39 +134,48 @@
     padding-inline: 1.25rem;
   }
 
-  .koi,
-  .moon,
-  .sparkles {
+  :global(.schedule .koi),
+  :global(.schedule .sparkles),
+  .moon-slot {
     position: absolute;
-    pointer-events: none;
     z-index: 1;
   }
 
-  .koi {
+  :global(.schedule .koi) {
     top: -0.5rem;
     left: clamp(-5.5rem, -12vw, -3.5rem);
     width: clamp(5rem, 15vw, 8rem);
-    height: auto;
   }
 
-  .sparkles {
+  :global(.schedule .koi img),
+  :global(.schedule .sparkles img),
+  :global(.schedule .moon-edit img) {
+    width: 100%;
+    height: auto;
+    display: block;
+    pointer-events: none;
+  }
+
+  :global(.schedule .sparkles) {
     right: clamp(1.25rem, 10vw, 7rem);
     top: 18%;
     width: clamp(3.25rem, 10vw, 5rem);
-    height: auto;
     max-height: 45%;
-    object-fit: contain;
-    object-position: top center;
     filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.95))
       drop-shadow(0 0 6px rgba(255, 255, 255, 0.85));
   }
 
-  .moon {
+  .moon-slot {
     top: 50%;
     right: clamp(0.75rem, 8vw, 5.5rem);
     width: clamp(5.5rem, 15vw, 8.5rem);
-    height: auto;
-    transform: translateY(-50%);
+    translate: 0 -50%;
+  }
+
+  :global(.schedule .moon-edit) {
+    width: 100%;
+    display: block;
+    position: relative;
   }
 
   @media (max-width: 720px) {
@@ -159,26 +183,27 @@
       max-width: 20rem;
     }
 
-    .icon {
+    :global(.schedule .icon),
+    :global(.schedule .icon img) {
       height: 3rem;
     }
 
-    .icon-throwdown {
-      height: 3rem;
+    :global(.schedule .icon-throwdown),
+    :global(.schedule .icon-throwdown img) {
       max-width: 1.85rem;
     }
 
-    .koi {
+    :global(.schedule .koi) {
       left: -3.25rem;
       width: 4.5rem;
     }
 
-    .moon {
+    .moon-slot {
       width: 4.5rem;
       right: 0.35rem;
     }
 
-    .sparkles {
+    :global(.schedule .sparkles) {
       width: 2.5rem;
       right: 0.5rem;
       top: 16%;
