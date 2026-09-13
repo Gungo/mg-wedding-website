@@ -11,7 +11,7 @@
 
 <style>
   .intro {
-    max-width: 52rem;
+    max-width: 62rem;
     margin: 0 auto;
     padding: clamp(3rem, 8vh, 5.5rem) clamp(1.25rem, 4vw, 2.5rem) 0;
     text-align: center;

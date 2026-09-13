@@ -30,7 +30,7 @@
     align-items: center;
     gap: clamp(1rem, 4vw, 2.5rem);
     margin: -1rem auto 2rem;
-    max-width: 28rem;
+    max-width: 34rem;
   }
 
   .ornament img {
@@ -47,7 +47,7 @@
     grid-template-columns: 1fr;
     gap: clamp(1.5rem, 3vw, 2.5rem);
     align-items: start;
-    max-width: 1100px;
+    max-width: 1320px;
     margin: 0 auto;
   }
 

@@ -7,40 +7,41 @@
 
 <div class="schedule">
   <Section id="order-of-events" title={s.title} titleStyle="display">
-    <div class="wrap">
-      <img class="koi" src="/images/canva/decor/koi.png" alt="" />
-      <ol>
-        {#each s.items as item}
-          <li>
-            {#if item.icon}
-              <img
-                class="icon"
-                class:icon-throwdown={item.name === 'First throwdown'}
-                src={item.icon}
-                alt=""
-              />
-            {/if}
-            <p class="name">{item.name}</p>
-            <p class="time">{item.time}</p>
-            {#if item.place}
-              <p class="place">{item.place}</p>
-            {/if}
-          </li>
-        {/each}
-      </ol>
+    <div class="body">
+      <img
+        class="side-photo"
+        src="/images/canva/photos/shared-drink.jpg"
+        alt="Mariluz and Germán sharing a drink"
+      />
+      <div class="wrap">
+        <ol>
+          {#each s.items as item}
+            <li>
+              {#if item.icon}
+                <img
+                  class="icon"
+                  class:icon-throwdown={item.name === 'First throwdown'}
+                  src={item.icon}
+                  alt=""
+                />
+              {/if}
+              <p class="name">{item.name}</p>
+              <p class="time">{item.time}</p>
+              {#if item.place}
+                <p class="place">{item.place}</p>
+              {/if}
+            </li>
+          {/each}
+        </ol>
+      </div>
     </div>
     {#if s.note}
-      <p class="note">{s.note}</p>
+      <div class="note-block">
+        <img class="icon note-icon" src="/images/canva/decor/moon.png" alt="" />
+        <p class="note">{s.note}</p>
+      </div>
     {/if}
   </Section>
-
-  <!-- Decor lives on the schedule shell so it stays in the side gutters -->
-  <img
-    class="sparkles"
-    src="/images/canva/decor/sparkles-tall.png?v=4"
-    alt=""
-  />
-  <img class="moon" src="/images/canva/decor/moon.png" alt="" />
 </div>
 
 <style>
@@ -51,9 +52,27 @@
     overflow: visible;
   }
 
+  .body {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(1.75rem, 4vw, 2.75rem);
+    align-items: start;
+    max-width: 56rem;
+    margin: 0 auto;
+  }
+
+  .side-photo {
+    width: 100%;
+    max-width: 22rem;
+    margin-inline: auto;
+    aspect-ratio: 2 / 3;
+    object-fit: cover;
+    display: block;
+  }
+
   .wrap {
     position: relative;
-    max-width: 26rem;
+    max-width: 31rem;
     margin: 0 auto;
     padding-inline: 1rem;
     overflow: visible;
@@ -107,51 +126,64 @@
     color: var(--color-text-muted);
   }
 
-  .note {
-    max-width: 38rem;
+  .note-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 46rem;
     margin: clamp(2.5rem, 5vh, 3.5rem) auto 0;
-    text-align: center;
-    font-family: var(--font-sans);
-    font-size: clamp(0.7rem, 1.3vw, 0.82rem);
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    line-height: 1.7;
     padding-inline: 1.25rem;
   }
 
-  .koi,
-  .moon,
-  .sparkles {
-    position: absolute;
-    pointer-events: none;
-    z-index: 1;
+  .note-icon {
+    margin-bottom: 0.65rem;
   }
 
-  .koi {
-    top: -0.5rem;
-    left: clamp(-5.5rem, -12vw, -3.5rem);
-    width: clamp(5rem, 15vw, 8rem);
-    height: auto;
+  .note {
+    text-align: center;
+    font-family: var(--font-sans);
+    font-size: clamp(0.82rem, 1.5vw, 0.95rem);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    line-height: 1.85;
   }
 
-  .sparkles {
-    right: clamp(1.25rem, 10vw, 7rem);
-    top: 18%;
-    width: clamp(3.25rem, 10vw, 5rem);
-    height: auto;
-    max-height: 45%;
-    object-fit: contain;
-    object-position: top center;
-    filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.95))
-      drop-shadow(0 0 6px rgba(255, 255, 255, 0.85));
-  }
+  @media (min-width: 800px) {
+    .body {
+      grid-template-columns: minmax(14rem, 20rem) minmax(0, 1fr);
+      align-items: center;
+      max-width: 64rem;
+      gap: clamp(2rem, 5vw, 3.5rem);
+    }
 
-  .moon {
-    top: 50%;
-    right: clamp(0.75rem, 8vw, 5.5rem);
-    width: clamp(5.5rem, 15vw, 8.5rem);
-    height: auto;
-    transform: translateY(-50%);
+    .side-photo {
+      max-width: none;
+      margin-inline: 0;
+    }
+
+    .wrap {
+      margin: 0 auto;
+    }
+
+    /* Line up with the schedule column (same grid as .body) */
+    .note-block {
+      max-width: 64rem;
+      margin-inline: auto;
+      padding-inline: 0;
+      display: grid;
+      grid-template-columns: minmax(14rem, 20rem) minmax(0, 1fr);
+      column-gap: clamp(2rem, 5vw, 3.5rem);
+      justify-items: center;
+    }
+
+    .note-icon,
+    .note {
+      grid-column: 2;
+      width: 100%;
+      max-width: 46rem;
+      padding-inline: 1.25rem;
+      box-sizing: border-box;
+    }
   }
 
   @media (max-width: 720px) {
@@ -166,22 +198,6 @@
     .icon-throwdown {
       height: 3rem;
       max-width: 1.85rem;
-    }
-
-    .koi {
-      left: -3.25rem;
-      width: 4.5rem;
-    }
-
-    .moon {
-      width: 4.5rem;
-      right: 0.35rem;
-    }
-
-    .sparkles {
-      width: 2.5rem;
-      right: 0.5rem;
-      top: 16%;
     }
   }
 </style>

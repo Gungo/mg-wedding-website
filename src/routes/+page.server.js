@@ -11,6 +11,7 @@ export function load({ locals }) {
       schedule: live && wedding.schedule.enabled,
       welcomeParty: live && wedding.welcomeParty.enabled,
       attire: live && wedding.attire.enabled,
+      menu: live && wedding.menu.enabled,
       travel: live && wedding.travel.enabled,
       maps: live && wedding.maps.enabled,
       stay: live && wedding.stay.enabled,

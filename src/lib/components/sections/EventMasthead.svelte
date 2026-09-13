@@ -1,7 +1,7 @@
 <script>
   import { wedding } from '$lib/content/wedding.js';
 
-  let { hasSubmitted = false } = $props();
+  let { hasSubmitted = false, showRsvp = true } = $props();
 
   const e = wedding.event;
   const c = wedding.couple;
@@ -19,9 +19,13 @@
 <section class="masthead" id="details">
   <h1 class="names">{c.short}</h1>
 
-  <a class="rsvp-status" href={wedding.rsvp.href}>
-    {hasSubmitted ? 'You responded' : 'Kindly RSVP'}
-  </a>
+  {#if showRsvp}
+    <a class="rsvp-status" href={wedding.rsvp.href}>
+      {hasSubmitted ? 'You responded' : 'Kindly RSVP'}
+    </a>
+  {:else}
+    <p class="rsvp-status rsvp-soon">RSVP coming soon</p>
+  {/if}
 
   <div class="summary">
     <span class="heart" aria-hidden="true">♥︎</span>
@@ -96,6 +100,12 @@
     color: var(--color-text);
     text-decoration: underline;
     text-underline-offset: 0.35em;
+  }
+
+  .rsvp-soon {
+    text-decoration: none;
+    letter-spacing: 0.18em;
+    color: var(--color-text-muted);
   }
 
   .summary {

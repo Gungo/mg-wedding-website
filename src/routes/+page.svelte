@@ -1,7 +1,7 @@
 <script>
   import { onMount } from 'svelte';
   import Hero from '$lib/components/Hero.svelte';
-  import RsvpEnvelope from '$lib/components/RsvpEnvelope.svelte';
+  import ComingSoonPhoto from '$lib/components/ComingSoonPhoto.svelte';
   import ThankYou from '$lib/components/ThankYou.svelte';
   import BrickBreaker from '$lib/components/BrickBreaker.svelte';
   import AdminPasswordPrompt from '$lib/components/AdminPasswordPrompt.svelte';
@@ -10,20 +10,21 @@
   import Intro from '$lib/components/sections/Intro.svelte';
   import OurStory from '$lib/components/sections/OurStory.svelte';
   import OrderOfEvents from '$lib/components/sections/OrderOfEvents.svelte';
-  import WelcomeParty from '$lib/components/sections/WelcomeParty.svelte';
   import Attire from '$lib/components/sections/Attire.svelte';
+  import Menu from '$lib/components/sections/Menu.svelte';
   import GettingHere from '$lib/components/sections/GettingHere.svelte';
   import Maps from '$lib/components/sections/Maps.svelte';
   import WhereToStay from '$lib/components/sections/WhereToStay.svelte';
   import ThingsToDo from '$lib/components/sections/ThingsToDo.svelte';
   import Registry from '$lib/components/sections/Registry.svelte';
   import Faq from '$lib/components/sections/Faq.svelte';
-  import RsvpBanner from '$lib/components/sections/RsvpBanner.svelte';
+  import { RSVP_OPEN } from '$lib/config.js';
 
   let { data } = $props();
 
   let showPasswordPrompt = $state(false);
   const showMasthead = $derived(data.siteState === 'rsvp' || data.siteState === 'live');
+  const showRsvp = $derived(RSVP_OPEN && data.siteState !== 'coming_soon');
 
   function openAdminPrompt() {
     showPasswordPrompt = true;
@@ -49,14 +50,14 @@
 
 {#if showMasthead}
   <Intro />
-  <EventMasthead hasSubmitted={data.hasSubmitted} />
+  <EventMasthead hasSubmitted={data.hasSubmitted} showRsvp={showRsvp} />
 {/if}
 
-{#if data.hasSubmitted}
+{#if showRsvp && data.hasSubmitted}
   <ThankYou />
-  <BrickBreaker />
 {:else}
-  <RsvpEnvelope />
+  <!-- Glacier photo stands in for the old envelope / save-the-date animation -->
+  <ComingSoonPhoto />
 {/if}
 
 {#if data.sections.story}
@@ -67,18 +68,22 @@
   <OrderOfEvents />
 {/if}
 
-{#if data.sections.welcomeParty}
-  <WelcomeParty />
-{/if}
+<figure class="story-still">
+  <img src="/images/canva/photos/iceland.jpg" alt="Mariluz and Germán in Iceland" />
+</figure>
 
 {#if data.sections.attire}
   <Attire />
-  <DecorBand src="/images/canva/decor/coral-border.png" alt="" />
+{/if}
+
+{#if data.sections.menu}
+  <Menu />
+  <DecorBand src="/images/canva/decor/coral-border-mirrored.png" alt="" />
 {/if}
 
 {#if data.sections.travel}
   <GettingHere />
-  <DecorBand src="/images/canva/decor/mountains.png" alt="" />
+  <DecorBand src="/images/canva/decor/mountains.png" alt="" variant="soft" />
 {/if}
 
 {#if data.sections.maps}
@@ -102,12 +107,26 @@
   <Faq />
 {/if}
 
-{#if !data.hasSubmitted}
-  <RsvpBanner />
-{/if}
+<BrickBreaker />
 
 <DecorBand src="/images/canva/decor/waves.png" alt="" />
 
 {#if showPasswordPrompt}
   <AdminPasswordPrompt onCancel={() => showPasswordPrompt = false} />
 {/if}
+
+<style>
+  .story-still {
+    width: min(100%, 420px);
+    margin: clamp(2.5rem, 6vh, 4rem) auto 0;
+    border: 1px solid var(--color-text);
+    padding: 0.55rem;
+    background: var(--color-sand-light);
+  }
+
+  .story-still img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+</style>

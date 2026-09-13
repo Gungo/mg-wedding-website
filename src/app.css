@@ -35,9 +35,9 @@
   --section-space: clamp(4.5rem, 12vh, 7.5rem);
 
   /* ===== Content constraints ===== */
-  --content-max-width: 1040px;
-  --content-narrow: 720px;
-  --card-max-width: 920px;
+  --content-max-width: 1248px;
+  --content-narrow: 864px;
+  --card-max-width: 1104px;
 
   /* ===== Transitions ===== */
   --ease-elegant: cubic-bezier(0.4, 0, 0.2, 1);

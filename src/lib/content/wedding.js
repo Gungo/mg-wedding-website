@@ -14,7 +14,7 @@ export const wedding = {
   intro: [
     'We are so excited to celebrate our special day with you.',
     'Our wedding will be held at Crook Point, Oregon, nestled among the evergreens, on Saturday, August 7, 2027, at 3:00 PM.',
-    'Please take a moment to explore this site for all the details — and most importantly, don’t forget to RSVP. Your presence means the world to us.'
+    'Please take a moment to explore this site for all the details. Your presence means the world to us.'
   ],
 
   event: {
@@ -60,8 +60,8 @@ export const wedding = {
     ],
     photos: [
       {
-        src: '/images/canva/photos/jukebox.jpg',
-        alt: 'Mariluz and Germán kissing beside a jukebox'
+        src: '/images/canva/photos/heart-glass.jpg',
+        alt: 'Mariluz and Germán kissing through a heart drawn on fogged glass'
       },
       {
         src: '/images/canva/photos/kiss.jpg',
@@ -103,7 +103,7 @@ export const wedding = {
   },
 
   welcomeParty: {
-    enabled: true,
+    enabled: false,
     title: 'welcome party',
     intro: 'Please join us for drinks and a toast to kick off the weekend.',
     date: 'Friday, August 6, 2027',
@@ -121,7 +121,34 @@ export const wedding = {
     enabled: true,
     title: 'Attire',
     level: 'Black tie',
-    note: 'We kindly ask that men wear a tuxedo and women wear a floor-length gown.'
+    note:
+      'We kindly ask that men wear a tuxedo and women wear a floor-length gown. We encourage you to get creative with your look, from your outfit to accessories and makeup. It’s the last month of summer, let’s really embrace its colors. Think colorful, textured, fun, bold, and sparkle. Of course white and any shade in that family like cream, ivory, off-white, champagne, eggshell, and pale vanilla are reserved for the bride.',
+    inspo: {
+      src: '/images/canva/photos/attire-inspo.png?v=premove1',
+      alt: 'Colorful gown inspiration',
+      /** CSS object-position — shift the collage in the right frame */
+      position: 'center center',
+      src2: '/images/canva/photos/attire-inspo-2.jpg',
+      alt2: 'Formal attire inspiration with gowns and tuxedos',
+      src3: '/images/canva/photos/attire-inspo-3.png?v=marked1',
+      alt3: 'Men formal attire inspiration',
+      colors: [
+        { name: 'Moss Green', hex: '#4B5B34' },
+        { name: 'Sky Blue', hex: '#7FC7CC' },
+        { name: 'Cherry Blossom', hex: '#F0ABA5' },
+        { name: 'Red Wine', hex: '#9B0204' },
+        { name: 'Sunshine', hex: '#EA8913' },
+        { name: 'Terracotta', hex: '#AF5031' },
+        { name: 'Deep Sea', hex: '#092F33' }
+      ]
+    }
+  },
+
+  menu: {
+    enabled: true,
+    title: 'Menú',
+    level: '',
+    note: ''
   },
 
   travel: {
@@ -189,22 +216,57 @@ export const wedding = {
         title: 'The water',
         description:
           'Crook Point sits on a wild stretch of Oregon coast. Walk the rocks, watch the spray, and take the long way along 101.',
-        image: '/images/main/hero.png',
-        imageAlt: 'Ocean water rushing over dark rocks'
+        image: '/images/canva/photos/tidepools.jpg',
+        imageAlt: 'Orange and purple starfish among mussels in a coastal tide pool'
       },
       {
         title: 'The redwoods',
         description:
           'The drive in from Medford dips through redwood parks. Build in time to pull over — it is half the reason for Connection 2.',
-        image: '/images/canva/photos/iceland.jpg',
-        imageAlt: 'Mariluz and Germán in a snowy landscape'
+        image: '/images/canva/photos/redwoods.jpg',
+        imageAlt: 'A path through towering redwood trees'
+      },
+      {
+        title: 'A hike',
+        description:
+          'Samuel H. Boardman and the nearby coast are full of arches, stacks, and short trails worth muddy shoes.',
+        image: '/images/canva/photos/hike.jpg',
+        imageAlt: 'A natural rock arch on a sandy Oregon coast beach'
       },
       {
         title: 'Town time',
         description:
-          'Gold Beach and Brookings are the bases we recommend — coffee, a long lunch, and a slow afternoon before the weekend starts.',
-        image: '/images/canva/photos/grocery-cart.jpg',
-        imageAlt: 'Mariluz and Germán in a grocery store, wedding-dress cart ride'
+          'Gold Beach and Brookings are the bases we recommend — coffee, a long lunch, and a slow afternoon before the weekend starts. Pictured: Samuel H. Boardman State Scenic Corridor.',
+        image: '/images/canva/photos/boardman.jpg',
+        imageAlt: 'Looking over yellow wildflowers toward natural rock arches at Samuel H. Boardman State Scenic Corridor'
+      },
+      {
+        title: 'Pacific Sushi',
+        description:
+          'When you want something easy and good after a long travel day — Pacific Sushi & Grill is a Brookings favorite.',
+        image: '/images/canva/photos/pacific-sushi.jpg',
+        imageAlt: 'Pacific Sushi & Grill restaurant sign at night'
+      },
+      {
+        title: 'Kayaking tours',
+        description:
+          'Paddle past sea caves and rock arches along the coast — a few outfitters in Brookings and Gold Beach run guided trips when the water is calm.',
+        image: '/images/canva/photos/kayaking.jpg',
+        imageAlt: 'Two kayakers in yellow kayaks paddling toward a sea arch along the Oregon coast'
+      },
+      {
+        title: 'Local bites',
+        description:
+          'When hunger hits after a coastal walk, The Crazy Norwegian’s Fish & Chips is the classic stop — picnic tables and all.',
+        image: '/images/canva/photos/crazy-norwegian.jpg',
+        imageAlt: "The Crazy Norwegian's Fish & Chips restaurant exterior"
+      },
+      {
+        title: 'Mossbrae Falls',
+        description:
+          'A short drive inland rewards you with moss-covered cliffs and a curtain of water — worth the stop if you have an extra morning. Pictured: near Shasta-Trinity National Forest.',
+        image: '/images/canva/photos/mossbrae-falls.jpg',
+        imageAlt: 'Mossbrae Falls cascading over a moss-covered cliff into a dark pool, near Shasta-Trinity National Forest'
       }
     ]
   },
@@ -225,14 +287,6 @@ export const wedding = {
         a: 'The wedding is black tie. We kindly ask that men wear a tuxedo and women wear a floor-length gown.'
       },
       {
-        q: 'If I already RSVP’d on the Save the Date, do I need to RSVP again?',
-        a: 'Yes, please — this site is the official headcount.'
-      },
-      {
-        q: 'When should I RSVP by?',
-        a: 'Kindly respond by May 1, 2027.'
-      },
-      {
         q: "What's the weather going to be like?",
         a: 'August on the southern Oregon coast is usually mild — pack a layer for wind and evening by the water.'
       },
@@ -242,7 +296,7 @@ export const wedding = {
       },
       {
         q: 'What if I have a dietary restriction?',
-        a: 'Include it when you RSVP and we will make sure to accommodate.'
+        a: 'Let us know ahead of time and we will make sure to accommodate.'
       },
       {
         q: 'Do you have a registry?',
@@ -250,7 +304,7 @@ export const wedding = {
       },
       {
         q: 'Other questions?',
-        a: 'Send us a note through your RSVP, or reach out to us directly.'
+        a: 'Reach out to us directly — we are happy to help.'
       }
     ]
   }

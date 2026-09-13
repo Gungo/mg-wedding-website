@@ -7,6 +7,11 @@
 </script>
 
 <Section id="things-to-do" title={t.title} titleStyle="script" bleed>
+  <img
+    class="adventure"
+    src="/images/canva/decor/adventure-ahead.png"
+    alt="Adventure lies ahead"
+  />
   <Carousel>
     {#each t.items as item}
       <article class="card">
@@ -66,6 +71,14 @@
     font-style: italic;
     line-height: 1.55;
     color: var(--color-text);
+  }
+
+  .adventure {
+    display: block;
+    width: min(18rem, 70vw);
+    height: auto;
+    margin: -0.5rem auto clamp(1.5rem, 4vh, 2.5rem);
+    pointer-events: none;
   }
 
   @media (min-width: 800px) {

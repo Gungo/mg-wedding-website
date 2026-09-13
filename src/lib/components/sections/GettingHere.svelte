@@ -5,12 +5,23 @@
   const t = wedding.travel;
 </script>
 
-<Section id="getting-here" title={t.title} titleStyle="display">
+<Section id="getting-here" title="" titleStyle="display">
   <div class="travel">
-    <div class="header-art">
-      <img src="/images/canva/decor/flourish-left.png" alt="" />
-      <img src="/images/canva/decor/flourish-right.png" alt="" />
+    <div class="title-row">
+      <img
+        class="flourish flourish-left"
+        src="/images/canva/decor/flourish-right.png"
+        alt=""
+      />
+      <h2 class="title">{t.title}</h2>
+      <img
+        class="flourish flourish-right"
+        src="/images/canva/decor/flourish-left.png"
+        alt=""
+      />
     </div>
+
+    <img class="boat" src="/images/canva/decor/boat.png" alt="" />
 
     <p class="intro">{t.intro}</p>
     <ul class="towns">
@@ -36,21 +47,52 @@
 
 <style>
   .travel {
-    max-width: 40rem;
+    max-width: min(50.5rem, 100%);
     margin: 0 auto;
     text-align: center;
   }
 
-  .header-art {
-    display: flex;
-    justify-content: space-between;
-    max-width: 22rem;
-    margin: -0.5rem auto 1.5rem;
+  .title-row {
+    display: grid;
+    grid-template-columns: clamp(5.5rem, 12vw, 8.5rem) auto clamp(5.5rem, 12vw, 8.5rem);
+    align-items: start;
+    justify-content: center;
+    column-gap: 0.15rem;
+    margin: 0 auto 0;
+    max-width: 100%;
   }
 
-  .header-art img {
-    width: 5.5rem;
+  .title {
+    margin: 0;
+    padding-top: 0.2em;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-style: normal;
+    font-size: clamp(1.55rem, 4.6vw, 3rem);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    line-height: 1.15;
+    color: var(--color-text);
+    white-space: nowrap;
+  }
+
+  .flourish {
+    width: 100%;
     height: auto;
+    display: block;
+    pointer-events: none;
+  }
+
+  .flourish-left {
+    justify-self: end;
+    margin-top: 0.05em;
+    transform: translateX(0.15rem);
+  }
+
+  .flourish-right {
+    justify-self: start;
+    margin-top: 0.05em;
+    transform: translateX(-0.15rem);
   }
 
   .intro,
@@ -97,5 +139,31 @@
     gap: 0.65rem;
     font-size: clamp(1rem, 1.8vw, 1.12rem);
     line-height: 1.55;
+  }
+
+  .boat {
+    display: block;
+    width: clamp(4.5rem, 12vw, 6.5rem);
+    height: auto;
+    margin: -1.1rem auto 1rem;
+    pointer-events: none;
+  }
+
+  @media (orientation: landscape) and (min-width: 800px) {
+    .boat {
+      margin-top: -1.21rem;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .title-row {
+      grid-template-columns: clamp(3.25rem, 18vw, 4.5rem) auto clamp(3.25rem, 18vw, 4.5rem);
+      column-gap: 0.1rem;
+    }
+
+    .title {
+      letter-spacing: 0.1em;
+      font-size: clamp(1.2rem, 6.2vw, 1.55rem);
+    }
   }
 </style>

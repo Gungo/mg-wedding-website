@@ -29,7 +29,7 @@
 
 <style>
   .stay {
-    max-width: 38rem;
+    max-width: 46rem;
     margin: 0 auto;
     text-align: center;
   }

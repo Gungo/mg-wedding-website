@@ -25,7 +25,7 @@
 
 <style>
   .registry {
-    max-width: 40rem;
+    max-width: 48rem;
     margin-inline: auto;
     text-align: center;
     display: flex;

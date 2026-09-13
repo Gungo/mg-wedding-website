@@ -18,7 +18,7 @@
 
 <style>
   .faq {
-    max-width: 38rem;
+    max-width: 46rem;
     margin-inline: auto;
     text-align: center;
     display: flex;

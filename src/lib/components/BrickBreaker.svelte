@@ -350,7 +350,7 @@
     }
     heartImg.onload = checkLoaded;
     ballImg.onload = checkLoaded;
-    heartImg.src = '/images/game/heart.svg';
+    heartImg.src = '/images/game/heart.svg?v=denim';
     ballImg.src = '/images/game/soccer-ball.png';
 
     initGame();
@@ -465,22 +465,26 @@
 <style>
   .game-section {
     --game-lace-size: 50px;
-    margin-top: clamp(1.5rem, 3vh, 0.5rem);
     width: 100%;
     max-width: var(--content-narrow);
     margin-inline: auto;
+    margin-top: clamp(2.5rem, 6vh, 4rem);
+    margin-bottom: clamp(2.5rem, 6vh, 4.5rem);
     padding-inline: clamp(1.25rem, 4vw, 2.5rem);
   }
 
   @media (max-width: 768px) {
     .game-section {
       --game-lace-size: 20px;
+      margin-top: clamp(2rem, 5vh, 3rem);
+      margin-bottom: clamp(3rem, 8vh, 5rem);
+      padding-bottom: 0.5rem;
     }
   }
 
   .game-header {
     text-align: center;
-    margin-bottom: clamp(1rem, 2vh, 1.5rem);
+    margin-bottom: calc(var(--game-lace-size) + 1rem);
   }
 
   .game-title {
@@ -496,7 +500,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 3.25rem;
+    margin-top: 1.75rem;
   }
 
   .canvas-wrapper {
