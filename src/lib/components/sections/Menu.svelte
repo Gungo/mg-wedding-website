@@ -10,8 +10,12 @@
     <img class="berry left" src="/images/canva/decor/berry-left.png" alt="" />
     <img class="berry right" src="/images/canva/decor/berry-right.png" alt="" />
     <img class="mussels" src="/images/canva/decor/mussels.png" alt="" />
-    {#if m.level}
-      <p class="level">{m.level}</p>
+    {#if m.items?.length}
+      <ul class="items">
+        {#each m.items as item}
+          <li>{item}</li>
+        {/each}
+      </ul>
     {/if}
     {#if m.note}
       <p class="note">{m.note}</p>
@@ -34,11 +38,19 @@
     margin: 0 auto 1.25rem;
   }
 
-  .level {
-    font-family: var(--font-sans);
-    font-size: clamp(0.85rem, 1.6vw, 1.05rem);
-    letter-spacing: 0.28em;
-    text-transform: uppercase;
+  .items {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(1rem, 2.5vh, 1.35rem);
+    margin: 0;
+    padding: 0;
+  }
+
+  .items li {
+    font-size: clamp(1.05rem, 2vw, 1.2rem);
+    line-height: 1.55;
+    font-style: italic;
   }
 
   .note {

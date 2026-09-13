@@ -147,8 +147,14 @@ export const wedding = {
   menu: {
     enabled: true,
     title: 'Menú',
-    level: '',
-    note: ''
+    items: [
+      'Harissa Braised Chuck Roast w/ Ajo Blanco and Cucumber',
+      'Confit Chicken Thigh w/ Sherry Cream',
+      'Rigatoni w/ Yellow Pepper Saffron Sauce',
+      'Bruleed Peaches and Heirloom Tomato',
+      'Confit Baby Potatoes w/ Herbs and Flowers',
+      'PNW Elote: fresh corn off the cob, feta, garden herbs and flowers, truffle honey'
+    ]
   },
 
   travel: {

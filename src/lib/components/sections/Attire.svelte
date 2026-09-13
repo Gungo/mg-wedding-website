@@ -31,12 +31,15 @@
       </div>
 
       <div class="inspo-photos">
-        <div class="inspo-frame">
-          <img
-            src={a.inspo.src}
-            alt={a.inspo.alt}
-            style:object-position={a.inspo.position}
-          />
+        <div class="inspo-gowns">
+          <p class="inspo-label">INSPO OUTFITS</p>
+          <div class="inspo-frame">
+            <img
+              src={a.inspo.src}
+              alt={a.inspo.alt}
+              style:object-position={a.inspo.position}
+            />
+          </div>
         </div>
         {#if a.inspo.src2 || a.inspo.src3}
           <div class="inspo-verticals">
@@ -163,6 +166,14 @@
     flex-direction: column;
     gap: clamp(1rem, 2.5vh, 1.75rem);
     align-items: center;
+    min-width: 0;
+  }
+
+  .inspo-gowns {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    width: 100%;
     min-width: 0;
   }
 
