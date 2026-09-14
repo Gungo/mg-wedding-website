@@ -1,23 +1,30 @@
 <script>
+  import LanguageToggle from '$lib/components/LanguageToggle.svelte';
+  import { useI18n } from '$lib/i18n/index.svelte.js';
+
   let { data } = $props();
   const e = data.existing;
+  const i18n = useI18n();
+  const ui = $derived(i18n.wedding.ui);
 </script>
+
+<LanguageToggle />
 
 <section class="rsvp-form-section">
   <header class="form-header">
-    <h2 class="form-title">{e ? 'Update Your Response' : 'Kindly Respond'}</h2>
-    <p class="form-subtitle">{e ? 'Make any changes below' : 'We would be honored by your presence'}</p>
+    <h2 class="form-title">{e ? ui.rsvpTitleEdit : ui.rsvpTitle}</h2>
+    <p class="form-subtitle">{e ? ui.rsvpSubtitleEdit : ui.rsvpSubtitle}</p>
   </header>
 
   <form class="rsvp-form" method="POST">
     <div class="field-group">
-      <label class="field-label" for="guest-name">Full Name</label>
+      <label class="field-label" for="guest-name">{ui.fullName}</label>
       <input
         class="field-input"
         type="text"
         id="guest-name"
         name="guest-name"
-        placeholder="Your name"
+        placeholder={ui.namePlaceholder}
         autocomplete="name"
         value={e?.name ?? ''}
         required
@@ -25,7 +32,7 @@
     </div>
 
     <div class="field-group">
-      <label class="field-label" for="guest-email">Email</label>
+      <label class="field-label" for="guest-email">{ui.email}</label>
       <input
         class="field-input"
         type="email"
@@ -39,58 +46,61 @@
     </div>
 
     <fieldset class="field-group attendance-group">
-      <legend class="field-label">Will you be attending?</legend>
+      <legend class="field-label">{ui.attending}</legend>
       <div class="radio-options">
         <label class="radio-label">
           <input type="radio" name="attending" value="yes" required checked={e?.attending === 'yes'} />
-          <span>Joyfully accepts</span>
+          <span>{ui.accepts}</span>
         </label>
         <label class="radio-label">
           <input type="radio" name="attending" value="no" checked={e?.attending === 'no'} />
-          <span>Respectfully declines</span>
+          <span>{ui.declines}</span>
         </label>
       </div>
     </fieldset>
 
     <div class="field-group">
-      <label class="field-label" for="guest-count">Number of Guests</label>
+      <label class="field-label" for="guest-count">{ui.guestCount}</label>
       <select class="field-input field-select" id="guest-count" name="guest-count">
         <option value="1" selected={e?.guestCount === '1'}>1</option>
       </select>
     </div>
 
     <div class="field-group">
-      <label class="field-label" for="dietary">Dietary Restrictions</label>
+      <label class="field-label" for="dietary">{ui.dietary}</label>
       <input
         class="field-input"
         type="text"
         id="dietary"
         name="dietary"
-        placeholder="Allergies, vegetarian, etc."
+        placeholder={ui.dietaryPlaceholder}
         value={e?.dietary ?? ''}
       />
     </div>
 
     <div class="field-group">
-      <label class="field-label" for="message">A Note for the Couple</label>
+      <label class="field-label" for="message">{ui.noteLabel}</label>
       <textarea
         class="field-input field-textarea"
         id="message"
         name="message"
         rows="3"
-        placeholder="Optional message..."
+        placeholder={ui.notePlaceholder}
       >{e?.message ?? ''}</textarea>
     </div>
 
-    <button class="submit-button" type="submit">{e ? 'Update RSVP' : 'Send RSVP'}</button>
+    <button class="submit-button" type="submit">{e ? ui.updateRsvp : ui.sendRsvp}</button>
 
-    <a class="back-link" href="/">Never mind, go back</a>
+    <a class="back-link" href="/">{ui.goBack}</a>
   </form>
 </section>
 
 <style>
   .rsvp-form-section {
     width: 100%;
+    max-width: var(--content-narrow);
+    margin-inline: auto;
+    padding: clamp(2rem, 6vh, 4rem) clamp(1.25rem, 4vw, 2.5rem);
   }
 
   .form-header {

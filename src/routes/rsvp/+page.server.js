@@ -1,8 +1,13 @@
 import { redirect } from '@sveltejs/kit';
 import { addRsvp, updateRsvpByDevice, getRsvpByDevice } from '$lib/server/db.js';
 import { sendRsvpNotification } from '$lib/server/email.js';
+import { RSVP_OPEN } from '$lib/config.js';
 
 export async function load({ locals }) {
+  if (!RSVP_OPEN) {
+    throw redirect(302, '/');
+  }
+
   const existing = await getRsvpByDevice(locals.deviceId);
   return {
     existing: existing ? {

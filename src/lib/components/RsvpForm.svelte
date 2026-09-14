@@ -1,24 +1,31 @@
+<script>
+  import { useI18n } from '$lib/i18n/index.svelte.js';
+
+  const i18n = useI18n();
+  const ui = $derived(i18n.wedding.ui);
+</script>
+
 <section class="rsvp-form-section">
   <header class="form-header">
-    <h2 class="form-title">Kindly Respond</h2>
-    <p class="form-subtitle">Honor us in attending</p>
+    <h2 class="form-title">{ui.rsvpTitle}</h2>
+    <p class="form-subtitle">{ui.rsvpHonor}</p>
   </header>
 
   <form class="rsvp-form" on:submit|preventDefault>
     <div class="field-group">
-      <label class="field-label" for="guest-name">Full Name</label>
+      <label class="field-label" for="guest-name">{ui.fullName}</label>
       <input
         class="field-input"
         type="text"
         id="guest-name"
         name="guest-name"
-        placeholder="Your name"
+        placeholder={ui.namePlaceholder}
         autocomplete="name"
       />
     </div>
 
     <div class="field-group">
-      <label class="field-label" for="guest-email">Email</label>
+      <label class="field-label" for="guest-email">{ui.email}</label>
       <input
         class="field-input"
         type="email"
@@ -30,49 +37,49 @@
     </div>
 
     <fieldset class="field-group attendance-group">
-      <legend class="field-label">Will you be attending?</legend>
+      <legend class="field-label">{ui.attending}</legend>
       <div class="radio-options">
         <label class="radio-label">
           <input type="radio" name="attending" value="yes" />
-          <span>Joyfully accepts</span>
+          <span>{ui.accepts}</span>
         </label>
         <label class="radio-label">
           <input type="radio" name="attending" value="no" />
-          <span>Respectfully declines</span>
+          <span>{ui.declines}</span>
         </label>
       </div>
     </fieldset>
 
     <div class="field-group">
-      <label class="field-label" for="guest-count">Number of Guests</label>
+      <label class="field-label" for="guest-count">{ui.guestCount}</label>
       <select class="field-input field-select" id="guest-count" name="guest-count">
         <option value="1">1</option>
       </select>
     </div>
 
     <div class="field-group">
-      <label class="field-label" for="dietary">Dietary Restrictions</label>
+      <label class="field-label" for="dietary">{ui.dietary}</label>
       <input
         class="field-input"
         type="text"
         id="dietary"
         name="dietary"
-        placeholder="Allergies, vegetarian, etc."
+        placeholder={ui.dietaryPlaceholder}
       />
     </div>
 
     <div class="field-group">
-      <label class="field-label" for="message">A Note for the Couple</label>
+      <label class="field-label" for="message">{ui.noteLabel}</label>
       <textarea
         class="field-input field-textarea"
         id="message"
         name="message"
         rows="3"
-        placeholder="Optional message..."
+        placeholder={ui.notePlaceholder}
       ></textarea>
     </div>
 
-    <button class="submit-button" type="submit">Send RSVP</button>
+    <button class="submit-button" type="submit">{ui.sendRsvp}</button>
   </form>
 </section>
 
