@@ -13,7 +13,7 @@ export const wedding = {
   tagline: 'Come for the party, stay for the perreo!',
   intro: [
     'We are so excited to celebrate our special day with you.',
-    'Our wedding will be held at Crook Point, Oregon, nestled among the evergreens, on Saturday, August 7, 2027, at 3:00 PM.',
+    'Our wedding will be held at Crook Point, Oregon, nestled among the evergreens and adorned by the coastal views, on Saturday, August 7, 2027, at 3:00 PM.',
     'Please take a moment to explore this site for all the details. Your presence means the world to us.'
   ],
 
@@ -24,7 +24,7 @@ export const wedding = {
     time: '3:00 PM',
     venue: 'Crook Point',
     address: '',
-    city: 'Oregon',
+    city: 'Crook Point, Oregon',
     mapUrl: 'https://maps.google.com/?q=Crook+Point+Oregon',
     attire: 'Black tie'
   },
@@ -76,24 +76,28 @@ export const wedding = {
     note: 'Para los locos: anyone still partying after 1 AM is welcome to continue the festivities with us down by the beach and private lawn at Crook House.',
     items: [
       {
+        id: 'ceremony',
         name: 'Ceremony',
         time: '3:00 PM — 3:45 PM',
         place: 'Crook Point',
         icon: '/images/canva/decor/icon-ceremony.png'
       },
       {
+        id: 'cocktail',
         name: 'Cocktail hour',
         time: '4:00 PM — 5:00 PM',
         place: 'Crook Point',
         icon: '/images/canva/decor/icon-cocktail.png'
       },
       {
+        id: 'reception',
         name: 'Reception',
         time: '6:00 PM',
         place: 'Crook Point',
         icon: '/images/canva/decor/icon-reception.png'
       },
       {
+        id: 'throwdown',
         name: 'First throwdown',
         time: '8:00 PM — 12 AM',
         place: 'Crook Point',
@@ -122,7 +126,9 @@ export const wedding = {
     title: 'Attire',
     level: 'Black tie',
     note:
-      'We kindly ask that men wear a tuxedo and women wear a floor-length gown. We encourage you to get creative with your look, from your outfit to accessories and makeup. It’s the last month of summer, let’s really embrace its colors. Think colorful, textured, fun, bold, and sparkle. Of course white and any shade in that family like cream, ivory, off-white, champagne, eggshell, and pale vanilla are reserved for the bride.',
+      'We kindly ask that men wear a tuxedo and women wear a floor-length gown. We encourage you to get creative with your look, from your outfit to accessories and makeup. It’s the last month of summer, let’s really embrace its colors. Think colorful, textured, fun, bold, and sparkle. Of course white and any shade in that family like cream, ivory, off-white, champagne, eggshell, and pale vanilla are reserved for the bride & groom.',
+    weather:
+      'It can range from 50-70+ degrees Fahrenheit (10-21+ Celsius) at Crook Point due to the coastal climate, please dress warmly. Jacket and coat options are recommended.',
     inspo: {
       src: '/images/canva/photos/attire-inspo.png?v=premove1',
       alt: 'Colorful gown inspiration',
@@ -135,11 +141,12 @@ export const wedding = {
       colors: [
         { name: 'Moss Green', hex: '#4B5B34' },
         { name: 'Sky Blue', hex: '#7FC7CC' },
-        { name: 'Cherry Blossom', hex: '#F0ABA5' },
+        { name: 'Chamomile', hex: '#FCC603' },
         { name: 'Red Wine', hex: '#9B0204' },
         { name: 'Sunshine', hex: '#EA8913' },
         { name: 'Terracotta', hex: '#AF5031' },
-        { name: 'Deep Sea', hex: '#092F33' }
+        { name: 'Deep Sea', hex: '#092F33' },
+        { name: 'Twilight', hex: '#621E3E' }
       ]
     }
   },
@@ -176,7 +183,14 @@ export const wedding = {
           'Transfer to Oakland (OAK) — about 1 hour 15 min drive or 1 hour 30 min train',
           'Fly from Oakland (OAK) to Crescent City Airport (CEC), CA',
           'Drive 40–50 minutes to Brookings or Gold Beach, OR'
-        ]
+        ],
+        promo: {
+          headline: '20% off flights',
+          codeLabel: 'Code',
+          code: 'CROOKPOINT20FLIGHTS',
+          routesLabel: 'Routes',
+          routes: 'CEC – OAK & HHR'
+        }
       },
       {
         title: 'Connection 2 / Conexión 2',
@@ -193,10 +207,31 @@ export const wedding = {
     enabled: true,
     title: 'Where to Stay',
     place: 'Brookings',
-    region: 'Oregon',
+    region: 'Gold Beach',
     intro:
-      'Ideally, stay within a short drive of Crook Point — Brookings and Gold Beach are the towns we recommend most.',
-    items: []
+      'Ideally, stay within a short drive of Crook Point. Brookings and Gold Beach are the towns we recommend most. Below we will share some of our recommendations, and then a Google list of other places we found as well.',
+    items: [
+      {
+        name: 'Gold Beach Inn / Irelands Rustic Lodges, Gold Beach',
+        href: 'https://www.goldbeachinn.com/irelands-rustic-lodges/irl-rooms'
+      },
+      {
+        name: 'The Wildflower Inn',
+        href: 'https://wildflowergb.lodgify.com/en/all-properties'
+      },
+      {
+        name: 'Pacific Reef Hotel',
+        href: 'https://pacificreefhotel.com/stay/'
+      },
+      {
+        name: 'Beach Front Inn',
+        href: 'https://www.beachfrontinn.com/?utm_source=google&utm_medium=organic&utm_campaign=gbp_listing'
+      },
+      {
+        name: 'M&G wedding stay list',
+        href: 'https://maps.app.goo.gl/zdwekCt73rChkkqc7'
+      }
+    ]
   },
 
   maps: {
@@ -219,60 +254,88 @@ export const wedding = {
     title: 'Things to Do',
     items: [
       {
-        title: 'The water',
+        title: 'Tide Pools',
         description:
-          'Crook Point sits on a wild stretch of Oregon coast. Walk the rocks, watch the spray, and take the long way along 101.',
+          'Crook Point sits on a wild stretch of Oregon coast. Walk the rocks, watch the spray, and take the long way along 101. A great pastime is looking for tide pools and marine life. See: Lone Ranch Beach, Enderts, Indian Sands. Use this link to plan for low tide:',
+        link: {
+          href: 'https://www.tidetime.org/north-america/united-states/gold-beach-rogue-river-oregon-calendar-feb.htm',
+          label: 'link'
+        },
         image: '/images/canva/photos/tidepools.jpg',
         imageAlt: 'Orange and purple starfish among mussels in a coastal tide pool'
       },
       {
         title: 'The redwoods',
         description:
-          'The drive in from Medford dips through redwood parks. Build in time to pull over — it is half the reason for Connection 2.',
+          'The drive in from Medford dips through redwood parks. We recommend visiting Jedidiah State Park, the Grove of Titans, and exploring the area.',
+        link: {
+          href: 'https://redwoodparksconservancy.org/jedediah-smith-redwoods-state-park/',
+          label: 'link'
+        },
         image: '/images/canva/photos/redwoods.jpg',
         imageAlt: 'A path through towering redwood trees'
       },
       {
         title: 'A hike',
         description:
-          'Samuel H. Boardman and the nearby coast are full of arches, stacks, and short trails worth muddy shoes.',
+          'One of our favorite finds was Enderts Beach, the long walk down, coastal views, wild blackberries you can eat on the way, and the beautiful beach below.',
+        links: [
+          {
+            href: 'https://www.google.com/maps/search/?api=1&query=Enderts%20Beach',
+            label: 'link'
+          },
+          {
+            before:
+              '. Another good hike with beach and forest options is Yukor Loop Trail, ',
+            href: 'https://www.nps.gov/places/yuroklooptrail.htm',
+            label: 'link'
+          }
+        ],
         image: '/images/canva/photos/hike.jpg',
         imageAlt: 'A natural rock arch on a sandy Oregon coast beach'
       },
       {
         title: 'Town time',
         description:
-          'Gold Beach and Brookings are the bases we recommend — coffee, a long lunch, and a slow afternoon before the weekend starts. Pictured: Samuel H. Boardman State Scenic Corridor.',
+          'Gold Beach and Brookings are the bases we recommend: coffee, a long lunch, and a slow afternoon before the weekend starts. Pictured: Samuel H. Boardman State Scenic Corridor.',
         image: '/images/canva/photos/boardman.jpg',
         imageAlt: 'Looking over yellow wildflowers toward natural rock arches at Samuel H. Boardman State Scenic Corridor'
       },
       {
         title: 'Pacific Sushi',
         description:
-          'When you want something easy and good after a long travel day — Pacific Sushi & Grill is a Brookings favorite.',
+          'Pacific Sushi & Grill is a top tier sushi restaurant and a must visit local spot. While you wait or after dinner, visit the Whimsical Griffin comic shop next door and play free arcade games.',
+        link: {
+          href: 'https://maps.app.goo.gl/8pS84YrHZbgxYDc28',
+          label: 'link'
+        },
         image: '/images/canva/photos/pacific-sushi.jpg',
         imageAlt: 'Pacific Sushi & Grill restaurant sign at night'
       },
       {
         title: 'Kayaking tours',
         description:
-          'Paddle past sea caves and rock arches along the coast — a few outfitters in Brookings and Gold Beach run guided trips when the water is calm.',
+          'Paddle past sea caves and rock arches along the coast. A few outfitters in Brookings and Gold Beach run guided trips when the water is calm. See:',
+        link: {
+          href: 'https://secretbeachkayaking.com/',
+          label: 'link'
+        },
         image: '/images/canva/photos/kayaking.jpg',
         imageAlt: 'Two kayakers in yellow kayaks paddling toward a sea arch along the Oregon coast'
       },
       {
         title: 'Local bites',
         description:
-          'When hunger hits after a coastal walk, The Crazy Norwegian’s Fish & Chips is the classic stop — picnic tables and all.',
+          'When hunger hits after a coastal walk, The Crazy Norwegian’s Fish & Chips is a short drive away. Indian Creek Cafe is another great option for breakfast.',
         image: '/images/canva/photos/crazy-norwegian.jpg',
         imageAlt: "The Crazy Norwegian's Fish & Chips restaurant exterior"
       },
       {
-        title: 'Mossbrae Falls',
+        title: 'Mount Shasta /Mossbrae Falls',
         description:
-          'A short drive inland rewards you with moss-covered cliffs and a curtain of water — worth the stop if you have an extra morning. Pictured: near Shasta-Trinity National Forest.',
+          'A short drive inland rewards you with moss-covered cliffs and a curtain of water. Worth the stop if you have an extra morning. Pictured: near Shasta-Trinity National Forest.',
         image: '/images/canva/photos/mossbrae-falls.jpg',
-        imageAlt: 'Mossbrae Falls cascading over a moss-covered cliff into a dark pool, near Shasta-Trinity National Forest'
+        imageAlt: 'Mount Shasta has been considered the root chakra of the world, and many people visit as a  personal and spiritual pilgrimage. It is also a stratovolcano as part of the cascades that form part of the ring of fire. Mossbrae falls is a waterfall inside the park.'
       }
     ]
   },
@@ -313,5 +376,68 @@ export const wedding = {
         a: 'Reach out to us directly — we are happy to help.'
       }
     ]
+  },
+
+  ui: {
+    langEn: 'EN',
+    langEs: 'ES',
+    langAria: 'Choose language',
+    rsvpCta: 'Kindly RSVP',
+    rsvpDone: 'You responded',
+    rsvpSoon: 'RSVP coming soon',
+    host: 'Host',
+    date: 'Date',
+    location: 'Location',
+    attire: 'Attire',
+    toBeAnnounced: 'To be announced',
+    calendarSuffix: 'Wedding',
+    and: 'and',
+    inspoColors: 'Inspo colors',
+    inspoOutfits: 'Inspo outfits',
+    inspoPaletteAria: 'Inspiration color palette',
+    thankYou: 'Thank you for your response',
+    editResponse: 'Edit Response',
+    rsvpTitle: 'Kindly Respond',
+    rsvpTitleEdit: 'Update Your Response',
+    rsvpSubtitle: 'We would be honored by your presence',
+    rsvpSubtitleEdit: 'Make any changes below',
+    rsvpHonor: 'Honor us in attending',
+    fullName: 'Full Name',
+    namePlaceholder: 'Your name',
+    email: 'Email',
+    attending: 'Will you be attending?',
+    accepts: 'Joyfully accepts',
+    declines: 'Respectfully declines',
+    guestCount: 'Number of Guests',
+    dietary: 'Dietary Restrictions',
+    dietaryPlaceholder: 'Allergies, vegetarian, etc.',
+    noteLabel: 'A Note for the Couple',
+    notePlaceholder: 'Optional message...',
+    sendRsvp: 'Send RSVP',
+    updateRsvp: 'Update RSVP',
+    goBack: 'Never mind, go back',
+    rsvpBy: 'RSVP by',
+    gameTitle: 'While You Wait...',
+    play: 'Play',
+    paused: 'Paused',
+    resume: 'Resume',
+    pause: 'Pause',
+    youWin: 'You Win!',
+    playAgain: 'Play Again',
+    gameOver: 'Game Over',
+    tryAgain: 'Try Again',
+    levelLabel: 'Level',
+    levelClear: 'Level Cleared!',
+    nextLevel: 'Next Level',
+    prev: 'Previous',
+    next: 'Next',
+    slides: 'Slides',
+    slide: 'Slide',
+    icelandAlt: 'Mariluz and Germán in Iceland',
+    comingSoonAlt: 'Snowy mountains and glacier valley',
+    shareDrinkAlt: 'Mariluz and Germán sharing a drink',
+    adventureAlt: 'Adventure lies ahead',
+    heroAlt: 'Coastline — Mariluz Del Pilar & Germán Ignacio',
+    groceryCartAlt: 'Mariluz and Germán — let’s go get married'
   }
 };

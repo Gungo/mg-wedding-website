@@ -1,14 +1,15 @@
 <script>
+  import { useI18n } from '$lib/i18n/index.svelte.js';
+
   /** Featured landscape photo in place of the old envelope / save-the-date animation. */
-  let {
-    src = '/images/main/coming-soon.jpg',
-    alt = 'Snowy mountains and glacier valley'
-  } = $props();
+  let { src = '/images/main/coming-soon.jpg', alt } = $props();
+  const i18n = useI18n();
+  const resolvedAlt = $derived(alt ?? i18n.wedding.ui.comingSoonAlt);
 </script>
 
 <section class="band">
   <div class="frame">
-    <img {src} {alt} />
+    <img {src} alt={resolvedAlt} />
   </div>
 </section>
 

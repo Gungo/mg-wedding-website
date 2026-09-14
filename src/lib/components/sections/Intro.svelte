@@ -1,5 +1,8 @@
 <script>
-  import { wedding } from '$lib/content/wedding.js';
+  import { useI18n } from '$lib/i18n/index.svelte.js';
+
+  const i18n = useI18n();
+  const wedding = $derived(i18n.wedding);
 </script>
 
 <section class="intro" id="intro">

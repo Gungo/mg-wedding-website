@@ -1,5 +1,9 @@
 <script>
+  import { useI18n } from '$lib/i18n/index.svelte.js';
+
   let { onAdminTrigger } = $props();
+  const i18n = useI18n();
+  const ui = $derived(i18n.wedding.ui);
 
   let tapCount = 0;
   let tapTimer;
@@ -28,12 +32,12 @@
   <div class="hero-frame" onclick={handleTap}>
     <img
       src="/images/main/hero-desktop.jpg"
-      alt="Coastline — Mariluz Del Pilar & Germán Ignacio"
+      alt={ui.heroAlt}
       class="hero-image hero-desktop"
     />
     <img
       src="/images/main/hero-mobile.jpg"
-      alt="Coastline — Mariluz Del Pilar & Germán Ignacio"
+      alt={ui.heroAlt}
       class="hero-image hero-mobile"
     />
 
@@ -75,7 +79,7 @@
       </svg>
 
       <p class="date">08.07.2027</p>
-      <span class="sr-only">{nameOne} and {nameTwo}, August 7, 2027</span>
+      <span class="sr-only">{nameOne} {ui.and} {nameTwo}, {i18n.wedding.event.dateLong}</span>
     </div>
   </div>
 </section>

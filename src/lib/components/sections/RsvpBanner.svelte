@@ -1,16 +1,19 @@
 <script>
-  import { wedding } from '$lib/content/wedding.js';
-  const r = wedding.rsvp;
-  const e = wedding.event;
+  import { useI18n } from '$lib/i18n/index.svelte.js';
+
+  const i18n = useI18n();
+  const r = $derived(i18n.wedding.rsvp);
+  const e = $derived(i18n.wedding.event);
+  const ui = $derived(i18n.wedding.ui);
 </script>
 
 <section class="cta" id="rsvp-cta">
   <div class="frame">
-    <img src="/images/canva/photos/grocery-cart.jpg" alt="Mariluz and Germán — let’s go get married" />
+    <img src="/images/canva/photos/grocery-cart.jpg" alt={ui.groceryCartAlt} />
     <div class="overlay">
       <p class="date">{e.dateShort}</p>
-      <a href={r.href}>RSVP</a>
-      <p class="by">{r.prompt} RSVP by {r.deadline}</p>
+      <a href={r.href}>{ui.rsvpCta}</a>
+      <p class="by">{r.prompt} {ui.rsvpBy} {r.deadline}</p>
     </div>
   </div>
 </section>

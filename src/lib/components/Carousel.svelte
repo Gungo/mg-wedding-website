@@ -1,7 +1,10 @@
 <script>
   import { onMount, tick } from 'svelte';
+  import { useI18n } from '$lib/i18n/index.svelte.js';
 
   let { children } = $props();
+  const i18n = useI18n();
+  const ui = $derived(i18n.wedding.ui);
 
   let track = $state(null);
   let index = $state(0);
@@ -72,7 +75,7 @@
     <button
       class="arrow prev"
       type="button"
-      aria-label="Previous"
+      aria-label={ui.prev}
       disabled={index === 0}
       onclick={() => go(index - 1)}
     >
@@ -81,21 +84,21 @@
     <button
       class="arrow next"
       type="button"
-      aria-label="Next"
+      aria-label={ui.next}
       disabled={index === count - 1}
       onclick={() => go(index + 1)}
     >
       ›
     </button>
 
-    <div class="dots" role="tablist" aria-label="Slides">
+    <div class="dots" role="tablist" aria-label={ui.slides}>
       {#each { length: count } as _, i}
         <button
           class="dot"
           class:active={i === index}
           type="button"
           role="tab"
-          aria-label="Slide {i + 1}"
+          aria-label="{ui.slide} {i + 1}"
           aria-selected={i === index}
           onclick={() => go(i)}
         ></button>

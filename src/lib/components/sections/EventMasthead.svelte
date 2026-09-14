@@ -1,19 +1,24 @@
 <script>
-  import { wedding } from '$lib/content/wedding.js';
+  import { useI18n } from '$lib/i18n/index.svelte.js';
 
   let { hasSubmitted = false, showRsvp = true } = $props();
 
-  const e = wedding.event;
-  const c = wedding.couple;
+  const i18n = useI18n();
+  const wedding = $derived(i18n.wedding);
+  const e = $derived(wedding.event);
+  const c = $derived(wedding.couple);
+  const ui = $derived(wedding.ui);
 
-  const locationLine = e.venue || e.city || 'To be announced';
-  const attireLine = e.attire ? `Attire: ${e.attire}` : '';
-  const addressLines = [e.address, e.city].filter(Boolean);
-  const calStart = e.dateIso.replaceAll('-', '');
-  const next = new Date(`${e.dateIso}T12:00:00`);
-  next.setDate(next.getDate() + 1);
-  const calEnd = next.toISOString().slice(0, 10).replaceAll('-', '');
-  const calHref = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(c.short + ' Wedding')}&dates=${calStart}/${calEnd}`;
+  const locationLine = $derived(e.venue || e.city || ui.toBeAnnounced);
+  const attireLine = $derived(e.attire ? `${ui.attire}: ${e.attire}` : '');
+  const addressLines = $derived([e.address, e.city].filter(Boolean));
+  const calHref = $derived.by(() => {
+    const calStart = e.dateIso.replaceAll('-', '');
+    const next = new Date(`${e.dateIso}T12:00:00`);
+    next.setDate(next.getDate() + 1);
+    const calEnd = next.toISOString().slice(0, 10).replaceAll('-', '');
+    return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(c.short + ' ' + ui.calendarSuffix)}&dates=${calStart}/${calEnd}`;
+  });
 </script>
 
 <section class="masthead" id="details">
@@ -21,10 +26,10 @@
 
   {#if showRsvp}
     <a class="rsvp-status" href={wedding.rsvp.href}>
-      {hasSubmitted ? 'You responded' : 'Kindly RSVP'}
+      {hasSubmitted ? ui.rsvpDone : ui.rsvpCta}
     </a>
   {:else}
-    <p class="rsvp-status rsvp-soon">RSVP coming soon</p>
+    <p class="rsvp-status rsvp-soon">{ui.rsvpSoon}</p>
   {/if}
 
   <div class="summary">
@@ -40,11 +45,11 @@
 
   <div class="facts">
     <div class="fact">
-      <p class="label">Host</p>
+      <p class="label">{ui.host}</p>
       <p class="value">{c.hosts}</p>
     </div>
     <div class="fact">
-      <p class="label">Date</p>
+      <p class="label">{ui.date}</p>
       {#if e.dateIso}
         <a class="value link" href={calHref}>
           {e.dateLong}
@@ -57,7 +62,7 @@
       {/if}
     </div>
     <div class="fact">
-      <p class="label">Location</p>
+      <p class="label">{ui.location}</p>
       {#if e.mapUrl}
         <a class="value link" href={e.mapUrl} target="_blank" rel="noopener noreferrer">{locationLine}</a>
       {:else}

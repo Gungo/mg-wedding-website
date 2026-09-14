@@ -1,16 +1,18 @@
 <script>
   import { onMount } from 'svelte';
   import LaceBorder from './LaceBorder.svelte';
+  import { useI18n } from '$lib/i18n/index.svelte.js';
+
+  const i18n = useI18n();
+  const ui = $derived(i18n.wedding.ui);
 
   const ROWS = 4;
   const COLS = 10;
-  const TOTAL_BRICKS = ROWS * COLS;
-  const BRICK_GAP_RATIO = 0.010;
+  const BRICK_GAP_RATIO = 0.01;
   const BRICK_TOP_RATIO = 0.06;
   const BRICK_HEIGHT_RATIO = 0.065;
   const BALL_RADIUS_RATIO = 0.018;
-  const BALL_SPEED_RATIO = 0.007;
-  const SPEED_BUMP = 1.06;
+  const SPEED_BUMP = 1.045;
   const PADDLE_WIDTH_RATIO = 0.15;
   const PADDLE_HEIGHT_RATIO = 0.02;
   const PADDLE_BOTTOM_RATIO = 0.05;
@@ -18,7 +20,70 @@
   const CREEP_BASE_INTERVAL = 300;
   const CREEP_MIN_INTERVAL = 60;
   const MAX_LIVES = 5;
-  const MULTIBALL_THRESHOLD = Math.ceil(TOTAL_BRICKS / 2);
+
+  /**
+   * Classic Breakout started as a solid wall, then later games (Arkanoid-style)
+   * used patterned screens. These keep our 4×10 grid and open lanes / shapes.
+   * 1 = heart brick, 0 = empty.
+   */
+  const LEVELS = [
+    // 1 — full wall
+    [
+      [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+      [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+      [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+      [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+    ],
+    // 2 — center corridor (classic “breakout” lane)
+    [
+      [1, 1, 1, 1, 0, 0, 1, 1, 1, 1],
+      [1, 1, 1, 1, 0, 0, 1, 1, 1, 1],
+      [1, 1, 1, 1, 0, 0, 1, 1, 1, 1],
+      [1, 1, 1, 1, 0, 0, 1, 1, 1, 1]
+    ],
+    // 3 — checkerboard
+    [
+      [1, 0, 1, 0, 1, 0, 1, 0, 1, 0],
+      [0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
+      [1, 0, 1, 0, 1, 0, 1, 0, 1, 0],
+      [0, 1, 0, 1, 0, 1, 0, 1, 0, 1]
+    ],
+    // 4 — pyramid / V
+    [
+      [0, 0, 0, 1, 1, 1, 1, 0, 0, 0],
+      [0, 0, 1, 1, 1, 1, 1, 1, 0, 0],
+      [0, 1, 1, 1, 0, 0, 1, 1, 1, 0],
+      [1, 1, 1, 0, 0, 0, 0, 1, 1, 1]
+    ],
+    // 5 — twin towers
+    [
+      [1, 1, 1, 0, 0, 0, 0, 1, 1, 1],
+      [1, 1, 1, 0, 0, 0, 0, 1, 1, 1],
+      [1, 1, 1, 0, 0, 0, 0, 1, 1, 1],
+      [1, 1, 1, 0, 0, 0, 0, 1, 1, 1]
+    ],
+    // 6 — heart silhouette
+    [
+      [0, 1, 1, 0, 0, 0, 0, 1, 1, 0],
+      [1, 1, 1, 1, 0, 0, 1, 1, 1, 1],
+      [0, 1, 1, 1, 1, 1, 1, 1, 1, 0],
+      [0, 0, 1, 1, 1, 1, 1, 1, 0, 0]
+    ],
+    // 7 — stairs / zig
+    [
+      [1, 1, 0, 0, 0, 0, 0, 0, 1, 1],
+      [0, 1, 1, 1, 0, 0, 1, 1, 1, 0],
+      [0, 0, 1, 1, 1, 1, 1, 1, 0, 0],
+      [1, 0, 0, 1, 1, 1, 1, 0, 0, 1]
+    ],
+    // 8 — diamond
+    [
+      [0, 0, 0, 1, 1, 1, 1, 0, 0, 0],
+      [0, 0, 1, 1, 0, 0, 1, 1, 0, 0],
+      [0, 1, 1, 0, 0, 0, 0, 1, 1, 0],
+      [1, 1, 0, 0, 0, 0, 0, 0, 1, 1]
+    ]
+  ];
 
   let canvas;
   let ctx;
@@ -27,12 +92,14 @@
   let dpr = 1;
   let gameState = $state('idle');
   let lives = $state(MAX_LIVES);
+  let level = $state(0);
   let animFrame;
   let frameCount = 0;
   let nextCreepFrame = CREEP_BASE_INTERVAL;
   let destroyedCount = 0;
   let multiBallSpawned = false;
   let currentSpeed = 0;
+  let totalBricks = 0;
 
   let heartImg;
   let ballImg;
@@ -41,11 +108,24 @@
   let balls = [];
   let paddle = { x: 0, y: 0, w: 0, h: 0 };
   let paddleVx = 0;
-  let lastPaddleX = 0;
   let bricks = [];
+
+  const levelNumber = $derived(level + 1);
 
   function makeBall(x, y, dx, dy) {
     return { x, y, dx, dy, r: w * BALL_RADIUS_RATIO };
+  }
+
+  /** Wider boards used to feel too fast; phones too slow — keep speed near constant. */
+  function getBaseSpeed() {
+    const mobile = 4.8;
+    const desktop = 3.15;
+    const t = Math.min(1, Math.max(0, (w - 360) / 520));
+    return mobile + (desktop - mobile) * t;
+  }
+
+  function multiBallThreshold() {
+    return Math.max(3, Math.ceil(totalBricks / 2));
   }
 
   function initSizes() {
@@ -63,18 +143,20 @@
     ctx.imageSmoothingEnabled = false;
   }
 
-  function initGame() {
-    initSizes();
-
+  function buildBricks() {
     const gap = w * BRICK_GAP_RATIO;
     const brickW = (w - gap * (COLS + 1)) / COLS;
     const brickH = h * BRICK_HEIGHT_RATIO;
     const topOffset = h * BRICK_TOP_RATIO;
+    const layout = LEVELS[level];
 
     bricks = [];
     for (let r = 0; r < ROWS; r++) {
       for (let c = 0; c < COLS; c++) {
+        if (!layout[r][c]) continue;
         bricks.push({
+          r,
+          c,
           x: gap + c * (brickW + gap),
           y: topOffset + r * (brickH + gap),
           w: brickW,
@@ -83,29 +165,47 @@
         });
       }
     }
+    totalBricks = bricks.length;
+  }
 
+  function placePaddleAndBall() {
     paddle.w = w * PADDLE_WIDTH_RATIO;
     paddle.h = h * PADDLE_HEIGHT_RATIO;
     paddle.y = h - h * PADDLE_BOTTOM_RATIO - paddle.h;
     paddle.x = w / 2 - paddle.w / 2;
-
     balls = [makeBall(w / 2, paddle.y - w * BALL_RADIUS_RATIO - 2, 0, 0)];
+  }
 
+  function resetLevelState({ resetLives = false } = {}) {
+    initSizes();
+    buildBricks();
+    placePaddleAndBall();
     frameCount = 0;
     nextCreepFrame = CREEP_BASE_INTERVAL;
     destroyedCount = 0;
     multiBallSpawned = false;
-    currentSpeed = w * BALL_SPEED_RATIO;
-    lives = MAX_LIVES;
-    gameState = 'idle';
+    currentSpeed = getBaseSpeed();
+    if (resetLives) lives = MAX_LIVES;
     draw();
+  }
+
+  function initGame() {
+    level = 0;
+    gameState = 'idle';
+    resetLevelState({ resetLives: true });
+  }
+
+  function advanceLevel() {
+    if (level >= LEVELS.length - 1) return;
+    level += 1;
+    gameState = 'idle';
+    resetLevelState({ resetLives: false });
   }
 
   function resetBall() {
     balls = [makeBall(paddle.x + paddle.w / 2, paddle.y - w * BALL_RADIUS_RATIO - 2, 0, 0)];
-    multiBallSpawned = destroyedCount >= MULTIBALL_THRESHOLD;
-    currentSpeed = w * BALL_SPEED_RATIO;
-
+    multiBallSpawned = destroyedCount >= multiBallThreshold();
+    currentSpeed = getBaseSpeed();
   }
 
   function launchBall(ball, speed) {
@@ -120,21 +220,25 @@
     if (balls.length >= 2 || multiBallSpawned) return;
     multiBallSpawned = true;
     const primary = balls[0];
-    const baseSpeed = w * BALL_SPEED_RATIO;
+    const baseSpeed = getBaseSpeed();
     const angle = (Math.random() * 60 + 60) * (Math.PI / 180);
     const dir = primary.dx > 0 ? -1 : 1;
-    const newBall = makeBall(
-      primary.x,
-      primary.y,
-      Math.cos(angle) * baseSpeed * dir,
-      -Math.sin(angle) * baseSpeed
+    balls.push(
+      makeBall(
+        primary.x,
+        primary.y,
+        Math.cos(angle) * baseSpeed * dir,
+        -Math.sin(angle) * baseSpeed
+      )
     );
-    balls.push(newBall);
   }
 
   function startGame() {
     if (gameState === 'playing') return;
     if (gameState === 'won' || gameState === 'lost') initGame();
+    if (gameState === 'levelClear') {
+      advanceLevel();
+    }
     gameState = 'playing';
     launchBall(balls[0]);
     loop();
@@ -168,9 +272,18 @@
     ball.x += ball.dx;
     ball.y += ball.dy;
 
-    if (ball.x - ball.r < 0) { ball.x = ball.r; ball.dx = Math.abs(ball.dx); }
-    if (ball.x + ball.r > w) { ball.x = w - ball.r; ball.dx = -Math.abs(ball.dx); }
-    if (ball.y - ball.r < 0) { ball.y = ball.r; ball.dy = Math.abs(ball.dy); }
+    if (ball.x - ball.r < 0) {
+      ball.x = ball.r;
+      ball.dx = Math.abs(ball.dx);
+    }
+    if (ball.x + ball.r > w) {
+      ball.x = w - ball.r;
+      ball.dx = -Math.abs(ball.dx);
+    }
+    if (ball.y - ball.r < 0) {
+      ball.y = ball.r;
+      ball.dy = Math.abs(ball.dy);
+    }
 
     if (
       ball.dy > 0 &&
@@ -181,7 +294,6 @@
     ) {
       ball.y = paddle.y - ball.r;
       const hit = (ball.x - paddle.x) / paddle.w;
-      // 150° (left) → 30° (right), center = 90° (straight up)
       const angle = (150 - hit * 120) * (Math.PI / 180);
       const speed = Math.sqrt(ball.dx * ball.dx + ball.dy * ball.dy);
       ball.dx = Math.cos(angle) * speed + paddleVx * 0.3;
@@ -206,20 +318,16 @@
         const minOverlapX = Math.min(overlapLeft, overlapRight);
         const minOverlapY = Math.min(overlapTop, overlapBottom);
 
-        if (minOverlapX < minOverlapY) {
-          ball.dx *= -1;
-        } else {
-          ball.dy *= -1;
-        }
+        if (minOverlapX < minOverlapY) ball.dx *= -1;
+        else ball.dy *= -1;
 
         ball.dx *= SPEED_BUMP;
         ball.dy *= SPEED_BUMP;
         currentSpeed = Math.max(currentSpeed, Math.sqrt(ball.dx * ball.dx + ball.dy * ball.dy));
 
-        if (destroyedCount === MULTIBALL_THRESHOLD && !multiBallSpawned) {
+        if (destroyedCount === multiBallThreshold() && !multiBallSpawned) {
           spawnSecondBall();
         }
-
         break;
       }
     }
@@ -228,7 +336,7 @@
   function update() {
     for (const ball of balls) updateBall(ball);
 
-    balls = balls.filter(b => b.y - b.r <= h);
+    balls = balls.filter((b) => b.y - b.r <= h);
 
     if (balls.length === 0) {
       lives--;
@@ -242,26 +350,31 @@
     }
 
     frameCount++;
-    if (frameCount >= nextCreepFrame) {
-      const alive = bricks.filter(b => b.alive).length;
-      const progress = 1 - alive / TOTAL_BRICKS;
+    if (frameCount >= nextCreepFrame && totalBricks > 0) {
+      const alive = bricks.filter((b) => b.alive).length;
+      const progress = 1 - alive / totalBricks;
       const t = progress * progress * (3 - 2 * progress);
       const creepPx = h * CREEP_PX_RATIO;
       for (const brick of bricks) brick.y += creepPx;
-      nextCreepFrame = frameCount + Math.round(
-        CREEP_MIN_INTERVAL + (CREEP_BASE_INTERVAL - CREEP_MIN_INTERVAL) * (1 - t)
-      );
+      nextCreepFrame =
+        frameCount +
+        Math.round(CREEP_MIN_INTERVAL + (CREEP_BASE_INTERVAL - CREEP_MIN_INTERVAL) * (1 - t));
     }
 
-    const lowestBrick = bricks.reduce((low, b) => b.alive && b.y + b.h > low ? b.y + b.h : low, 0);
+    const lowestBrick = bricks.reduce(
+      (low, b) => (b.alive && b.y + b.h > low ? b.y + b.h : low),
+      0
+    );
     if (lowestBrick >= paddle.y) {
       gameState = 'lost';
       cancelAnimationFrame(animFrame);
+      return;
     }
 
-    if (bricks.every(b => !b.alive)) {
-      gameState = 'won';
+    if (bricks.length && bricks.every((b) => !b.alive)) {
       cancelAnimationFrame(animFrame);
+      if (level >= LEVELS.length - 1) gameState = 'won';
+      else gameState = 'levelClear';
     }
   }
 
@@ -283,9 +396,8 @@
 
     for (const brick of bricks) {
       if (!brick.alive) continue;
-      if (imagesLoaded) {
-        ctx.drawImage(heartImg, brick.x, brick.y, brick.w, brick.h);
-      } else {
+      if (imagesLoaded) ctx.drawImage(heartImg, brick.x, brick.y, brick.w, brick.h);
+      else {
         ctx.fillStyle = '#092F33';
         ctx.fillRect(brick.x, brick.y, brick.w, brick.h);
       }
@@ -312,6 +424,24 @@
         ctx.drawImage(heartImg, 6 + i * (lifeSize + 4), 6, lifeSize, lifeSize);
       }
     }
+
+    ctx.fillStyle = '#092F33';
+    ctx.font = `${Math.max(11, w * 0.028)}px Cinzel, serif`;
+    ctx.textAlign = 'right';
+    ctx.fillText(`${ui.levelLabel} ${levelNumber}`, w - 10, 18);
+  }
+
+  function relocateBricksKeepProgress() {
+    const gap = w * BRICK_GAP_RATIO;
+    const brickW = (w - gap * (COLS + 1)) / COLS;
+    const brickH = h * BRICK_HEIGHT_RATIO;
+    const topOffset = h * BRICK_TOP_RATIO;
+    for (const brick of bricks) {
+      brick.x = gap + brick.c * (brickW + gap);
+      brick.y = topOffset + brick.r * (brickH + gap);
+      brick.w = brickW;
+      brick.h = brickH;
+    }
   }
 
   function movePaddle(clientX) {
@@ -321,7 +451,7 @@
     const newX = Math.max(0, Math.min(w - paddle.w, x - paddle.w / 2));
     paddleVx = newX - paddle.x;
     paddle.x = newX;
-    if (gameState === 'idle') {
+    if (gameState === 'idle' && balls[0]) {
       balls[0].x = paddle.x + paddle.w / 2;
       draw();
     }
@@ -346,7 +476,10 @@
     let loaded = 0;
     function checkLoaded() {
       loaded++;
-      if (loaded === 2) { imagesLoaded = true; draw(); }
+      if (loaded === 2) {
+        imagesLoaded = true;
+        draw();
+      }
     }
     heartImg.onload = checkLoaded;
     ballImg.onload = checkLoaded;
@@ -361,28 +494,18 @@
       if (oldW && oldW !== w) {
         const scale = w / oldW;
         for (const ball of balls) {
-          ball.x *= scale; ball.y *= scale;
-          ball.dx *= scale; ball.dy *= scale;
+          ball.x *= scale;
+          ball.y *= scale;
+          ball.dx *= scale;
+          ball.dy *= scale;
           ball.r = w * BALL_RADIUS_RATIO;
         }
+        currentSpeed = getBaseSpeed();
         paddle.w = w * PADDLE_WIDTH_RATIO;
         paddle.h = h * PADDLE_HEIGHT_RATIO;
         paddle.y = h - h * PADDLE_BOTTOM_RATIO - paddle.h;
         paddle.x = Math.min(paddle.x * scale, w - paddle.w);
-        const gap = w * BRICK_GAP_RATIO;
-        const brickW = (w - gap * (COLS + 1)) / COLS;
-        const brickH = h * BRICK_HEIGHT_RATIO;
-        const topOffset = h * BRICK_TOP_RATIO;
-        let i = 0;
-        for (let r = 0; r < ROWS; r++) {
-          for (let c = 0; c < COLS; c++) {
-            bricks[i].x = gap + c * (brickW + gap);
-            bricks[i].y = topOffset + r * (brickH + gap);
-            bricks[i].w = brickW;
-            bricks[i].h = brickH;
-            i++;
-          }
-        }
+        relocateBricksKeepProgress();
         draw();
       }
     });
@@ -397,7 +520,7 @@
 
 <section class="game-section">
   <header class="game-header">
-    <h2 class="game-title">While You Wait...</h2>
+    <h2 class="game-title">{ui.gameTitle}</h2>
   </header>
 
   <LaceBorder pattern={1} size="var(--game-lace-size)" color="#fff">
@@ -408,16 +531,16 @@
             class="pause-btn"
             type="button"
             onclick={togglePause}
-            aria-label={gameState === 'playing' ? 'Pause' : 'Resume'}
+            aria-label={gameState === 'playing' ? ui.pause : ui.resume}
           >
             {#if gameState === 'playing'}
               <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
-                <rect x="5" y="3" width="5" height="18" rx="1"/>
-                <rect x="14" y="3" width="5" height="18" rx="1"/>
+                <rect x="5" y="3" width="5" height="18" rx="1" />
+                <rect x="14" y="3" width="5" height="18" rx="1" />
               </svg>
             {:else}
               <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
-                <polygon points="5,3 21,12 5,21"/>
+                <polygon points="5,3 21,12 5,21" />
               </svg>
             {/if}
           </button>
@@ -433,28 +556,36 @@
 
         {#if gameState === 'idle'}
           <div class="overlay">
-            <button class="play-button" type="button" onclick={startGame}>Play</button>
+            <p class="overlay-text">{ui.levelLabel} {levelNumber}</p>
+            <button class="play-button" type="button" onclick={startGame}>{ui.play}</button>
           </div>
         {/if}
 
         {#if gameState === 'paused'}
           <div class="overlay">
-            <p class="overlay-text">Paused</p>
-            <button class="play-button" type="button" onclick={resumeGame}>Resume</button>
+            <p class="overlay-text">{ui.paused}</p>
+            <button class="play-button" type="button" onclick={resumeGame}>{ui.resume}</button>
+          </div>
+        {/if}
+
+        {#if gameState === 'levelClear'}
+          <div class="overlay">
+            <p class="overlay-text">{ui.levelClear}</p>
+            <button class="play-button" type="button" onclick={startGame}>{ui.nextLevel}</button>
           </div>
         {/if}
 
         {#if gameState === 'won'}
           <div class="overlay">
-            <p class="overlay-text">You Win!</p>
-            <button class="play-button" type="button" onclick={startGame}>Play Again</button>
+            <p class="overlay-text">{ui.youWin}</p>
+            <button class="play-button" type="button" onclick={startGame}>{ui.playAgain}</button>
           </div>
         {/if}
 
         {#if gameState === 'lost'}
           <div class="overlay">
-            <p class="overlay-text">Game Over</p>
-            <button class="play-button" type="button" onclick={startGame}>Try Again</button>
+            <p class="overlay-text">{ui.gameOver}</p>
+            <button class="play-button" type="button" onclick={startGame}>{ui.tryAgain}</button>
           </div>
         {/if}
       </div>
@@ -571,8 +702,9 @@
     border: 1.5px solid var(--color-text);
     padding: 0.75em 2.5em;
     cursor: pointer;
-    transition: background-color var(--duration-normal) var(--ease-elegant),
-                color var(--duration-normal) var(--ease-elegant);
+    transition:
+      background-color var(--duration-normal) var(--ease-elegant),
+      color var(--duration-normal) var(--ease-elegant);
   }
 
   .play-button:hover {

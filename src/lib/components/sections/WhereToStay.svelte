@@ -1,8 +1,9 @@
 <script>
   import Section from '$lib/components/Section.svelte';
-  import { wedding } from '$lib/content/wedding.js';
+  import { useI18n } from '$lib/i18n/index.svelte.js';
 
-  const s = wedding.stay;
+  const i18n = useI18n();
+  const s = $derived(i18n.wedding.stay);
 </script>
 
 <Section id="where-to-stay" title={s.title} titleStyle="display">
@@ -14,12 +15,16 @@
     </p>
     <p class="intro">{s.intro}</p>
     {#if s.items.length}
-      <ul>
+      <ul class="hotels">
         {#each s.items as item}
           <li>
-            <p class="name">{item.name}</p>
-            {#if item.address}<p class="addr">{item.address}</p>{/if}
-            <p>{item.description}</p>
+            {#if item.href}
+              <a href={item.href} target="_blank" rel="noopener noreferrer">{item.name}</a>
+            {:else}
+              <p class="name">{item.name}</p>
+              {#if item.address}<p class="addr">{item.address}</p>{/if}
+              {#if item.description}<p>{item.description}</p>{/if}
+            {/if}
           </li>
         {/each}
       </ul>
@@ -54,6 +59,24 @@
   .intro {
     font-size: clamp(1.05rem, 2vw, 1.22rem);
     line-height: 1.65;
+  }
+
+  ul.hotels {
+    list-style: disc;
+    list-style-position: inside;
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    font-size: clamp(1.05rem, 2vw, 1.22rem);
+    line-height: 1.55;
+    text-align: center;
+  }
+
+  .hotels a {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
   }
 
   ul {

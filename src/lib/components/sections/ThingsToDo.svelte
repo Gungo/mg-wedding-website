@@ -1,26 +1,42 @@
 <script>
   import Section from '$lib/components/Section.svelte';
   import Carousel from '$lib/components/Carousel.svelte';
-  import { wedding } from '$lib/content/wedding.js';
+  import { useI18n } from '$lib/i18n/index.svelte.js';
 
-  const t = wedding.thingsToDo;
+  const i18n = useI18n();
+  const t = $derived(i18n.wedding.thingsToDo);
+  const ui = $derived(i18n.wedding.ui);
+
+  function itemLinks(item) {
+    if (item.links?.length) return item.links;
+    if (item.link) return [item.link];
+    return [];
+  }
 </script>
 
 <Section id="things-to-do" title={t.title} titleStyle="script" bleed>
   <img
     class="adventure"
     src="/images/canva/decor/adventure-ahead.png"
-    alt="Adventure lies ahead"
+    alt={ui.adventureAlt}
   />
   <Carousel>
     {#each t.items as item}
+      {@const links = itemLinks(item)}
       <article class="card">
         <div class="photo-wrap">
           <img src={item.image} alt={item.imageAlt} />
         </div>
         <div class="copy">
           <h3>{item.title}</h3>
-          <p>{item.description}</p>
+          <p>
+            {item.description}{#each links as l}{#if l.before}{l.before}{:else}{' '}{/if}<a
+                href={l.href}
+                target="_blank"
+                rel="noopener noreferrer">{l.label}</a
+              >{/each}{#if links.length}.
+            {/if}
+          </p>
         </div>
       </article>
     {/each}
@@ -71,6 +87,13 @@
     font-style: italic;
     line-height: 1.55;
     color: var(--color-text);
+  }
+
+  p a {
+    font-style: italic;
+    color: var(--color-text);
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
   }
 
   .adventure {

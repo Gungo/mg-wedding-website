@@ -1,8 +1,10 @@
 <script>
   import Section from '$lib/components/Section.svelte';
-  import { wedding } from '$lib/content/wedding.js';
+  import { useI18n } from '$lib/i18n/index.svelte.js';
 
-  const w = wedding.welcomeParty;
+  const i18n = useI18n();
+  const w = $derived(i18n.wedding.welcomeParty);
+  const ui = $derived(i18n.wedding.ui);
 </script>
 
 <Section id="welcome-party" title={w.title} titleStyle="script">
@@ -18,7 +20,7 @@
       <p class="address">{w.address}</p>
     {/if}
     {#if w.attire}
-      <p class="attire">Attire: {w.attire}</p>
+      <p class="attire">{ui.attire}: {w.attire}</p>
     {/if}
     {#if w.attireNote}
       <p class="note">{w.attireNote}</p>

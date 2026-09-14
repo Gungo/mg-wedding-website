@@ -1,5 +1,9 @@
 <script>
   import LaceBorder from './LaceBorder.svelte';
+  import { useI18n } from '$lib/i18n/index.svelte.js';
+
+  const i18n = useI18n();
+  const ui = $derived(i18n.wedding.ui);
 </script>
 
 <section class="rsvp-section">
@@ -19,7 +23,7 @@
         <source src="/images/main/envelopejuly17.mov" type="video/quicktime" />
         <source src="/images/main/envelopejuly17.mp4" type="video/mp4" />
       </video>
-      <a class="rsvp-button" href="/rsvp">RSVP</a>
+      <a class="rsvp-button" href="/rsvp">{ui.rsvpCta}</a>
     </div>
     </LaceBorder>
   </div>

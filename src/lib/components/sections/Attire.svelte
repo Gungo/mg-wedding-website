@@ -1,8 +1,10 @@
 <script>
   import Section from '$lib/components/Section.svelte';
-  import { wedding } from '$lib/content/wedding.js';
+  import { useI18n } from '$lib/i18n/index.svelte.js';
 
-  const a = wedding.attire;
+  const i18n = useI18n();
+  const a = $derived(i18n.wedding.attire);
+  const ui = $derived(i18n.wedding.ui);
 </script>
 
 <Section id="attire" title={a.title} titleStyle="display">
@@ -12,13 +14,16 @@
     {#if a.note}
       <p class="note">{a.note}</p>
     {/if}
+    {#if a.weather}
+      <p class="weather">{a.weather}</p>
+    {/if}
   </div>
 
   {#if a.inspo}
     <div class="inspo">
       <div class="inspo-colors">
-        <p class="inspo-label">INSPO COLORS</p>
-        <div class="swatches" aria-label="Inspiration color palette">
+        <p class="inspo-label">{ui.inspoColors}</p>
+        <div class="swatches" aria-label={ui.inspoPaletteAria}>
           {#each a.inspo.colors as color}
             <div
               class="swatch"
@@ -32,7 +37,7 @@
 
       <div class="inspo-photos">
         <div class="inspo-gowns">
-          <p class="inspo-label">INSPO OUTFITS</p>
+          <p class="inspo-label">{ui.inspoOutfits}</p>
           <div class="inspo-frame">
             <img
               src={a.inspo.src}
@@ -106,6 +111,13 @@
     line-height: 1.6;
   }
 
+  .weather {
+    margin-top: 1.25rem;
+    font-size: clamp(1.05rem, 2vw, 1.2rem);
+    font-weight: var(--font-weight-bold);
+    line-height: 1.6;
+  }
+
   .inspo {
     width: min(100%, 72rem);
     margin: clamp(2rem, 5vh, 3rem) auto 0;
@@ -147,7 +159,7 @@
     min-height: 0;
   }
 
-  .swatch:last-child {
+  .swatch:nth-last-child(-n + 2) {
     grid-column: 1 / -1;
   }
 

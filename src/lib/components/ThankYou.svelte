@@ -1,6 +1,13 @@
+<script>
+  import { useI18n } from '$lib/i18n/index.svelte.js';
+
+  const i18n = useI18n();
+  const ui = $derived(i18n.wedding.ui);
+</script>
+
 <section class="thankyou-section">
-  <p class="thankyou-text">Thank you for your response</p>
-  <a class="edit-link" href="/rsvp">Edit Response</a>
+  <p class="thankyou-text">{ui.thankYou}</p>
+  <a class="edit-link" href="/rsvp">{ui.editResponse}</a>
 </section>
 
 <style>

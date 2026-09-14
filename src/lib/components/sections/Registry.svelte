@@ -1,8 +1,9 @@
 <script>
   import Section from '$lib/components/Section.svelte';
-  import { wedding } from '$lib/content/wedding.js';
+  import { useI18n } from '$lib/i18n/index.svelte.js';
 
-  const r = wedding.registry;
+  const i18n = useI18n();
+  const r = $derived(i18n.wedding.registry);
 </script>
 
 <Section id="registry">

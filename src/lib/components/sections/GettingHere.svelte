@@ -1,8 +1,9 @@
 <script>
   import Section from '$lib/components/Section.svelte';
-  import { wedding } from '$lib/content/wedding.js';
+  import { useI18n } from '$lib/i18n/index.svelte.js';
 
-  const t = wedding.travel;
+  const i18n = useI18n();
+  const t = $derived(i18n.wedding.travel);
 </script>
 
 <Section id="getting-here" title="" titleStyle="display">
@@ -41,6 +42,19 @@
           <li>{step}</li>
         {/each}
       </ol>
+      {#if conn.promo}
+        <div class="promo">
+          <p class="promo-headline">{conn.promo.headline}</p>
+          <p>
+            <span class="promo-label">{conn.promo.codeLabel}:</span>
+            {conn.promo.code}
+          </p>
+          <p>
+            <span class="promo-label">{conn.promo.routesLabel}:</span>
+            {conn.promo.routes}
+          </p>
+        </div>
+      {/if}
     {/each}
   </div>
 </Section>
@@ -139,6 +153,22 @@
     gap: 0.65rem;
     font-size: clamp(1rem, 1.8vw, 1.12rem);
     line-height: 1.55;
+  }
+
+  .promo {
+    margin: 1.25rem auto 0;
+    max-width: 28rem;
+    font-weight: var(--font-weight-bold);
+    font-size: clamp(1rem, 1.8vw, 1.12rem);
+    line-height: 1.55;
+  }
+
+  .promo-headline {
+    margin-bottom: 0.35rem;
+  }
+
+  .promo-label {
+    letter-spacing: 0.04em;
   }
 
   .boat {

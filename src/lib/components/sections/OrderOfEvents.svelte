@@ -1,8 +1,10 @@
 <script>
   import Section from '$lib/components/Section.svelte';
-  import { wedding } from '$lib/content/wedding.js';
+  import { useI18n } from '$lib/i18n/index.svelte.js';
 
-  const s = wedding.schedule;
+  const i18n = useI18n();
+  const s = $derived(i18n.wedding.schedule);
+  const ui = $derived(i18n.wedding.ui);
 </script>
 
 <div class="schedule">
@@ -11,7 +13,7 @@
       <img
         class="side-photo"
         src="/images/canva/photos/shared-drink.jpg"
-        alt="Mariluz and Germán sharing a drink"
+        alt={ui.shareDrinkAlt}
       />
       <div class="wrap">
         <ol>
@@ -20,7 +22,7 @@
               {#if item.icon}
                 <img
                   class="icon"
-                  class:icon-throwdown={item.name === 'First throwdown'}
+                  class:icon-throwdown={item.id === 'throwdown'}
                   src={item.icon}
                   alt=""
                 />

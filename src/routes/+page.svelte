@@ -18,7 +18,12 @@
   import ThingsToDo from '$lib/components/sections/ThingsToDo.svelte';
   import Registry from '$lib/components/sections/Registry.svelte';
   import Faq from '$lib/components/sections/Faq.svelte';
+  import LanguageToggle from '$lib/components/LanguageToggle.svelte';
   import { RSVP_OPEN } from '$lib/config.js';
+  import { useI18n } from '$lib/i18n/index.svelte.js';
+
+  const i18n = useI18n();
+  const ui = $derived(i18n.wedding.ui);
 
   let { data } = $props();
 
@@ -47,6 +52,7 @@
 </script>
 
 <Hero onAdminTrigger={openAdminPrompt} />
+<LanguageToggle />
 
 {#if showMasthead}
   <Intro />
@@ -69,7 +75,7 @@
 {/if}
 
 <figure class="story-still">
-  <img src="/images/canva/photos/iceland.jpg" alt="Mariluz and Germán in Iceland" />
+  <img src="/images/canva/photos/iceland.jpg" alt={ui.icelandAlt} />
 </figure>
 
 {#if data.sections.attire}
