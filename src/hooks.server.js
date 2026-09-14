@@ -14,6 +14,10 @@ export async function handle({ event, resolve }) {
 
   event.locals.deviceId = deviceId;
   event.locals.hasSubmitted = event.cookies.get('has_submitted') === 'true';
+  event.locals.locale = event.cookies.get('mg-locale') === 'es' ? 'es' : 'en';
 
-  return resolve(event);
+  return resolve(event, {
+    transformPageChunk: ({ html }) =>
+      html.replace('%lang%', event.locals.locale)
+  });
 }

@@ -1,40 +1,48 @@
 <script>
   import { onMount } from 'svelte';
   import Hero from '$lib/components/Hero.svelte';
-  import RsvpEnvelope from '$lib/components/RsvpEnvelope.svelte';
+  import ComingSoonPhoto from '$lib/components/ComingSoonPhoto.svelte';
   import ThankYou from '$lib/components/ThankYou.svelte';
   import BrickBreaker from '$lib/components/BrickBreaker.svelte';
   import AdminPasswordPrompt from '$lib/components/AdminPasswordPrompt.svelte';
-  import AdminPanel from '$lib/components/AdminPanel.svelte';
+  import DecorBand from '$lib/components/DecorBand.svelte';
+  import EventMasthead from '$lib/components/sections/EventMasthead.svelte';
+  import Intro from '$lib/components/sections/Intro.svelte';
+  import OurStory from '$lib/components/sections/OurStory.svelte';
+  import OrderOfEvents from '$lib/components/sections/OrderOfEvents.svelte';
+  import Attire from '$lib/components/sections/Attire.svelte';
+  import Menu from '$lib/components/sections/Menu.svelte';
+  import GettingHere from '$lib/components/sections/GettingHere.svelte';
+  import Maps from '$lib/components/sections/Maps.svelte';
+  import WhereToStay from '$lib/components/sections/WhereToStay.svelte';
+  import ThingsToDo from '$lib/components/sections/ThingsToDo.svelte';
+  import Registry from '$lib/components/sections/Registry.svelte';
+  import Faq from '$lib/components/sections/Faq.svelte';
+  import LanguageToggle from '$lib/components/LanguageToggle.svelte';
+  import { RSVP_OPEN } from '$lib/config.js';
+  import { useI18n } from '$lib/i18n/index.svelte.js';
+
+  const i18n = useI18n();
+  const ui = $derived(i18n.wedding.ui);
 
   let { data } = $props();
 
   let showPasswordPrompt = $state(false);
-  let showAdmin = $state(false);
-  let adminRsvps = $state([]);
-  let adminPassword = $state('');
+  const showMasthead = $derived(data.siteState === 'rsvp' || data.siteState === 'live');
+  const showRsvp = $derived(RSVP_OPEN && data.siteState !== 'coming_soon');
+
+  function openAdminPrompt() {
+    showPasswordPrompt = true;
+  }
 
   function handleKeydown(e) {
     if ((e.metaKey || e.ctrlKey) && e.shiftKey && e.key === 'p') {
       e.preventDefault();
-      if (!showAdmin) showPasswordPrompt = true;
+      openAdminPrompt();
     }
-    if (e.key === 'Escape') {
-      if (showPasswordPrompt) showPasswordPrompt = false;
+    if (e.key === 'Escape' && showPasswordPrompt) {
+      showPasswordPrompt = false;
     }
-  }
-
-  function handleAdminSuccess(rsvps, pw) {
-    adminRsvps = rsvps;
-    adminPassword = pw;
-    showPasswordPrompt = false;
-    showAdmin = true;
-  }
-
-  function handleLogout() {
-    showAdmin = false;
-    adminRsvps = [];
-    adminPassword = '';
   }
 
   onMount(() => {
@@ -43,26 +51,88 @@
   });
 </script>
 
-<Hero />
+<Hero onAdminTrigger={openAdminPrompt} />
+<LanguageToggle />
 
-{#if data.hasSubmitted}
-  <ThankYou />
-  <BrickBreaker />
-{:else}
-  <RsvpEnvelope />
+{#if showMasthead}
+  <Intro />
+  <EventMasthead hasSubmitted={data.hasSubmitted} showRsvp={showRsvp} />
 {/if}
+
+{#if showRsvp && data.hasSubmitted}
+  <ThankYou />
+{:else}
+  <!-- Glacier photo stands in for the old envelope / save-the-date animation -->
+  <ComingSoonPhoto />
+{/if}
+
+{#if data.sections.story}
+  <OurStory />
+{/if}
+
+{#if data.sections.schedule}
+  <OrderOfEvents />
+{/if}
+
+<figure class="story-still">
+  <img src="/images/canva/photos/iceland.jpg" alt={ui.icelandAlt} />
+</figure>
+
+{#if data.sections.attire}
+  <Attire />
+{/if}
+
+{#if data.sections.menu}
+  <Menu />
+  <DecorBand src="/images/canva/decor/coral-border-mirrored.png" alt="" />
+{/if}
+
+{#if data.sections.travel}
+  <GettingHere />
+  <DecorBand src="/images/canva/decor/mountains.png" alt="" variant="soft" />
+{/if}
+
+{#if data.sections.maps}
+  <Maps />
+{/if}
+
+{#if data.sections.stay}
+  <WhereToStay />
+  <DecorBand src="/images/canva/decor/coastline.png" alt="" />
+{/if}
+
+{#if data.sections.thingsToDo}
+  <ThingsToDo />
+{/if}
+
+{#if data.sections.registry}
+  <Registry />
+{/if}
+
+{#if data.sections.faq}
+  <Faq />
+{/if}
+
+<BrickBreaker />
+
+<DecorBand src="/images/canva/decor/waves.png" alt="" />
 
 {#if showPasswordPrompt}
-  <AdminPasswordPrompt
-    onSuccess={handleAdminSuccess}
-    onCancel={() => showPasswordPrompt = false}
-  />
+  <AdminPasswordPrompt onCancel={() => showPasswordPrompt = false} />
 {/if}
 
-{#if showAdmin}
-  <AdminPanel
-    rsvps={adminRsvps}
-    password={adminPassword}
-    onLogout={handleLogout}
-  />
-{/if}
+<style>
+  .story-still {
+    width: min(100%, 420px);
+    margin: clamp(2.5rem, 6vh, 4rem) auto 0;
+    border: 1px solid var(--color-text);
+    padding: 0.55rem;
+    background: var(--color-sand-light);
+  }
+
+  .story-still img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+</style>

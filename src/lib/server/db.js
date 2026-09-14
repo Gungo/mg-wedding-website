@@ -4,6 +4,7 @@ import { join } from 'path';
 
 const DATA_DIR = join(process.cwd(), 'data');
 const DB_PATH = join(DATA_DIR, 'rsvps.json');
+const EMAILS_PATH = join(DATA_DIR, 'notification_emails.json');
 
 function useSupabase() {
   return !!getSupabase();
@@ -124,4 +125,55 @@ export async function getRsvps() {
     }));
   }
   return readLocal();
+}
+
+// ── Notification Emails ──
+
+function readLocalEmails() {
+  try {
+    if (!existsSync(EMAILS_PATH)) return [];
+    return JSON.parse(readFileSync(EMAILS_PATH, 'utf-8'));
+  } catch { return []; }
+}
+
+function writeLocalEmails(data) {
+  if (!ensureDir()) return;
+  try { writeFileSync(EMAILS_PATH, JSON.stringify(data, null, 2)); } catch { /* */ }
+}
+
+export async function getNotificationEmails() {
+  if (useSupabase()) {
+    const sb = getSupabase();
+    const { data, error } = await sb.from('notification_emails')
+      .select('*')
+      .order('created_at', { ascending: true });
+    if (error) { console.error('Supabase emails read error:', error.message); return []; }
+    return data.map(r => r.email);
+  }
+  return readLocalEmails();
+}
+
+export async function addNotificationEmail(email) {
+  if (useSupabase()) {
+    const sb = getSupabase();
+    const { error } = await sb.from('notification_emails').insert({ email });
+    if (error) console.error('Supabase email insert error:', error.message);
+    return;
+  }
+  const emails = readLocalEmails();
+  if (!emails.includes(email)) {
+    emails.push(email);
+    writeLocalEmails(emails);
+  }
+}
+
+export async function removeNotificationEmail(email) {
+  if (useSupabase()) {
+    const sb = getSupabase();
+    const { error } = await sb.from('notification_emails').delete().eq('email', email);
+    if (error) console.error('Supabase email delete error:', error.message);
+    return;
+  }
+  const emails = readLocalEmails();
+  writeLocalEmails(emails.filter(e => e !== email));
 }

@@ -1,7 +1,13 @@
 import { redirect } from '@sveltejs/kit';
 import { addRsvp, updateRsvpByDevice, getRsvpByDevice } from '$lib/server/db.js';
+import { sendRsvpNotification } from '$lib/server/email.js';
+import { RSVP_OPEN } from '$lib/config.js';
 
 export async function load({ locals }) {
+  if (!RSVP_OPEN) {
+    throw redirect(302, '/');
+  }
+
   const existing = await getRsvpByDevice(locals.deviceId);
   return {
     existing: existing ? {
@@ -29,11 +35,16 @@ export const actions = {
       message: data.get('message')
     };
 
-    const existing = await getRsvpByDevice(locals.deviceId);
-    if (existing) {
-      await updateRsvpByDevice(locals.deviceId, rsvp);
-    } else {
-      await addRsvp(rsvp);
+    try {
+      const existing = await getRsvpByDevice(locals.deviceId);
+      if (existing) {
+        await updateRsvpByDevice(locals.deviceId, rsvp);
+      } else {
+        await addRsvp(rsvp);
+        await sendRsvpNotification(rsvp);
+      }
+    } catch (err) {
+      console.error('RSVP save error:', err.message);
     }
 
     cookies.set('has_submitted', 'true', {
