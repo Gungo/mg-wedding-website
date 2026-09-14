@@ -174,7 +174,8 @@ export const wedding = {
       { name: 'Gold Beach, OR', note: 'Approx. 20 min from Crook Point' },
       { name: 'Crescent City, CA', note: 'On the southern border, 40–50 min from Crook Point' }
     ],
-    recommend: 'All three cities are great stays. We particularly recommend Gold Beach and Brookings.',
+    recommend:
+      'We particularly recommend Gold Beach and Brookings. Also consider renting a car to take advantage of the coast, Redwoods, and the surrounding natural area. If not, taxis from Crescent City Airport (50 min) or Medford (3 hrs) are available.',
     connections: [
       {
         title: 'Connection 1 / Conexión 1',
