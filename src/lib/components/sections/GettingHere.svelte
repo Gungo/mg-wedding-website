@@ -45,6 +45,9 @@
       {#if conn.promo}
         <div class="promo">
           <p class="promo-headline">{conn.promo.headline}</p>
+          {#if conn.promo.subline}
+            <p class="promo-subline">{conn.promo.subline}</p>
+          {/if}
           <p>
             <span class="promo-label">{conn.promo.codeLabel}:</span>
             {conn.promo.code}
@@ -164,6 +167,10 @@
   }
 
   .promo-headline {
+    margin-bottom: 0.35rem;
+  }
+
+  .promo-subline {
     margin-bottom: 0.35rem;
   }
 
