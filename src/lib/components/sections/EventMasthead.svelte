@@ -29,7 +29,18 @@
       {hasSubmitted ? ui.rsvpDone : ui.rsvpCta}
     </a>
   {:else}
-    <p class="rsvp-status rsvp-soon">{ui.rsvpSoon}</p>
+    <div class="rsvp-soon-block">
+      <p class="rsvp-status rsvp-soon">{ui.rsvpSoon}</p>
+      <p class="rsvp-status rsvp-soon rsvp-soon-hint">
+        {ui.rsvpSoonHint}
+        <a
+          class="rsvp-soon-link"
+          href={ui.rsvpSoonLinkHref}
+          target="_blank"
+          rel="noopener noreferrer"
+        >{ui.rsvpSoonLinkLabel}</a>
+      </p>
+    </div>
   {/if}
 
   <div class="summary">
@@ -111,6 +122,24 @@
     text-decoration: none;
     letter-spacing: 0.18em;
     color: var(--color-text-muted);
+  }
+
+  .rsvp-soon-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .rsvp-soon-hint {
+    margin-top: 0.65rem;
+    max-width: 28rem;
+    line-height: 1.55;
+  }
+
+  .rsvp-soon-link {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 0.35em;
   }
 
   .summary {

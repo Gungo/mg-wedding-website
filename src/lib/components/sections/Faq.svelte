@@ -11,7 +11,9 @@
     {#each f.items as item}
       <div class="item">
         <p class="q">{item.q}</p>
-        <p class="a">{item.a}</p>
+        <p class="a">
+          {item.a}{#if item.aItalic}<em>{item.aItalic}</em>{/if}{#if item.aAfter}{item.aAfter}{/if}{#if item.aItalic2}<em>{item.aItalic2}</em>{/if}{#if item.aAfter2}{item.aAfter2}{/if}
+        </p>
       </div>
     {/each}
   </div>

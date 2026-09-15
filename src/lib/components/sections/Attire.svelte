@@ -14,6 +14,9 @@
     {#if a.note}
       <p class="note">{a.note}</p>
     {/if}
+    {#if a.noteItalic}
+      <p class="note-reserved"><em>{a.noteItalic}</em></p>
+    {/if}
     {#if a.weather}
       <p class="weather">{a.weather}</p>
     {/if}
@@ -108,6 +111,13 @@
   .note {
     margin-top: 1.25rem;
     font-size: clamp(1.05rem, 2vw, 1.2rem);
+    line-height: 1.6;
+  }
+
+  .note-reserved {
+    margin-top: 1.25rem;
+    font-size: clamp(1.05rem, 2vw, 1.2rem);
+    font-weight: var(--font-weight-bold);
     line-height: 1.6;
   }
 
