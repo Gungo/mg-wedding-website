@@ -39,6 +39,7 @@ export const wedding = {
     enabled: true,
     title: 'Our Love Story',
     words: [
+      'THE BEGINING',
       'Bus loop',
       'Friendship',
       'Laughs',
@@ -73,33 +74,33 @@ export const wedding = {
   schedule: {
     enabled: true,
     title: 'Order of Events',
-    note: 'Para los locos: anyone still partying after 1 AM is welcome to continue the festivities with us down by the beach and private lawn at Crook House.',
+    note: 'Para los locos: anyone still partying after 12 AM is welcome to continue the festivities with us down by the beach and private lawn at Crook House.',
     items: [
       {
         id: 'ceremony',
         name: 'Ceremony',
-        time: '3:00 PM — 3:45 PM',
+        time: '2:00 PM — 2:45 PM',
         place: 'Crook Point',
         icon: '/images/canva/decor/icon-ceremony.png'
       },
       {
         id: 'cocktail',
         name: 'Cocktail hour',
-        time: '4:00 PM — 5:00 PM',
+        time: '3:00 PM — 4:00 PM',
         place: 'Crook Point',
         icon: '/images/canva/decor/icon-cocktail.png'
       },
       {
         id: 'reception',
         name: 'Reception',
-        time: '6:00 PM',
+        time: '4:30 PM',
         place: 'Crook Point',
         icon: '/images/canva/decor/icon-reception.png'
       },
       {
         id: 'throwdown',
-        name: 'First throwdown',
-        time: '8:00 PM — 12 AM',
+        name: 'la Rumba',
+        time: '6:00 PM — 12 AM',
         place: 'Crook Point',
         icon: '/images/canva/decor/icon-throwdown.png'
       }
@@ -126,7 +127,9 @@ export const wedding = {
     title: 'Attire',
     level: 'Black tie',
     note:
-      'We kindly ask that men wear a tuxedo and women wear a floor-length gown. We encourage you to get creative with your look, from your outfit to accessories and makeup. It’s the last month of summer, let’s really embrace its colors. Think colorful, textured, fun, bold, and sparkle. Of course white and any shade in that family like cream, ivory, off-white, champagne, eggshell, and pale vanilla are reserved for the bride & groom.',
+      'We kindly ask that men wear a tuxedo and women wear a floor-length gown. We encourage you to get creative with your look, from your outfit to accessories and makeup. It’s the last month of summer, let’s really embrace its colors. Think colorful, textured, fun, bold, and sparkle. ',
+    noteItalic:
+      'Of course white and any shade in that family like cream, ivory, off-white, champagne, eggshell, and pale vanilla are reserved for the bride & groom.',
     weather:
       'It can range from 50-70+ degrees Fahrenheit (10-21+ Celsius) at Crook Point due to the coastal climate, please dress warmly. Jacket and coat options are recommended.',
     inspo: {
@@ -134,7 +137,7 @@ export const wedding = {
       alt: 'Colorful gown inspiration',
       /** CSS object-position — shift the collage in the right frame */
       position: 'center center',
-      src2: '/images/canva/photos/attire-inspo-2.jpg',
+      src2: '/images/canva/photos/attire-inspo-2.jpg?v=nox1',
       alt2: 'Formal attire inspiration with gowns and tuxedos',
       src3: '/images/canva/photos/attire-inspo-3.png?v=marked1',
       alt3: 'Men formal attire inspiration',
@@ -187,6 +190,7 @@ export const wedding = {
         ],
         promo: {
           headline: '20% off flights',
+          subline: 'Through Advanced Air airline',
           codeLabel: 'Code',
           code: 'CROOKPOINT20FLIGHTS',
           routesLabel: 'Routes',
@@ -343,7 +347,7 @@ export const wedding = {
 
   registry: {
     enabled: true,
-    note: 'Your presence is the greatest gift. If you wish to honor us with something more, we will share a registry here.',
+    note: 'Your presence is the greatest gift. If you wish to honor us with something more, we will share our Honeymoon registry funds here.',
     url: '',
     label: 'Registry'
   },
@@ -358,7 +362,7 @@ export const wedding = {
       },
       {
         q: "What's the weather going to be like?",
-        a: 'August on the southern Oregon coast is usually mild — pack a layer for wind and evening by the water.'
+        a: 'August on the southern Oregon coast usually ranges, so pack layers for chilly evenings by the water. While still finding warmer moments in the midday, especially on a hike.'
       },
       {
         q: 'Is the wedding outdoors?',
@@ -366,11 +370,15 @@ export const wedding = {
       },
       {
         q: 'What if I have a dietary restriction?',
-        a: 'Let us know ahead of time and we will make sure to accommodate.'
+        a: 'Let us know ahead of time and we will make sure to accommodate. What’s listed on the Menú page is ',
+        aItalic: 'GF, DF, shellfish free, and nut free',
+        aAfter: '. There will also be a ',
+        aItalic2: 'GF',
+        aAfter2: ' cake option.'
       },
       {
-        q: 'Do you have a registry?',
-        a: 'If we do, you will find the link in the registry section on this page.'
+        q: 'How can I get to the wedding?',
+        a: 'There may be Uber and/or Lyft available. We will also provide the phone number and email to Brookings local Taxi. There is available on-site parking, so you are also welcome to coordinate your DD for the night and drive.'
       },
       {
         q: 'Other questions?',
@@ -386,6 +394,10 @@ export const wedding = {
     rsvpCta: 'Kindly RSVP',
     rsvpDone: 'You responded',
     rsvpSoon: 'RSVP coming soon',
+    rsvpSoonHint: 'In the meantime send your address to this',
+    rsvpSoonLinkLabel: 'link',
+    rsvpSoonLinkHref:
+      'https://docs.google.com/forms/d/1I9xW1lI53IFG_FvsMScsIOuvsKxoALexs3CLlX6hbD8/edit',
     host: 'Host',
     date: 'Date',
     location: 'Location',

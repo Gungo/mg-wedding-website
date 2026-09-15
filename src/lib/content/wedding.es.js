@@ -39,6 +39,7 @@ export const wedding = {
     enabled: true,
     title: 'Nuestra historia',
     words: [
+      'THE BEGINING',
       'Bus loop',
       'Friendship',
       'Laughs',
@@ -78,28 +79,28 @@ export const wedding = {
       {
         id: 'ceremony',
         name: 'Ceremonia',
-        time: '3:00 p.m. — 3:45 p.m.',
+        time: '2:00 p.m. — 2:45 p.m.',
         place: 'Crook Point',
         icon: '/images/canva/decor/icon-ceremony.png'
       },
       {
         id: 'cocktail',
         name: 'Hora del cóctel',
-        time: '4:00 p.m. — 5:00 p.m.',
+        time: '3:00 p.m. — 4:00 p.m.',
         place: 'Crook Point',
         icon: '/images/canva/decor/icon-cocktail.png'
       },
       {
         id: 'reception',
         name: 'Recepción',
-        time: '6:00 p.m.',
+        time: '4:30 p.m.',
         place: 'Crook Point',
         icon: '/images/canva/decor/icon-reception.png'
       },
       {
         id: 'throwdown',
-        name: 'Primer throwdown',
-        time: '8:00 p.m. — 12 a.m.',
+        name: 'la Rumba',
+        time: '6:00 p.m. — 12 a.m.',
         place: 'Crook Point',
         icon: '/images/canva/decor/icon-throwdown.png'
       }
@@ -126,14 +127,16 @@ export const wedding = {
     title: 'Vestimenta',
     level: 'Etiqueta (black tie)',
     note:
-      'Les pedimos que los hombres vayan de esmoquin y las mujeres con un vestido largo. Anímense a ser creativos con el look: el outfit, los accesorios y el maquillaje. Es el último mes del verano, entonces vamos a irnos con todo en los colores. Piensen en color, textura, diversión, algo llamativo y con brillo. El blanco y todo lo de esa familia (crema, marfil, off-white, champagne, eggshell, vainilla) queda reservado para la novia y el novio.',
+      'Les pedimos que los hombres vayan de esmoquin y las mujeres con un vestido largo. Anímense a ser creativos con el look: el outfit, los accesorios y el maquillaje. Es el último mes del verano, entonces vamos a irnos con todo en los colores. Piensen en color, textura, diversión, algo llamativo y con brillo. ',
+    noteItalic:
+      'El blanco y todo lo de esa familia (crema, marfil, off-white, champagne, eggshell, vainilla) queda reservado para la novia y el novio.',
     weather:
       'En Crook Point puede estar entre 50 y 70+ grados Fahrenheit (10-21+ Celsius) por el clima de la costa, porfa vayan abrigados. Lleven chaqueta o abrigo.',
     inspo: {
       src: '/images/canva/photos/attire-inspo.png?v=premove1',
       alt: 'Inspiración de vestidos de colores',
       position: 'center center',
-      src2: '/images/canva/photos/attire-inspo-2.jpg',
+      src2: '/images/canva/photos/attire-inspo-2.jpg?v=nox1',
       alt2: 'Inspiración formal con vestidos largos y esmoquin',
       src3: '/images/canva/photos/attire-inspo-3.png?v=marked1',
       alt3: 'Inspiración de vestimenta formal para hombres',
@@ -185,6 +188,7 @@ export const wedding = {
         ],
         promo: {
           headline: '20% de descuento en vuelos',
+          subline: 'Con la aerolínea Advanced Air',
           codeLabel: 'Código',
           code: 'CROOKPOINT20FLIGHTS',
           routesLabel: 'Rutas',
@@ -339,7 +343,7 @@ export const wedding = {
 
   registry: {
     enabled: true,
-    note: 'Que vengan es el mejor regalo. Si quieren darnos algo más, aquí vamos a poner la lista de regalos.',
+    note: 'Que vengan es el mejor regalo. Si quieren darnos algo más, aquí vamos a poner nuestros fondos de luna de miel.',
     url: '',
     label: 'Lista de regalos'
   },
@@ -354,7 +358,7 @@ export const wedding = {
       },
       {
         q: '¿Cómo va a estar el clima?',
-        a: 'En agosto en esa costa de Oregón suele estar templado. Traigan una chaqueta por el viento y el frío de la noche junto al agua.'
+        a: 'En agosto en esa costa de Oregón el clima suele variar, entonces lleven capas por las noches frescas junto al agua. Igual hay momentos más calientitos al mediodía, sobre todo si van de hike.'
       },
       {
         q: '¿La boda es afuera?',
@@ -362,11 +366,15 @@ export const wedding = {
       },
       {
         q: '¿Y si tengo una restricción de comida?',
-        a: 'Cuéntennos con tiempo y lo resolvemos.'
+        a: 'Cuéntennos con tiempo y lo resolvemos. Lo que está en la página de Menú es ',
+        aItalic: 'GF, DF, sin mariscos y sin nueces',
+        aAfter: '. También va a haber opción de pastel ',
+        aItalic2: 'GF',
+        aAfter2: '.'
       },
       {
-        q: '¿Tienen lista de regalos?',
-        a: 'Si la tenemos, el link va a estar en la sección de regalos de esta página.'
+        q: '¿Cómo llego a la boda?',
+        a: 'Puede que haya Uber y/o Lyft. También les vamos a pasar el teléfono y el correo del taxi local de Brookings. Hay estacionamiento en el lugar, así que también pueden coordinar su conductor designado (DD) por la noche y manejar.'
       },
       {
         q: '¿Otra pregunta?',
@@ -382,6 +390,10 @@ export const wedding = {
     rsvpCta: 'Confirmar',
     rsvpDone: 'Ya confirmaron',
     rsvpSoon: 'Pronto podrán confirmar',
+    rsvpSoonHint: 'Mientras tanto, envíen su dirección a este',
+    rsvpSoonLinkLabel: 'link',
+    rsvpSoonLinkHref:
+      'https://docs.google.com/forms/d/1I9xW1lI53IFG_FvsMScsIOuvsKxoALexs3CLlX6hbD8/edit',
     host: 'Anfitriones',
     date: 'Fecha',
     location: 'Lugar',
