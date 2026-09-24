@@ -10,29 +10,35 @@ export const wedding = {
     hosts: 'Mariluz Del Pilar & Germán Ignacio'
   },
 
-  tagline: 'Come for the party, stay for the perreo!',
+  tagline: '¡Come for the party, stay for the perreo!',
   intro: [
     'We are so excited to celebrate our special day with you.',
-    'Our wedding will be held at Crook Point, Oregon, nestled among the evergreens and adorned by the coastal views, on Saturday, August 7, 2027, at 3:00 PM.',
+    'Our wedding will be held at Crook Point, Oregon, nestled among the evergreens and adorned by the coastal views, on Saturday, August 7, 2027, at 2:00 PM.',
     'Please take a moment to explore this site for all the details. Your presence means the world to us.'
   ],
+  introContactHint: 'Before you go please share your address/contact info to this',
+  introContactLinkLabel: 'link',
 
   event: {
     dateIso: '2027-08-07',
     dateLong: 'Saturday, August 7, 2027',
     dateShort: '08.07.27',
-    time: '3:00 PM',
+    time: '2:00 PM',
     venue: 'Crook Point',
     address: '',
     city: 'Crook Point, Oregon',
-    mapUrl: 'https://maps.google.com/?q=Crook+Point+Oregon',
+    mapLabel: 'Arch Rock Lawn',
+    mapSuffix: 'Oregon',
+    mapUrl:
+      'https://www.google.com/maps/place/Crook+Point/@42.2405179,-124.3958515,17z/data=!3m1!4b1!4m6!3m5!1s0x54dab9cc24d81d8f:0xa6ef3c3698196fbe!8m2!3d42.2405179!4d-124.3958515!16s%2Fg%2F11f65gkkhz?entry=ttu&g_ep=EgoyMDI2MDkxNi4wIKXMDSoASAFQAw%3D%3D',
     attire: 'Black tie'
   },
 
   rsvp: {
     deadline: 'May 1, 2027',
-    href: '/rsvp',
-    prompt: 'Let us know if you can make it!'
+    href: 'https://www.honeyfund.com/rsvp/site/restrepo-dominguez-08-07-2027/OTU1MjYyOQ==',
+    prompt: 'Let us know if you can make it!',
+    password: 'Password: Sirius'
   },
 
   story: {
@@ -127,7 +133,7 @@ export const wedding = {
     title: 'Attire',
     level: 'Black tie',
     note:
-      'We kindly ask that men wear a tuxedo and women wear a floor-length gown. We encourage you to get creative with your look, from your outfit to accessories and makeup. It’s the last month of summer, let’s really embrace its colors. Think colorful, textured, fun, bold, and sparkle. ',
+      'We kindly ask that men wear a tuxedo and women wear a floor-length gown/suit. We encourage you to get creative with your look, from your outfit to accessories and makeup. It’s the last month of summer, let’s really embrace its colors. Think colorful, textured, fun, bold, and sparkle. ',
     noteItalic:
       'Of course white and any shade in that family like cream, ivory, off-white, champagne, eggshell, and pale vanilla are reserved for the bride & groom.',
     weather:
@@ -170,27 +176,25 @@ export const wedding = {
   travel: {
     enabled: true,
     title: 'Getting Here',
-    intro:
-      'Crook Point, OR is a huge preserved estate between two coastal cities:',
-    towns: [
-      { name: 'Brookings, OR', note: 'Approx. 15–20 min from Crook Point' },
-      { name: 'Gold Beach, OR', note: 'Approx. 20 min from Crook Point' },
-      { name: 'Crescent City, CA', note: 'On the southern border, 40–50 min from Crook Point' }
-    ],
-    recommend:
-      'We particularly recommend Gold Beach and Brookings. Also consider renting a car to take advantage of the coast, Redwoods, and the surrounding natural area. If not, taxis from Crescent City Airport (50 min) or Medford (3 hrs) are available.',
+    flightsTitle: 'Flights',
+    icon: '/images/canva/decor/boat.png',
+    recommend: '',
     connections: [
       {
         title: 'Connection 1 / Conexión 1',
         steps: [
-          'Fly to San Francisco Airport, CA (SFO)',
-          'Transfer to Oakland (OAK) — about 1 hour 15 min drive or 1 hour 30 min train',
+          'Fly to San Francisco International Airport, CA (SFO)',
+          {
+            before: 'Transfer to Oakland (OAK) — ',
+            italic: 'about 1 hour 15 min drive or 1 hour 30 min train'
+          },
           'Fly from Oakland (OAK) to Crescent City Airport (CEC), CA',
-          'Drive 40–50 minutes to Brookings or Gold Beach, OR'
+          'Drive ~40 minutes to Brookings, ~50 minutes to Gold Beach, OR'
         ],
         promo: {
           headline: '20% off flights',
-          subline: 'Through Advanced Air airline',
+          sublineBefore: 'Through ',
+          sublineUnderline: 'Advanced Air airline',
           codeLabel: 'Code',
           code: 'CROOKPOINT20FLIGHTS',
           routesLabel: 'Routes',
@@ -201,9 +205,27 @@ export const wedding = {
         title: 'Connection 2 / Conexión 2',
         steps: [
           'Fly to Medford Airport, OR (MFR)',
-          'About a 3 hour drive from Medford through the redwoods (a short dip into California) to Brookings or Gold Beach',
-          'About 2.5 hours to Crescent City, CA'
+          'About a 3 hour drive from Medford through the redwoods (a short dip into California) to Brookings or Gold Beach'
         ]
+      }
+    ],
+    transportTitle: 'Transportation',
+    transportNotes: [
+      'We highly recommend considering renting a car to take advantage of the coast, Redwoods, and the surrounding natural area. There is also free parking available to those who choose to drive to the Venue.',
+      'There may be Uber and/or Lyft available. We will also provide the phone number and email to Brookings and Gold Beach local Taxi.'
+    ],
+    transportLinks: [
+      {
+        name: "Slim's Taxi Service, LLC",
+        href: 'https://slimstaxiservice13.wixsite.com/slimstaxiservice'
+      },
+      {
+        name: 'Brookings Taxi',
+        href: 'https://www.yelp.com/biz/brookings-taxi-brookings?osq=Taxis'
+      },
+      {
+        name: 'Accurate Taxi',
+        href: 'https://www.facebook.com/accuratetaxi/'
       }
     ]
   },
@@ -213,8 +235,17 @@ export const wedding = {
     title: 'Where to Stay',
     place: 'Brookings',
     region: 'Gold Beach',
-    intro:
-      'Ideally, stay within a short drive of Crook Point. Brookings and Gold Beach are the towns we recommend most. Below we will share some of our recommendations, and then a Google list of other places we found as well.',
+    areaIntro:
+      'Crook Point, OR is a huge preserved estate between two coastal cities, Brookings and Gold Beach.',
+    towns: [
+      { name: 'Brookings, OR', note: 'Approx. 15–20 min from Crook Point' },
+      { name: 'Gold Beach, OR', note: 'Approx. 20 min from Crook Point' },
+      { name: 'Crescent City, CA', note: 'On the southern border, 40–50 min from Crook Point' }
+    ],
+    introBefore:
+      'Ideally, stay within a short drive of Crook Point. Brookings and Gold Beach are the towns we recommend most. Below we will share ',
+    introUnderline: 'some',
+    introAfter: ' of our recommendations, and then a Google list of other places we found as well.',
     items: [
       {
         name: 'Gold Beach Inn / Irelands Rustic Lodges, Gold Beach',
@@ -300,9 +331,9 @@ export const wedding = {
         imageAlt: 'A natural rock arch on a sandy Oregon coast beach'
       },
       {
-        title: 'Town time',
+        title: 'Coastal views',
         description:
-          'Gold Beach and Brookings are the bases we recommend: coffee, a long lunch, and a slow afternoon before the weekend starts. Pictured: Samuel H. Boardman State Scenic Corridor.',
+          'Driving up and down the coast is another great thing to do. There are some seriously fantastic views. There are a couple view points along the drive. Some highlighted stops we know that are a must see are Samuel H. Boardman State Scenic Corridor (picture) and Secret Beach.',
         image: '/images/canva/photos/boardman.jpg',
         imageAlt: 'Looking over yellow wildflowers toward natural rock arches at Samuel H. Boardman State Scenic Corridor'
       },
@@ -336,19 +367,27 @@ export const wedding = {
         imageAlt: "The Crazy Norwegian's Fish & Chips restaurant exterior"
       },
       {
-        title: 'Mount Shasta /Mossbrae Falls',
+        title: 'Mount Shasta / Heart Lake',
         description:
-          'A short drive inland rewards you with moss-covered cliffs and a curtain of water. Worth the stop if you have an extra morning. Pictured: near Shasta-Trinity National Forest.',
-        image: '/images/canva/photos/mossbrae-falls.jpg',
-        imageAlt: 'Mount Shasta has been considered the root chakra of the world, and many people visit as a  personal and spiritual pilgrimage. It is also a stratovolcano as part of the cascades that form part of the ring of fire. Mossbrae falls is a waterfall inside the park.'
+          'Mt. Shasta is a Stratovolcano that is dormant and its summit is often obscured by lenticular clouds. It is also visited by many for its claims of emitting strong energy. Some Native American tribes like: Shasta, Wintu, Achumawi, Atsugewi and Modoc, hold the mountain to high devotion and would perform sacred ceremonies. It’s considered to be the root chakra of the earth. Worth the stop if you have an extra morning. Pictured: Heart lake in Mt Shasta. ~helpful links: ',
+        link: {
+          href: 'https://www.visitmtshasta.com/play',
+          label: 'VisitMtShasta'
+        },
+        image: '/images/canva/photos/heart-lake.jpg',
+        imageAlt: 'Heart Lake at Mount Shasta',
+        imagePosition: 'center 45%'
       }
     ]
   },
 
   registry: {
     enabled: true,
-    note: 'Your presence is the greatest gift. If you wish to honor us with something more, we will share our Honeymoon registry funds here.',
-    url: '',
+    noteBefore:
+      'Your presence is the greatest gift. If you wish to honor us with something more, we will share our Honeymoon registry funds ',
+    noteLinkLabel: 'here',
+    noteAfter: '.',
+    url: 'https://www.honeyfund.com/site/restrepo-dominguez-08-07-2027',
     label: 'Registry'
   },
 
@@ -358,7 +397,7 @@ export const wedding = {
     items: [
       {
         q: "What's the wedding attire?",
-        a: 'The wedding is black tie. We kindly ask that men wear a tuxedo and women wear a floor-length gown.'
+        a: 'The wedding is black tie. We kindly ask that men wear a tuxedo and women wear a floor-length gown/suit.'
       },
       {
         q: "What's the weather going to be like?",
@@ -366,7 +405,7 @@ export const wedding = {
       },
       {
         q: 'Is the wedding outdoors?',
-        a: 'Crook Point is a coastal estate. We will share ceremony and weather backup notes as the weekend comes together.'
+        a: 'The venue takes place outdoors on a forest lawn by the coast. We will share ceremony and weather backup notes as the weekend comes together, and will provide a tent if needed. Lamp heaters will also be available as it can get chilly.'
       },
       {
         q: 'What if I have a dietary restriction?',
@@ -392,12 +431,14 @@ export const wedding = {
     langEs: 'ES',
     langAria: 'Choose language',
     rsvpCta: 'Kindly RSVP',
+    rsvpShort: 'RSVP',
     rsvpDone: 'You responded',
     rsvpSoon: 'RSVP coming soon',
-    rsvpSoonHint: 'In the meantime send your address to this',
+    rsvpSoonHint: 'Send address/contact info to this',
     rsvpSoonLinkLabel: 'link',
     rsvpSoonLinkHref:
-      'https://docs.google.com/forms/d/1I9xW1lI53IFG_FvsMScsIOuvsKxoALexs3CLlX6hbD8/edit',
+      'https://www.honeyfund.com/rsvp/contact-collector/restrepo-dominguez-08-07-2027/OTU1MjYyOQ==',
+    rsvpPanelAlt: 'Hand with lace cuff reaching for an ornate door handle',
     host: 'Host',
     date: 'Date',
     location: 'Location',
