@@ -44,35 +44,129 @@ export const wedding = {
   story: {
     enabled: true,
     title: 'Nuestra historia',
-    words: [
-      'THE BEGINING',
-      'Bus loop',
-      'Friendship',
-      'Laughs',
-      'Fling',
-      'Season 1',
-      'Love',
-      'Rekindling',
-      'Covid',
-      'Season 2',
-      'Reconstruction',
-      'Transcendence',
-      'Exploration',
-      'Season 3',
-      'Fin',
-      'Trust',
-      'Commitment',
-      'Unconditional',
-      'Ever after…'
-    ],
-    photos: [
+    moments: [
       {
-        src: '/images/canva/photos/heart-glass.jpg',
-        alt: 'Mariluz y Germán besándose a través de un corazón dibujado en el vidrio empañado'
+        label: 'Nacimos en el mismo hospital en Caracas, Venezuela',
+        photos: [
+          {
+            src: '/images/canva/photos/birth-mom-and-baby.jpg',
+            alt: 'Mariluz sosteniendo a su bebé recién nacido'
+          },
+          {
+            src: '/images/canva/photos/birth-dad-and-baby.jpg',
+            alt: 'Germán sosteniendo a su bebé recién nacido'
+          }
+        ]
+      },
+      { label: 'Mudanza a Weston, Florida' },
+      {
+        label: 'Nos conocimos en la parada de autobuses de TTM',
+        src: '/images/canva/photos/tequesta-trace-middle-school.png',
+        alt: 'Letrero de Tequesta Trace Middle School'
       },
       {
-        src: '/images/canva/photos/kiss.jpg',
-        alt: 'Mariluz y Germán en movimiento, besándose'
+        label: 'Amistad',
+        src: '/images/canva/photos/friendship-snapshot.jpg',
+        alt: 'Mariluz y Germán sonriendo juntos en una foto antigua'
+      },
+      {
+        label: 'Flechazo de secundaria',
+        src: '/images/canva/photos/fling-party-photo.jpeg',
+        alt: 'Mariluz y Germán juntos en una fiesta'
+      },
+      { label: 'Temporada 1' },
+      {
+        label: 'Por fin empezamos a salir, noche de Halloween',
+        photos: [
+          {
+            src: '/images/canva/photos/dating-halloween-pumpkins.jpeg',
+            alt: 'Dos calabazas talladas e iluminadas en Halloween'
+          }
+        ]
+      },
+      {
+        label: 'Covid',
+        src: '/images/canva/photos/covid-mask-selfie.jpeg',
+        alt: 'Mariluz y Germán con mascarillas y guantes durante la pandemia'
+      },
+      { label: 'Temporada 2' },
+      {
+        label: 'Reencuentro',
+        src: '/images/canva/photos/rekindling-note.jpeg',
+        alt: 'Una nota escrita a mano con el dibujo de una llave'
+      },
+      {
+        label: 'Por fin comprometidos, Islandia',
+        video: '/videos/iceland-engagement.mp4?v=trimmed-720p',
+        poster: '/images/canva/photos/iceland-video-poster.png',
+        alt: 'Por fin comprometidos en Islandia'
+      },
+      {
+        label: 'luego la mudanza a Ohio',
+        src: '/images/canva/photos/move-to-ohio.jpeg',
+        alt: 'El edificio de apartamentos en Ohio al atardecer'
+      },
+      {
+        label: 'España y Portugal',
+        photos: [
+          {
+            src: '/images/canva/photos/portugal-praca-comercio.jpeg',
+            alt: 'Mariluz y Germán en la Praça do Comércio de Lisboa, Portugal'
+          },
+          {
+            src: '/images/canva/photos/europe-elevator.jpeg',
+            alt: 'Mariluz y Germán tomándose una foto en el espejo de un ascensor en Europa'
+          }
+        ]
+      },
+      {
+        label: 'Nueva York',
+        photos: [
+          {
+            src: '/images/canva/photos/new-york-tash-sultana.jpeg',
+            alt: 'Mariluz y Germán con amigos sosteniendo un disco de Tash Sultana en Nueva York'
+          },
+          {
+            src: '/images/canva/photos/new-york-dinner.jpeg',
+            alt: 'Mariluz y Germán cenando con una amiga en Nueva York'
+          }
+        ]
+      },
+      {
+        label: '¡que se convirtió en aún más viajes! Nicaragua',
+        src: '/images/canva/photos/nicaragua-trip.jpeg',
+        alt: 'Mariluz y Germán compartiendo una comida en Nicaragua'
+      },
+      {
+        label: 'finalmente Alaska, ayudó a crear el espacio para que tomáramos forma',
+        src: '/images/canva/photos/alaska-trip.jpeg',
+        alt: 'Mariluz y Germán sonriendo juntos en Alaska'
+      },
+      {
+        label: 'y luego Muchos viajes a Disney',
+        photos: [
+          {
+            src: '/images/canva/photos/disney-grand-floridian.jpeg',
+            alt: 'Mariluz y Germán en Disney’s Grand Floridian Resort'
+          },
+          {
+            src: '/images/canva/photos/disney-beauty-beast.jpeg',
+            alt: 'Mariluz y Germán junto al vitral de La Bella y la Bestia en Disney'
+          },
+          {
+            src: '/images/canva/photos/disney-animal-kingdom.jpeg',
+            alt: 'Mariluz y Germán usando MagicBands en Disney’s Animal Kingdom'
+          }
+        ]
+      },
+      {
+        label: 'Recordando nuestro tiempo separados, en viajes a Gainesville',
+        photos: [
+          {
+            src: '/images/canva/photos/gainesville-recap.jpeg',
+            alt: 'Mariluz y Germán juntos de viaje en Gainesville'
+          }
+        ]
       }
     ]
   },
@@ -80,7 +174,7 @@ export const wedding = {
   schedule: {
     enabled: true,
     title: 'Programa',
-    note: 'Para los locos: si a las 12 a.m. todavía están de rumba, los invitamos a seguir la fiesta con nosotros en la playa y el jardín privado de Crook House.',
+    note: 'Para los locos: si a las 12 a.m. todavía están de rumba, los invitamos a seguir la fiesta con nosotros en la playa y el jardín privado de The Cove Beach.',
     items: [
       {
         id: 'ceremony',

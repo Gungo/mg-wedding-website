@@ -44,35 +44,129 @@ export const wedding = {
   story: {
     enabled: true,
     title: 'Our Love Story',
-    words: [
-      'THE BEGINING',
-      'Bus loop',
-      'Friendship',
-      'Laughs',
-      'Fling',
-      'Season 1',
-      'Love',
-      'Rekindling',
-      'Covid',
-      'Season 2',
-      'Reconstruction',
-      'Transcendence',
-      'Exploration',
-      'Season 3',
-      'Fin',
-      'Trust',
-      'Commitment',
-      'Unconditional',
-      'Ever after…'
-    ],
-    photos: [
+    moments: [
       {
-        src: '/images/canva/photos/heart-glass.jpg',
-        alt: 'Mariluz and Germán kissing through a heart drawn on fogged glass'
+        label: 'Born in the same Hospital in Caracas, Venezuela',
+        photos: [
+          {
+            src: '/images/canva/photos/birth-mom-and-baby.jpg',
+            alt: 'Mariluz holding her newborn baby'
+          },
+          {
+            src: '/images/canva/photos/birth-dad-and-baby.jpg',
+            alt: 'Germán holding his newborn baby'
+          }
+        ]
+      },
+      { label: 'Move to Weston, Florida' },
+      {
+        label: 'Meet each other at TTM bus loop',
+        src: '/images/canva/photos/tequesta-trace-middle-school.png',
+        alt: 'Tequesta Trace Middle School sign'
       },
       {
-        src: '/images/canva/photos/kiss.jpg',
-        alt: 'Mariluz and Germán in motion, kissing'
+        label: 'Friendship',
+        src: '/images/canva/photos/friendship-snapshot.jpg',
+        alt: 'Mariluz and Germán smiling together in an old photo'
+      },
+      {
+        label: 'Middle school fling',
+        src: '/images/canva/photos/fling-party-photo.jpeg',
+        alt: 'Mariluz and Germán together at a party'
+      },
+      { label: 'Season 1' },
+      {
+        label: 'Dating at last, Halloween night',
+        photos: [
+          {
+            src: '/images/canva/photos/dating-halloween-pumpkins.jpeg',
+            alt: 'Two carved Halloween pumpkins glowing at night'
+          }
+        ]
+      },
+      {
+        label: 'Covid',
+        src: '/images/canva/photos/covid-mask-selfie.jpeg',
+        alt: 'Mariluz and Germán wearing masks and gloves during Covid'
+      },
+      { label: 'Season 2' },
+      {
+        label: 'Rekindling',
+        src: '/images/canva/photos/rekindling-note.jpeg',
+        alt: 'A handwritten note with a key drawing'
+      },
+      {
+        label: 'Engaged at last, Iceland',
+        video: '/videos/iceland-engagement.mp4?v=trimmed-720p',
+        poster: '/images/canva/photos/iceland-video-poster.png',
+        alt: 'Engaged at last in Iceland'
+      },
+      {
+        label: 'then the move to Ohio',
+        src: '/images/canva/photos/move-to-ohio.jpeg',
+        alt: 'The apartment building in Ohio at sunset'
+      },
+      {
+        label: 'España and Portugal',
+        photos: [
+          {
+            src: '/images/canva/photos/portugal-praca-comercio.jpeg',
+            alt: 'Mariluz and Germán at Praça do Comércio in Lisbon, Portugal'
+          },
+          {
+            src: '/images/canva/photos/europe-elevator.jpeg',
+            alt: 'Mariluz and Germán taking an elevator mirror photo in Europe'
+          }
+        ]
+      },
+      {
+        label: 'New York',
+        photos: [
+          {
+            src: '/images/canva/photos/new-york-tash-sultana.jpeg',
+            alt: 'Mariluz and Germán with friends holding a Tash Sultana record in New York'
+          },
+          {
+            src: '/images/canva/photos/new-york-dinner.jpeg',
+            alt: 'Mariluz and Germán sharing dinner with a friend in New York'
+          }
+        ]
+      },
+      {
+        label: 'which turned into even more trips! Nicaragua',
+        src: '/images/canva/photos/nicaragua-trip.jpeg',
+        alt: 'Mariluz and Germán sharing a meal in Nicaragua'
+      },
+      {
+        label: 'Finding lasting shape in the hunt for Alaskan Auroras',
+        src: '/images/canva/photos/alaska-trip.jpeg',
+        alt: 'Mariluz and Germán smiling together in Alaska'
+      },
+      {
+        label: 'and then Many Disney Trips',
+        photos: [
+          {
+            src: '/images/canva/photos/disney-grand-floridian.jpeg',
+            alt: 'Mariluz and Germán at Disney’s Grand Floridian Resort'
+          },
+          {
+            src: '/images/canva/photos/disney-beauty-beast.jpeg',
+            alt: 'Mariluz and Germán by the Beauty and the Beast stained-glass window at Disney'
+          },
+          {
+            src: '/images/canva/photos/disney-animal-kingdom.jpeg',
+            alt: 'Mariluz and Germán wearing MagicBands at Disney’s Animal Kingdom'
+          }
+        ]
+      },
+      {
+        label: 'Recapping our time apart, over trips to Gainesville',
+        photos: [
+          {
+            src: '/images/canva/photos/gainesville-recap.jpeg',
+            alt: 'Mariluz and Germán together on a trip to Gainesville'
+          }
+        ]
       }
     ]
   },
@@ -80,7 +174,7 @@ export const wedding = {
   schedule: {
     enabled: true,
     title: 'Order of Events',
-    note: 'Para los locos: anyone still partying after 12 AM is welcome to continue the festivities with us down by the beach and private lawn at Crook House.',
+    note: 'Para los locos: anyone still partying after 12 AM is welcome to continue the festivities with us down by the beach and private lawn at The Cove Beach.',
     items: [
       {
         id: 'ceremony',
