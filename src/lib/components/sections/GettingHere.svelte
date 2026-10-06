@@ -2,65 +2,102 @@
   import Section from '$lib/components/Section.svelte';
   import { useI18n } from '$lib/i18n/index.svelte.js';
 
+  /** @type {{ contentKey?: 'travel' | 'travel2', sectionId?: string }} */
+  let { contentKey = 'travel', sectionId = 'getting-here' } = $props();
+
   const i18n = useI18n();
-  const t = $derived(i18n.wedding.travel);
+  const t = $derived(i18n.wedding[contentKey]);
 </script>
 
-<Section id="getting-here" title="" titleStyle="display">
-  <div class="travel">
-    <div class="title-row">
+{#if t}
+  <Section id={sectionId} title="" titleStyle="display">
+    <div class="travel">
+      <div class="title-row">
+        <img
+          class="flourish flourish-left"
+          src="/images/canva/decor/flourish-right.png"
+          alt=""
+        />
+        <h2 class="title">{t.title}</h2>
+        <img
+          class="flourish flourish-right"
+          src="/images/canva/decor/flourish-left.png"
+          alt=""
+        />
+      </div>
+
       <img
-        class="flourish flourish-left"
-        src="/images/canva/decor/flourish-right.png"
+        class="boat"
+        class:whale={t.icon?.includes('whale')}
+        src={t.icon ?? '/images/canva/decor/boat.png'}
         alt=""
       />
-      <h2 class="title">{t.title}</h2>
-      <img
-        class="flourish flourish-right"
-        src="/images/canva/decor/flourish-left.png"
-        alt=""
-      />
-    </div>
 
-    <img class="boat" src="/images/canva/decor/boat.png" alt="" />
-
-    <p class="intro">{t.intro}</p>
-    <ul class="towns">
-      {#each t.towns as town}
-        <li>
-          <strong>{town.name}</strong>
-          <span>{town.note}</span>
-        </li>
-      {/each}
-    </ul>
-    <p class="recommend">{t.recommend}</p>
-
-    {#each t.connections as conn}
-      <h3>{conn.title}</h3>
-      <ol>
-        {#each conn.steps as step}
-          <li>{step}</li>
-        {/each}
-      </ol>
-      {#if conn.promo}
-        <div class="promo">
-          <p class="promo-headline">{conn.promo.headline}</p>
-          {#if conn.promo.subline}
-            <p class="promo-subline">{conn.promo.subline}</p>
-          {/if}
-          <p>
-            <span class="promo-label">{conn.promo.codeLabel}:</span>
-            {conn.promo.code}
-          </p>
-          <p>
-            <span class="promo-label">{conn.promo.routesLabel}:</span>
-            {conn.promo.routes}
-          </p>
-        </div>
+      {#if t.flightsTitle}
+        <h3 class="flights-title">{t.flightsTitle}</h3>
       {/if}
-    {/each}
-  </div>
-</Section>
+
+      {#if t.recommend}
+        <p class="recommend">{t.recommend}</p>
+      {/if}
+
+      {#each t.connections ?? [] as conn}
+        <h3>{conn.title}</h3>
+        <ol>
+          {#each conn.steps as step}
+            <li>
+              {#if typeof step === 'string'}
+                {step}
+              {:else}
+                {step.before}{#if step.italic}<em><strong>{step.italic}</strong></em>{/if}{#if step.after}{step.after}{/if}
+              {/if}
+            </li>
+          {/each}
+        </ol>
+        {#if conn.promo}
+          <div class="promo">
+            <p class="promo-headline">{conn.promo.headline}</p>
+            {#if conn.promo.sublineUnderline || conn.promo.subline}
+              <p class="promo-subline">
+                {#if conn.promo.sublineUnderline}
+                  {conn.promo.sublineBefore ?? ''}<span class="promo-underline">{conn.promo.sublineUnderline}</span>
+                {:else}
+                  {conn.promo.subline}
+                {/if}
+              </p>
+            {/if}
+            <p>
+              <span class="promo-label">{conn.promo.codeLabel}:</span>
+              {conn.promo.code}
+            </p>
+            <p>
+              <span class="promo-label">{conn.promo.routesLabel}:</span>
+              {conn.promo.routes}
+            </p>
+          </div>
+        {/if}
+      {/each}
+
+      {#if t.transportTitle}
+        <h3 class="flights-title transport-title">{t.transportTitle}</h3>
+      {/if}
+
+      {#each t.transportNotes ?? [] as note}
+        <p class="recommend">{note}</p>
+      {/each}
+
+      {#if t.transportLinks?.length}
+        <ul class="transport-links">
+          {#each t.transportLinks as item}
+            <li>
+              <a href={item.href} target="_blank" rel="noopener noreferrer">{item.name}</a>
+            </li>
+          {/each}
+        </ul>
+      {/if}
+    </div>
+  </Section>
+{/if}
 
 <style>
   .travel {
@@ -112,32 +149,44 @@
     transform: translateX(-0.15rem);
   }
 
-  .intro,
   .recommend {
     font-size: clamp(1.05rem, 2vw, 1.2rem);
     line-height: 1.6;
   }
 
-  .towns {
-    list-style: none;
-    margin: 1.5rem 0;
+  .recommend + .recommend {
+    margin-top: 1rem;
+  }
+
+  ul.transport-links {
+    list-style: disc;
+    list-style-position: inside;
+    margin-top: 1.5rem;
     display: flex;
     flex-direction: column;
     gap: 0.85rem;
+    font-size: clamp(1.05rem, 2vw, 1.22rem);
+    line-height: 1.55;
+    text-align: center;
   }
 
-  .towns strong {
-    display: block;
-    font-family: var(--font-sans);
-    font-weight: 500;
-    letter-spacing: 0.16em;
+  .transport-links a {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  .flights-title {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    font-size: 0.85rem;
+    font-size: clamp(1.2rem, 3vw, 1.75rem);
+    margin: 0.5rem 0 1.5rem;
   }
 
-  .towns span {
-    font-size: 1rem;
-    color: var(--color-text-muted);
+  .transport-title {
+    margin-top: 2.25rem;
   }
 
   h3 {
@@ -174,6 +223,11 @@
     margin-bottom: 0.35rem;
   }
 
+  .promo-underline {
+    text-decoration: underline;
+    text-underline-offset: 0.18em;
+  }
+
   .promo-label {
     letter-spacing: 0.04em;
   }
@@ -184,6 +238,11 @@
     height: auto;
     margin: -1.1rem auto 1rem;
     pointer-events: none;
+  }
+
+  .boat.whale {
+    width: clamp(8.05rem, 25.3vw, 12.65rem);
+    margin: 0.25rem auto 1rem;
   }
 
   @media (orientation: landscape) and (min-width: 800px) {
