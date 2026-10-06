@@ -96,28 +96,35 @@ export const wedding = {
         alt: 'A handwritten note with a key drawing'
       },
       {
-        label: 'Engaged at last, Iceland',
-        video: '/videos/iceland-engagement.mp4?v=trimmed-720p',
-        poster: '/images/canva/photos/iceland-video-poster.png',
-        alt: 'Engaged at last in Iceland'
-      },
-      {
-        label: 'then the move to Ohio',
-        src: '/images/canva/photos/move-to-ohio.jpeg',
-        alt: 'The apartment building in Ohio at sunset'
-      },
-      {
-        label: 'España and Portugal',
+        label: 'Recapping our time apart, over trips to Gainesville',
         photos: [
           {
-            src: '/images/canva/photos/portugal-praca-comercio.jpeg',
-            alt: 'Mariluz and Germán at Praça do Comércio in Lisbon, Portugal'
-          },
-          {
-            src: '/images/canva/photos/europe-elevator.jpeg',
-            alt: 'Mariluz and Germán taking an elevator mirror photo in Europe'
+            src: '/images/canva/photos/gainesville-recap.jpeg',
+            alt: 'Mariluz and Germán together on a trip to Gainesville'
           }
         ]
+      },
+      {
+        label: 'and then Many Disney Trips',
+        photos: [
+          {
+            src: '/images/canva/photos/disney-grand-floridian.jpeg',
+            alt: 'Mariluz and Germán at Disney’s Grand Floridian Resort'
+          },
+          {
+            src: '/images/canva/photos/disney-beauty-beast.jpeg',
+            alt: 'Mariluz and Germán by the Beauty and the Beast stained-glass window at Disney'
+          },
+          {
+            src: '/images/canva/photos/disney-animal-kingdom.jpeg',
+            alt: 'Mariluz and Germán wearing MagicBands at Disney’s Animal Kingdom'
+          }
+        ]
+      },
+      {
+        label: 'Finding lasting shape in the hunt for Alaskan Auroras',
+        src: '/images/canva/photos/alaska-trip.jpeg',
+        alt: 'Mariluz and Germán smiling together in Alaska'
       },
       {
         label: 'New York',
@@ -138,35 +145,28 @@ export const wedding = {
         alt: 'Mariluz and Germán sharing a meal in Nicaragua'
       },
       {
-        label: 'Finding lasting shape in the hunt for Alaskan Auroras',
-        src: '/images/canva/photos/alaska-trip.jpeg',
-        alt: 'Mariluz and Germán smiling together in Alaska'
+        label: 'then the move to Ohio',
+        src: '/images/canva/photos/move-to-ohio.jpeg',
+        alt: 'The apartment building in Ohio at sunset'
       },
       {
-        label: 'and then Many Disney Trips',
+        label: 'España and Portugal',
         photos: [
           {
-            src: '/images/canva/photos/disney-grand-floridian.jpeg',
-            alt: 'Mariluz and Germán at Disney’s Grand Floridian Resort'
+            src: '/images/canva/photos/portugal-praca-comercio.jpeg',
+            alt: 'Mariluz and Germán at Praça do Comércio in Lisbon, Portugal'
           },
           {
-            src: '/images/canva/photos/disney-beauty-beast.jpeg',
-            alt: 'Mariluz and Germán by the Beauty and the Beast stained-glass window at Disney'
-          },
-          {
-            src: '/images/canva/photos/disney-animal-kingdom.jpeg',
-            alt: 'Mariluz and Germán wearing MagicBands at Disney’s Animal Kingdom'
+            src: '/images/canva/photos/europe-elevator.jpeg',
+            alt: 'Mariluz and Germán taking an elevator mirror photo in Europe'
           }
         ]
       },
       {
-        label: 'Recapping our time apart, over trips to Gainesville',
-        photos: [
-          {
-            src: '/images/canva/photos/gainesville-recap.jpeg',
-            alt: 'Mariluz and Germán together on a trip to Gainesville'
-          }
-        ]
+        label: 'Engaged at last, Iceland',
+        video: '/videos/iceland-engagement.mp4?v=trimmed-720p',
+        poster: '/images/canva/photos/iceland-video-poster.png',
+        alt: 'Engaged at last in Iceland'
       }
     ]
   },

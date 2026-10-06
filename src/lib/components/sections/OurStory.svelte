@@ -41,6 +41,14 @@
     <p class="scroll-hint"><span>The beginning</span><span aria-hidden="true">DRAG TO EXPLORE&nbsp; →</span></p>
     <div class="timeline-scroller" role="region" tabindex="0" aria-label="Wedding story timeline; scroll horizontally to see every moment">
       <ol class="timeline">
+        <svg class="story-flourish story-flourish-top" viewBox="0 0 1200 70" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M8 35 C28 61 52 61 78 38 C130 -7 188 8 239 31 C270 45 299 47 319 28 C335 12 350 15 350 28 C350 39 337 43 330 34 C348 58 384 57 410 30 C435 3 455 8 456 26 C457 42 442 50 432 40 C460 43 485 34 515 20 C575 -7 635 10 690 34 C715 45 740 49 762 32 C778 18 791 20 791 32 C791 43 780 48 772 40 C795 58 825 54 842 32 C863 5 884 11 885 28 C886 43 872 50 862 40 C895 52 930 45 960 30 C1010 6 1060 11 1100 38 C1126 56 1150 57 1192 34" />
+          <path d="M8 43 C30 68 57 67 84 44 C134 2 187 15 235 37 C269 53 303 55 327 35 C346 19 365 20 365 35 C365 48 350 54 340 44 C365 67 400 64 425 37 C451 10 469 16 469 31 C469 45 456 53 446 46 C472 50 497 42 523 29 C578 2 631 19 685 42 C715 55 745 58 769 40 C787 26 803 28 803 41 C803 52 791 58 782 50 C806 66 837 62 854 40 C876 13 897 19 897 34 C897 48 885 56 875 49 C906 60 936 53 966 39 C1012 17 1058 20 1096 45 C1125 64 1154 65 1192 42" />
+        </svg>
+        <svg class="story-flourish story-flourish-bottom" viewBox="0 0 1200 70" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M8 35 C28 61 52 61 78 38 C130 -7 188 8 239 31 C270 45 299 47 319 28 C335 12 350 15 350 28 C350 39 337 43 330 34 C348 58 384 57 410 30 C435 3 455 8 456 26 C457 42 442 50 432 40 C460 43 485 34 515 20 C575 -7 635 10 690 34 C715 45 740 49 762 32 C778 18 791 20 791 32 C791 43 780 48 772 40 C795 58 825 54 842 32 C863 5 884 11 885 28 C886 43 872 50 862 40 C895 52 930 45 960 30 C1010 6 1060 11 1100 38 C1126 56 1150 57 1192 34" />
+          <path d="M8 43 C30 68 57 67 84 44 C134 2 187 15 235 37 C269 53 303 55 327 35 C346 19 365 20 365 35 C365 48 350 54 340 44 C365 67 400 64 425 37 C451 10 469 16 469 31 C469 45 456 53 446 46 C472 50 497 42 523 29 C578 2 631 19 685 42 C715 55 745 58 769 40 C787 26 803 28 803 41 C803 52 791 58 782 50 C806 66 837 62 854 40 C876 13 897 19 897 34 C897 48 885 56 875 49 C906 60 936 53 966 39 C1012 17 1058 20 1096 45 C1125 64 1154 65 1192 42" />
+        </svg>
         <li class="moment spacer-moment" aria-hidden="true">
           <span class="marker"><span>02</span></span>
         </li>
@@ -49,10 +57,14 @@
           <li
             class="moment"
             class:above={above}
+            class:first-milestone={i === 0}
+            class:ttm-milestone={i === 2}
+            class:friendship-milestone={i === 3}
             class:second-row={i >= 10}
-            class:pre-disney-shift={i >= 10 && i <= 15}
             class:line-two-to-bottom={i >= 10 && i <= 15 && i !== 14}
             class:line-two-to-top={i === 14 || i === 16}
+            class:season-two-milestone={moment.label === 'Season 2' || moment.label === 'Temporada 2'}
+            class:rekindling-milestone={moment.label === 'Rekindling' || moment.label === 'Reencuentro'}
             class:transcendence-milestone={moment.label === 'Transcendence' || moment.label === 'Trascendencia'}
             class:ohio-milestone={moment.label === 'then the move to Ohio' || moment.label === 'luego la mudanza a Ohio'}
             class:iceland-milestone={moment.label === 'Engaged at last, Iceland' || moment.label === 'Por fin comprometidos, Islandia'}
@@ -64,8 +76,7 @@
             class:nicaragua-milestone={moment.label?.startsWith('which turned into even more trips') || moment.label?.startsWith('¡que se convirtió en aún más viajes')}
             class:alaska-milestone={moment.label?.startsWith('Finding lasting shape') || moment.label?.startsWith('finalmente Alaska')}
             class:disney-milestone={moment.label?.startsWith('and then Many Disney Trips') || moment.label?.startsWith('y luego Muchos viajes a Disney')}
-            class:ever-after={moment.label?.startsWith('Recapping our time apart') || moment.label?.startsWith('Recordando nuestro tiempo separados')}
-            style={`--row: ${i < 10 ? 1 : 2}; --column: ${i < 10 ? i + 1 : 20 - i}`}
+            style={`--row: ${i < 10 ? 1 : 2}; --column: ${i < 10 ? i + 1 : i === 10 ? 1 : i === 11 ? 3 : i - 7}`}
           >
             {#if above}
               <div class="moment-copy">
@@ -204,26 +215,29 @@
     padding: 0.35rem 0.5rem 2.8in;
   }
 
-  .timeline::before {
+  .story-flourish {
     position: absolute;
     z-index: 0;
-    content: '';
-    top: 9.85rem;
-    right: 0.5rem;
     left: 0.5rem;
-    height: 2px;
-    background: linear-gradient(90deg, var(--color-denim), color-mix(in srgb, var(--color-denim) 28%, var(--color-sand-light)) 88%, var(--color-denim));
+    width: calc(100% - 1rem);
+    height: 4.15rem;
+    overflow: visible;
+    fill: none;
+    stroke: var(--color-denim);
+    stroke-width: 2.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    vector-effect: non-scaling-stroke;
+    opacity: 0.88;
+    pointer-events: none;
   }
 
-  .timeline::after {
-    position: absolute;
-    z-index: 0;
-    content: '';
-    top: calc(28.85rem + 1.5in);
-    right: 0.5rem;
-    left: 0.5rem;
-    height: 2px;
-    background: linear-gradient(90deg, var(--color-denim), color-mix(in srgb, var(--color-denim) 28%, var(--color-sand-light)) 88%, var(--color-denim));
+  .story-flourish-top {
+    top: 7.75rem;
+  }
+
+  .story-flourish-bottom {
+    top: calc(26.775rem + 0.25in);
   }
 
   .moment {
@@ -237,11 +251,7 @@
   }
 
   .second-row {
-    top: 1.5in;
-  }
-
-  .pre-disney-shift {
-    left: -0.25in;
+    top: 0.25in;
   }
 
   .moment-copy {
@@ -258,7 +268,7 @@
   .moment:not(.above) .moment-copy { grid-row: 3; }
 
   .alaska-milestone {
-    transform: translateX(-0.4in);
+    transform: none;
   }
 
   .moment.alaska-milestone .moment-copy {
@@ -270,7 +280,7 @@
   }
 
   .nicaragua-milestone {
-    transform: translateX(-0.4in);
+    transform: none;
   }
 
   .moment.new-york-milestone .moment-copy {
@@ -320,13 +330,6 @@
   }
 
   .disney-milestone {
-    transform: translateX(-2.4in);
-  }
-
-  .ever-after {
-    top: 0;
-    grid-row: 1;
-    grid-column: 11;
     transform: none;
   }
 
@@ -335,12 +338,12 @@
   }
 
   .disney-milestone .marker {
-    transform: translateX(-0.333in);
+    transform: none;
   }
 
   .disney-milestone .moment-copy {
-    grid-row: 3;
-    transform: translate(-1.587in, 0.35in);
+    grid-row: auto;
+    transform: translateY(0.35in);
   }
 
   .disney-milestone .moment-photos img {
@@ -400,28 +403,9 @@
     width: 100%;
   }
 
-  .ever-after .moment-photos {
-    top: 0;
-  }
-
-  .moment.ever-after .moment-copy {
-    position: absolute;
-    top: auto;
-    bottom: calc(50% + 0.675rem + 0.25in);
-    left: 50%;
-    width: min(20rem, 68vw);
-    grid-row: auto;
-    justify-content: flex-start;
-    padding: 0;
-    transform: translateX(-50%);
-  }
-
-  .ever-after .marker {
-    transform: translate(calc(-1rem - 0.75in), 0.05in);
-  }
-
-  .ever-after .moment-copy p {
-    width: 100%;
+  .season-two-milestone,
+  .rekindling-milestone {
+    transform: translateX(-0.25in);
   }
 
   .moment:not(.above) .moment-copy img { transform: rotate(2deg); }
@@ -444,8 +428,8 @@
   }
 
   .third-milestone .moment-copy p {
-    font-size: 0.65rem;
-    letter-spacing: 0.06em;
+    font-size: clamp(0.75rem, 1.1vw, 0.9rem);
+    letter-spacing: 0.1em;
   }
 
   .spacer-moment {
@@ -462,7 +446,7 @@
   .photo-slot {
     position: absolute;
     z-index: 2;
-    top: 10.3rem;
+    top: 0.6rem;
     right: 0;
     display: grid;
     place-items: center;
@@ -486,20 +470,33 @@
   .photo-caption {
     position: absolute;
     z-index: 2;
-    top: 7.3rem;
-    right: 2.5625rem;
+    top: 20.5rem;
+    right: 50%;
     width: 11rem;
     color: var(--color-denim);
     font-family: var(--font-sans);
-    font-size: 0.72rem;
-    line-height: 1.15;
+    font-size: clamp(0.75rem, 1.1vw, 0.9rem);
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    line-height: 1.25;
     text-align: center;
+    text-transform: uppercase;
     transform: translateX(50%);
   }
 
-  .moment:nth-child(2) .moment-copy > img {
+  .first-milestone .moment-copy > img {
     height: 6rem;
     transform: translateY(-0.5rem) rotate(-2deg);
+  }
+
+  .first-milestone .moment-copy {
+    position: absolute;
+    top: calc(50% + 0.675rem + 0.25in);
+    right: 0;
+    left: 0;
+    grid-row: auto;
+    justify-content: flex-start;
+    padding-top: 0.55rem;
   }
 
   .moment-copy p {
@@ -513,7 +510,20 @@
     text-transform: uppercase;
   }
 
-  .moment:nth-child(2) .moment-copy p {
+  /* Keep captions on the outside of each rail so they never cross the flourish. */
+  .above:not(.second-row) .moment-copy p,
+  .moment.line-two-to-top .moment-copy p {
+    order: -1;
+    margin: 0 0 0.4rem;
+  }
+
+  .moment.line-two-to-bottom .moment-copy p,
+  .moment:not(.above):not(.line-two-to-top) .moment-copy p {
+    order: initial;
+    margin: 0.4rem 0 0;
+  }
+
+  .first-milestone .moment-copy p {
     max-width: 9rem;
     font-size: 0.72rem;
     letter-spacing: 0;
@@ -521,12 +531,12 @@
     text-transform: none;
   }
 
-  .moment:nth-child(4) .moment-copy p {
-    font-size: 0.65rem;
-    letter-spacing: 0.06em;
+  .ttm-milestone .moment-copy p {
+    font-size: clamp(0.75rem, 1.1vw, 0.9rem);
+    letter-spacing: 0.1em;
   }
 
-  .moment:nth-child(5) .moment-copy img {
+  .friendship-milestone .moment-copy img {
     object-fit: contain;
     background: #fffdf9;
   }
@@ -562,19 +572,14 @@
   }
 
   .second-row.disney-milestone > .marker {
-    transform: translate(calc(-50% - 0.333in), -50%);
-  }
-
-  .second-row.ever-after > .marker {
-    top: calc(50% - 0.4px);
     transform: translate(-50%, -50%);
   }
 
   .season-three-interlude {
     position: absolute;
     z-index: 2;
-    top: calc(28.85rem + 1.5in + 1px);
-    left: 30.315rem;
+    top: calc(28.85rem + 0.25in + 1px);
+    left: 41rem;
     width: 0;
     height: 0;
     list-style: none;
@@ -607,7 +612,7 @@
   .oregon-finale {
     position: relative;
     z-index: 1;
-    top: calc(2.233in + 1px);
+    top: calc(0.25in + 1px);
     display: grid;
     grid-row: 2;
     grid-column: 11;
@@ -624,12 +629,16 @@
   }
 
   .oregon-finale-copy {
-    grid-row: 3;
-    align-self: start;
+    position: absolute;
+    right: 0;
+    bottom: calc(50% + 0.675rem + 0.35in);
+    left: 0;
+    grid-row: auto;
+    align-self: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 0.12in;
+    margin: 0;
   }
 
   .oregon-finale-copy img {
@@ -644,7 +653,12 @@
   }
 
   .oregon-finale p {
-    margin: 0.65rem 0 0;
+    position: absolute;
+    top: calc(100% + 0.85in);
+    left: 50%;
+    order: initial;
+    width: 11rem;
+    margin: 0;
     color: var(--color-denim);
     font-family: var(--font-sans);
     font-size: clamp(0.75rem, 1.1vw, 0.9rem);
@@ -653,6 +667,7 @@
     line-height: 1.25;
     text-align: center;
     text-transform: uppercase;
+    transform: translateX(-50%);
   }
 
   .moment.line-two-to-bottom .moment-copy {
@@ -676,7 +691,7 @@
   }
 
   .moment.line-two-to-top.disney-milestone .moment-copy {
-    transform: translateX(-1.587in);
+    transform: none;
   }
 
   .moment.line-two-to-bottom.iberia-milestone .moment-copy {
@@ -697,6 +712,19 @@
   .moment.line-two-to-bottom.iceland-milestone .moment-copy {
     top: auto;
     bottom: calc(50% + 0.675rem + 0.25in);
+  }
+
+  .moment.iceland-milestone .moment-copy {
+    position: absolute;
+    top: calc(50% + 0.675rem + 0.42in);
+    right: 0;
+    bottom: auto;
+    left: 0;
+    grid-row: auto;
+  }
+
+  .iceland-milestone {
+    transform: translateX(-0.35in);
   }
 
   @media (max-width: 520px) {

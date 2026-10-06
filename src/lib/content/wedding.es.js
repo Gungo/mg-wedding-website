@@ -96,28 +96,35 @@ export const wedding = {
         alt: 'Una nota escrita a mano con el dibujo de una llave'
       },
       {
-        label: 'Por fin comprometidos, Islandia',
-        video: '/videos/iceland-engagement.mp4?v=trimmed-720p',
-        poster: '/images/canva/photos/iceland-video-poster.png',
-        alt: 'Por fin comprometidos en Islandia'
-      },
-      {
-        label: 'luego la mudanza a Ohio',
-        src: '/images/canva/photos/move-to-ohio.jpeg',
-        alt: 'El edificio de apartamentos en Ohio al atardecer'
-      },
-      {
-        label: 'España y Portugal',
+        label: 'Recordando nuestro tiempo separados, en viajes a Gainesville',
         photos: [
           {
-            src: '/images/canva/photos/portugal-praca-comercio.jpeg',
-            alt: 'Mariluz y Germán en la Praça do Comércio de Lisboa, Portugal'
-          },
-          {
-            src: '/images/canva/photos/europe-elevator.jpeg',
-            alt: 'Mariluz y Germán tomándose una foto en el espejo de un ascensor en Europa'
+            src: '/images/canva/photos/gainesville-recap.jpeg',
+            alt: 'Mariluz y Germán juntos de viaje en Gainesville'
           }
         ]
+      },
+      {
+        label: 'y luego Muchos viajes a Disney',
+        photos: [
+          {
+            src: '/images/canva/photos/disney-grand-floridian.jpeg',
+            alt: 'Mariluz y Germán en Disney’s Grand Floridian Resort'
+          },
+          {
+            src: '/images/canva/photos/disney-beauty-beast.jpeg',
+            alt: 'Mariluz y Germán junto al vitral de La Bella y la Bestia en Disney'
+          },
+          {
+            src: '/images/canva/photos/disney-animal-kingdom.jpeg',
+            alt: 'Mariluz y Germán usando MagicBands en Disney’s Animal Kingdom'
+          }
+        ]
+      },
+      {
+        label: 'finalmente Alaska, ayudó a crear el espacio para que tomáramos forma',
+        src: '/images/canva/photos/alaska-trip.jpeg',
+        alt: 'Mariluz y Germán sonriendo juntos en Alaska'
       },
       {
         label: 'Nueva York',
@@ -138,35 +145,28 @@ export const wedding = {
         alt: 'Mariluz y Germán compartiendo una comida en Nicaragua'
       },
       {
-        label: 'finalmente Alaska, ayudó a crear el espacio para que tomáramos forma',
-        src: '/images/canva/photos/alaska-trip.jpeg',
-        alt: 'Mariluz y Germán sonriendo juntos en Alaska'
+        label: 'luego la mudanza a Ohio',
+        src: '/images/canva/photos/move-to-ohio.jpeg',
+        alt: 'El edificio de apartamentos en Ohio al atardecer'
       },
       {
-        label: 'y luego Muchos viajes a Disney',
+        label: 'España y Portugal',
         photos: [
           {
-            src: '/images/canva/photos/disney-grand-floridian.jpeg',
-            alt: 'Mariluz y Germán en Disney’s Grand Floridian Resort'
+            src: '/images/canva/photos/portugal-praca-comercio.jpeg',
+            alt: 'Mariluz y Germán en la Praça do Comércio de Lisboa, Portugal'
           },
           {
-            src: '/images/canva/photos/disney-beauty-beast.jpeg',
-            alt: 'Mariluz y Germán junto al vitral de La Bella y la Bestia en Disney'
-          },
-          {
-            src: '/images/canva/photos/disney-animal-kingdom.jpeg',
-            alt: 'Mariluz y Germán usando MagicBands en Disney’s Animal Kingdom'
+            src: '/images/canva/photos/europe-elevator.jpeg',
+            alt: 'Mariluz y Germán tomándose una foto en el espejo de un ascensor en Europa'
           }
         ]
       },
       {
-        label: 'Recordando nuestro tiempo separados, en viajes a Gainesville',
-        photos: [
-          {
-            src: '/images/canva/photos/gainesville-recap.jpeg',
-            alt: 'Mariluz y Germán juntos de viaje en Gainesville'
-          }
-        ]
+        label: 'Por fin comprometidos, Islandia',
+        video: '/videos/iceland-engagement.mp4?v=trimmed-720p',
+        poster: '/images/canva/photos/iceland-video-poster.png',
+        alt: 'Por fin comprometidos en Islandia'
       }
     ]
   },
