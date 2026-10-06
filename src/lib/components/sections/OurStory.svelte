@@ -1,5 +1,6 @@
 <script>
   import Section from '$lib/components/Section.svelte';
+  import StoryFlourish from '$lib/components/story/StoryFlourish.svelte';
   import { useI18n } from '$lib/i18n/index.svelte.js';
 
   const i18n = useI18n();
@@ -41,14 +42,8 @@
     <p class="scroll-hint"><span>The beginning</span><span aria-hidden="true">DRAG TO EXPLORE&nbsp; →</span></p>
     <div class="timeline-scroller" role="region" tabindex="0" aria-label="Wedding story timeline; scroll horizontally to see every moment">
       <ol class="timeline">
-        <svg class="story-flourish story-flourish-top" viewBox="0 0 1200 70" preserveAspectRatio="none" aria-hidden="true">
-          <path d="M8 35 C28 61 52 61 78 38 C130 -7 188 8 239 31 C270 45 299 47 319 28 C335 12 350 15 350 28 C350 39 337 43 330 34 C348 58 384 57 410 30 C435 3 455 8 456 26 C457 42 442 50 432 40 C460 43 485 34 515 20 C575 -7 635 10 690 34 C715 45 740 49 762 32 C778 18 791 20 791 32 C791 43 780 48 772 40 C795 58 825 54 842 32 C863 5 884 11 885 28 C886 43 872 50 862 40 C895 52 930 45 960 30 C1010 6 1060 11 1100 38 C1126 56 1150 57 1192 34" />
-          <path d="M8 43 C30 68 57 67 84 44 C134 2 187 15 235 37 C269 53 303 55 327 35 C346 19 365 20 365 35 C365 48 350 54 340 44 C365 67 400 64 425 37 C451 10 469 16 469 31 C469 45 456 53 446 46 C472 50 497 42 523 29 C578 2 631 19 685 42 C715 55 745 58 769 40 C787 26 803 28 803 41 C803 52 791 58 782 50 C806 66 837 62 854 40 C876 13 897 19 897 34 C897 48 885 56 875 49 C906 60 936 53 966 39 C1012 17 1058 20 1096 45 C1125 64 1154 65 1192 42" />
-        </svg>
-        <svg class="story-flourish story-flourish-bottom" viewBox="0 0 1200 70" preserveAspectRatio="none" aria-hidden="true">
-          <path d="M8 35 C28 61 52 61 78 38 C130 -7 188 8 239 31 C270 45 299 47 319 28 C335 12 350 15 350 28 C350 39 337 43 330 34 C348 58 384 57 410 30 C435 3 455 8 456 26 C457 42 442 50 432 40 C460 43 485 34 515 20 C575 -7 635 10 690 34 C715 45 740 49 762 32 C778 18 791 20 791 32 C791 43 780 48 772 40 C795 58 825 54 842 32 C863 5 884 11 885 28 C886 43 872 50 862 40 C895 52 930 45 960 30 C1010 6 1060 11 1100 38 C1126 56 1150 57 1192 34" />
-          <path d="M8 43 C30 68 57 67 84 44 C134 2 187 15 235 37 C269 53 303 55 327 35 C346 19 365 20 365 35 C365 48 350 54 340 44 C365 67 400 64 425 37 C451 10 469 16 469 31 C469 45 456 53 446 46 C472 50 497 42 523 29 C578 2 631 19 685 42 C715 55 745 58 769 40 C787 26 803 28 803 41 C803 52 791 58 782 50 C806 66 837 62 854 40 C876 13 897 19 897 34 C897 48 885 56 875 49 C906 60 936 53 966 39 C1012 17 1058 20 1096 45 C1125 64 1154 65 1192 42" />
-        </svg>
+        <div class="story-flourish story-flourish-top" aria-hidden="true"><StoryFlourish /></div>
+        <div class="story-flourish story-flourish-bottom" aria-hidden="true"><StoryFlourish /></div>
         <li class="moment spacer-moment" aria-hidden="true">
           <span class="marker"><span>02</span></span>
         </li>
@@ -220,24 +215,17 @@
     z-index: 0;
     left: 0.5rem;
     width: calc(100% - 1rem);
-    height: 4.15rem;
+    height: 5.15rem;
     overflow: visible;
-    fill: none;
-    stroke: var(--color-denim);
-    stroke-width: 2.2;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    vector-effect: non-scaling-stroke;
-    opacity: 0.88;
     pointer-events: none;
   }
 
   .story-flourish-top {
-    top: 7.75rem;
+    top: 7.25rem;
   }
 
   .story-flourish-bottom {
-    top: calc(26.775rem + 0.25in);
+    top: calc(26.275rem + 0.25in);
   }
 
   .moment {
