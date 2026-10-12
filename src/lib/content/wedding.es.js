@@ -37,8 +37,7 @@ export const wedding = {
   rsvp: {
     deadline: '1 de mayo de 2027',
     href: 'https://www.honeyfund.com/rsvp/site/restrepo-dominguez-08-07-2027/OTU1MjYyOQ==',
-    prompt: '¡Cuéntenos si pueden venir!',
-    password: 'Password: Sirius'
+    prompt: '¡Cuéntenos si pueden venir!'
   },
 
   story: {
