@@ -145,8 +145,8 @@ export const wedding = {
       },
       {
         label: 'luego la mudanza a Ohio',
-        src: '/images/canva/photos/move-to-ohio.jpeg',
-        alt: 'El edificio de apartamentos en Ohio al atardecer'
+        src: '/images/canva/photos/move-to-ohio-home.png',
+        alt: 'Mariluz y Germán en su apartamento de Ohio'
       },
       {
         label: 'España y Portugal',

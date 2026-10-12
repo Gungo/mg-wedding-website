@@ -277,6 +277,7 @@
     bottom: calc(50% + 0.675rem + 0.25in);
     left: 0;
     grid-row: auto;
+    transform: translateX(0.42in);
   }
 
   .moment.iberia-milestone .moment-copy {
@@ -288,12 +289,15 @@
   }
 
   .new-york-milestone .moment-photos {
-    width: 16.5rem;
+    width: 12.35rem;
+    gap: 0.45rem;
   }
 
   .new-york-milestone .moment-photos img {
-    width: calc(50% - 0.175rem);
-    height: auto;
+    width: calc(50% - 0.225rem);
+    height: 6.5rem;
+    object-fit: contain;
+    background: #fffdf9;
   }
 
   .colombia-milestone .moment-copy img {
@@ -322,7 +326,8 @@
   }
 
   .disney-milestone .moment-photos {
-    width: 24rem;
+    width: 15.5rem;
+    gap: 0.45rem;
   }
 
   .disney-milestone .marker {
@@ -336,13 +341,14 @@
 
   .disney-milestone .moment-photos img {
     flex: none;
-    width: 6rem;
-    height: auto;
+    width: 4.35rem;
+    height: 6.5rem;
+    object-fit: cover;
   }
 
   .disney-milestone .moment-photos img:first-child,
   .disney-milestone .moment-photos img:last-child {
-    width: 8.5rem;
+    width: 5.2rem;
   }
 
   .moment-copy img {
@@ -583,7 +589,7 @@
   .season-three-interlude p {
     position: absolute;
     right: 50%;
-    bottom: 1.45rem;
+    bottom: 1.95rem;
     width: 8rem;
     margin: 0;
     color: var(--color-denim);
@@ -695,6 +701,10 @@
   .moment.line-two-to-bottom.colombia-milestone .moment-copy {
     top: auto;
     bottom: calc(50% + 0.675rem + 0.25in);
+  }
+
+  .moment.line-two-to-bottom.new-york-milestone .moment-copy {
+    transform: translateX(0.42in);
   }
 
   .moment.line-two-to-bottom.iceland-milestone .moment-copy {

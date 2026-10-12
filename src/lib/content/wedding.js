@@ -145,8 +145,8 @@ export const wedding = {
       },
       {
         label: 'then the move to Ohio',
-        src: '/images/canva/photos/move-to-ohio.jpeg',
-        alt: 'The apartment building in Ohio at sunset'
+        src: '/images/canva/photos/move-to-ohio-home.png',
+        alt: 'Mariluz and Germán in their Ohio apartment'
       },
       {
         label: 'España and Portugal',
