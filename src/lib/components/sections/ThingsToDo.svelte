@@ -25,7 +25,7 @@
       {@const links = itemLinks(item)}
       <article class="card">
         <div class="photo-wrap">
-          <img src={item.image} alt={item.imageAlt} />
+          <img src={item.image} alt={item.imageAlt} style:object-position={item.imagePosition} />
         </div>
         <div class="copy">
           <h3>{item.title}</h3>

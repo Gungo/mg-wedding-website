@@ -13,7 +13,22 @@
       <img src="/images/canva/decor/cabin.png" alt="" />
       <span>{s.region}</span>
     </p>
-    <p class="intro">{s.intro}</p>
+    {#if s.areaIntro}
+      <p class="area-intro">{s.areaIntro}</p>
+    {/if}
+    {#if s.towns?.length}
+      <ul class="towns">
+        {#each s.towns as town}
+          <li>
+            <strong>{town.name}</strong>
+            <span>{town.note}</span>
+          </li>
+        {/each}
+      </ul>
+    {/if}
+    <p class="intro">
+      {s.introBefore}<span class="intro-underline">{s.introUnderline}</span>{s.introAfter}
+    </p>
     {#if s.items.length}
       <ul class="hotels">
         {#each s.items as item}
@@ -56,9 +71,37 @@
     height: auto;
   }
 
+  .area-intro,
   .intro {
     font-size: clamp(1.05rem, 2vw, 1.22rem);
     line-height: 1.65;
+  }
+
+  .intro-underline {
+    text-decoration: underline;
+    text-underline-offset: 0.18em;
+  }
+
+  .towns {
+    list-style: none;
+    margin: 1.25rem 0 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+
+  .towns strong {
+    display: block;
+    font-family: var(--font-sans);
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+  }
+
+  .towns span {
+    font-size: 1rem;
+    color: var(--color-text-muted);
   }
 
   ul.hotels {

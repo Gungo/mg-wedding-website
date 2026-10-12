@@ -23,9 +23,9 @@
 
   /* ===== Typography ===== */
   --font-body: 'Cormorant Garamond', 'Georgia', serif;
-  --font-display: 'Cinzel', 'Cormorant Garamond', serif;
+  --font-display: 'Cormorant Garamond', 'Georgia', serif;
   --font-script: 'Cormorant Garamond', 'Georgia', serif;
-  --font-sans: 'Outfit', 'Helvetica Neue', sans-serif;
+  --font-sans: 'Cormorant Garamond', 'Georgia', serif;
   --font-weight-normal: 400;
   --font-weight-medium: 500;
   --font-weight-bold: 600;

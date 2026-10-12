@@ -3,6 +3,7 @@
 
   const i18n = useI18n();
   const wedding = $derived(i18n.wedding);
+  const ui = $derived(wedding.ui);
 </script>
 
 <section class="intro" id="intro">
@@ -10,6 +11,19 @@
   {#each wedding.intro as para}
     <p class="copy">{para}</p>
   {/each}
+  {#if wedding.introContactHint}
+    <p class="copy contact">
+      *{wedding.introContactHint}
+      <a
+        href={ui.rsvpSoonLinkHref}
+        target="_blank"
+        rel="noopener noreferrer"
+      >{wedding.introContactLinkLabel}</a>.*
+    </p>
+    {#if wedding.rsvp.password}
+      <p class="copy contact password">{wedding.rsvp.password}</p>
+    {/if}
+  {/if}
 </section>
 
 <style>
@@ -39,5 +53,24 @@
 
   .copy:last-child {
     margin-bottom: 0;
+  }
+
+  .contact {
+    margin-top: clamp(2.75rem, 7vh, 4rem);
+    font-size: clamp(1.15rem, 2.3vw, 1.4rem);
+    font-weight: var(--font-weight-bold);
+    letter-spacing: 0.02em;
+    line-height: 1.65;
+  }
+
+  .contact.password {
+    margin-top: 0.75rem;
+  }
+
+  .contact a {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 0.22em;
+    text-decoration-thickness: 1.5px;
   }
 </style>

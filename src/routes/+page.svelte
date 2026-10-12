@@ -1,7 +1,6 @@
 <script>
   import { onMount } from 'svelte';
   import Hero from '$lib/components/Hero.svelte';
-  import ComingSoonPhoto from '$lib/components/ComingSoonPhoto.svelte';
   import ThankYou from '$lib/components/ThankYou.svelte';
   import BrickBreaker from '$lib/components/BrickBreaker.svelte';
   import AdminPasswordPrompt from '$lib/components/AdminPasswordPrompt.svelte';
@@ -61,9 +60,6 @@
 
 {#if showRsvp && data.hasSubmitted}
   <ThankYou />
-{:else}
-  <!-- Glacier photo stands in for the old envelope / save-the-date animation -->
-  <ComingSoonPhoto />
 {/if}
 
 {#if data.sections.story}
