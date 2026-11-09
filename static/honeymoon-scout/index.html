@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Honeymoon scout · Aug 2027</title>
+    <style>
+      :root {
+        --bg: #f4efe6;
+        --ink: #1c2420;
+        --muted: #5a635c;
+        --card: #fffdf8;
+        --line: #d7d0c4;
+        --accent: #1f6f6a;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Georgia", "Times New Roman", serif;
+        background: var(--bg);
+        color: var(--ink);
+        line-height: 1.45;
+      }
+
+      header {
+        padding: 2rem 1.25rem 1rem;
+        max-width: 1100px;
+        margin: 0 auto;
+      }
+
+      h1 {
+        font-size: clamp(1.8rem, 4vw, 2.6rem);
+        margin: 0 0 0.4rem;
+        letter-spacing: 0.02em;
+      }
+
+      .lede {
+        color: var(--muted);
+        font-size: 1.05rem;
+        max-width: 40rem;
+      }
+
+      .maps {
+        display: grid;
+        gap: 1rem;
+        grid-template-columns: 1fr;
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 1.25rem 1.5rem;
+      }
+
+      @media (min-width: 800px) {
+        .maps {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      .maps figure {
+        margin: 0;
+        background: var(--card);
+        border: 1px solid var(--line);
+        padding: 0.6rem;
+      }
+
+      .maps img {
+        width: 100%;
+        height: auto;
+        display: block;
+        cursor: zoom-in;
+      }
+
+      .maps figcaption {
+        font-family: system-ui, sans-serif;
+        font-size: 0.8rem;
+        color: var(--muted);
+        padding: 0.5rem 0.2rem 0.2rem;
+      }
+
+      section {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0.5rem 1.25rem 2.5rem;
+      }
+
+      h2 {
+        font-size: 1.35rem;
+        margin: 1.5rem 0 0.75rem;
+        border-bottom: 1px solid var(--line);
+        padding-bottom: 0.35rem;
+      }
+
+      .grid {
+        display: grid;
+        gap: 1rem;
+        grid-template-columns: 1fr;
+      }
+
+      @media (min-width: 700px) {
+        .grid {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      @media (min-width: 1000px) {
+        .grid.three {
+          grid-template-columns: 1fr 1fr 1fr;
+        }
+      }
+
+      article {
+        background: var(--card);
+        border: 1px solid var(--line);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+
+      article .thumb {
+        position: relative;
+        aspect-ratio: 16 / 10;
+        background: #ddd;
+        cursor: pointer;
+      }
+
+      article .thumb img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      article .thumb .hint {
+        position: absolute;
+        right: 0.6rem;
+        bottom: 0.6rem;
+        background: rgba(28, 36, 32, 0.75);
+        color: #fff;
+        font-family: system-ui, sans-serif;
+        font-size: 0.72rem;
+        padding: 0.25rem 0.5rem;
+      }
+
+      article .body {
+        padding: 0.9rem 1rem 1.1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.35rem;
+        flex: 1;
+      }
+
+      article h3 {
+        margin: 0;
+        font-size: 1.15rem;
+      }
+
+      .meta {
+        font-family: system-ui, sans-serif;
+        font-size: 0.78rem;
+        color: var(--accent);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+
+      .body p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.98rem;
+      }
+
+      .links {
+        margin-top: 0.5rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.45rem;
+      }
+
+      .links a {
+        font-family: system-ui, sans-serif;
+        font-size: 0.8rem;
+        color: var(--ink);
+        background: var(--bg);
+        border: 1px solid var(--line);
+        padding: 0.35rem 0.55rem;
+        text-decoration: none;
+      }
+
+      .links a:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+
+      .list {
+        background: var(--card);
+        border: 1px solid var(--line);
+        padding: 0.75rem 1rem;
+      }
+
+      .list ol {
+        margin: 0;
+        padding-left: 1.2rem;
+      }
+
+      .list li {
+        margin: 0.55rem 0;
+      }
+
+      .list a {
+        color: var(--accent);
+      }
+
+      /* Lightbox */
+      .lightbox {
+        position: fixed;
+        inset: 0;
+        background: rgba(10, 14, 12, 0.9);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 50;
+        padding: 1rem;
+      }
+
+      .lightbox.open {
+        display: flex;
+      }
+
+      .lightbox img {
+        max-width: min(1100px, 96vw);
+        max-height: 82vh;
+        object-fit: contain;
+        background: #111;
+      }
+
+      .lightbox .ui {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 1rem;
+        display: flex;
+        justify-content: center;
+        gap: 0.6rem;
+        align-items: center;
+        font-family: system-ui, sans-serif;
+        color: #fff;
+      }
+
+      .lightbox button {
+        border: 1px solid rgba(255, 255, 255, 0.35);
+        background: rgba(255, 255, 255, 0.1);
+        color: #fff;
+        padding: 0.55rem 0.9rem;
+        cursor: pointer;
+        font-size: 0.95rem;
+      }
+
+      .lightbox .caption {
+        max-width: 50%;
+        text-align: center;
+        font-size: 0.9rem;
+        opacity: 0.9;
+      }
+
+      footer {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 1.25rem 3rem;
+        color: var(--muted);
+        font-family: system-ui, sans-serif;
+        font-size: 0.8rem;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Honeymoon scout</h1>
+      <p class="lede">
+        Click any photo to flip through ideas. Thailand route first, then other
+        “cliff + jungle + ocean” places. August 2027 friendly notes included.
+      </p>
+    </header>
+
+    <div class="maps">
+      <figure>
+        <img
+          src="images/thailand-easy-world-map.png"
+          alt="Easy Thailand map with three pins"
+          data-gallery="maps"
+          data-caption="Thailand: Chiang Mai (north), Samui (Gulf), Krabi/Rayavadee (Andaman)"
+        />
+        <figcaption>Easy Thailand map — 3 pins only</figcaption>
+      </figure>
+      <figure>
+        <img
+          src="images/honeymoon-places-easy-world-map.png"
+          alt="Southeast Asia neighborhood map"
+          data-gallery="maps"
+          data-caption="Neighborhood: Thailand, Vietnam, Malaysia, Philippines, Raja Ampat"
+        />
+        <figcaption>Neighborhood map — where the other spots sit</figcaption>
+      </figure>
+    </div>
+
+    <section>
+      <h2>Thailand route (~14 days)</h2>
+      <div class="grid three">
+        <article>
+          <div class="thumb" data-open="krabi">
+            <img src="images/example-krabi-rayavadee.jpg" alt="Krabi limestone cliffs" />
+            <span class="hint">Click to browse</span>
+          </div>
+          <div class="body">
+            <div class="meta">3–4 nights · Andaman · SW</div>
+            <h3>Krabi / Rayavadee / Railay</h3>
+            <p>The cliff + turquoise look. Luxury honeymoon anchor.</p>
+            <div class="links">
+              <a href="https://www.google.com/search?tbm=isch&q=Rayavadee+Krabi+resort" target="_blank" rel="noopener">Rayavadee pics</a>
+              <a href="https://www.google.com/search?tbm=isch&q=Railay+Beach+limestone+cliffs" target="_blank" rel="noopener">Railay cliffs</a>
+              <a href="https://www.google.com/search?tbm=isch&q=Phra+Nang+Cave+Beach" target="_blank" rel="noopener">Phra Nang</a>
+            </div>
+          </div>
+        </article>
+
+        <article>
+          <div class="thumb" data-open="samui">
+            <img src="images/example-ang-thong.jpg" alt="Ang Thong islands" />
+            <span class="hint">Click to browse</span>
+          </div>
+          <div class="body">
+            <div class="meta">5–6 nights · Gulf · East</div>
+            <h3>Koh Samui + Ang Thong</h3>
+            <p>Better August swimming + wild limestone island day trip.</p>
+            <div class="links">
+              <a href="https://www.google.com/search?tbm=isch&q=Four+Seasons+Koh+Samui+villa" target="_blank" rel="noopener">Four Seasons Samui</a>
+              <a href="https://www.google.com/search?tbm=isch&q=Six+Senses+Samui" target="_blank" rel="noopener">Six Senses Samui</a>
+              <a href="https://www.google.com/search?tbm=isch&q=Ang+Thong+National+Marine+Park" target="_blank" rel="noopener">Ang Thong</a>
+            </div>
+          </div>
+        </article>
+
+        <article>
+          <div class="thumb" data-open="chiangmai">
+            <img src="images/example-chiang-mai.jpg" alt="Chiang Mai waterfall jungle" />
+            <span class="hint">Click to browse</span>
+          </div>
+          <div class="body">
+            <div class="meta">3–4 nights · North inland</div>
+            <h3>Chiang Mai</h3>
+            <p>Jungle, waterfalls, temples, food — adventure break from beach.</p>
+            <div class="links">
+              <a href="https://www.google.com/search?tbm=isch&q=Doi+Inthanon+waterfall" target="_blank" rel="noopener">Doi Inthanon</a>
+              <a href="https://www.google.com/search?tbm=isch&q=Chiang+Mai+Old+City+temples" target="_blank" rel="noopener">Old City temples</a>
+              <a href="https://www.google.com/search?tbm=isch&q=Mae+Kampong+village" target="_blank" rel="noopener">Mae Kampong</a>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <h2>Same vibe · outside / beyond that route</h2>
+      <div class="grid">
+        <article>
+          <div class="thumb" data-open="elnido">
+            <img src="images/example-el-nido.jpg" alt="El Nido lagoons" />
+            <span class="hint">Click to browse</span>
+          </div>
+          <div class="body">
+            <div class="meta">Philippines · best photo twin + value</div>
+            <h3>El Nido, Palawan</h3>
+            <p>Closest twin to Rayavadee cliffs & secret lagoons.</p>
+            <div class="links">
+              <a href="https://www.google.com/search?tbm=isch&q=El+Nido+Palawan+lagoon+limestone" target="_blank" rel="noopener">El Nido lagoons</a>
+              <a href="https://www.google.com/search?tbm=isch&q=El+Nido+island+hopping+Tour+A" target="_blank" rel="noopener">Island hopping</a>
+              <a href="https://www.google.com/search?tbm=isch&q=Pangulasian+Island+El+Nido" target="_blank" rel="noopener">Luxury resort ex.</a>
+            </div>
+          </div>
+        </article>
+
+        <article>
+          <div class="thumb" data-open="coron">
+            <img src="images/example-el-nido.jpg" alt="Coron style karsts" />
+            <span class="hint">Click to browse</span>
+          </div>
+          <div class="body">
+            <div class="meta">Philippines · lakes + karsts</div>
+            <h3>Coron, Palawan</h3>
+            <p>Kayangan Lake, Twin Lagoon, rawer / often cheaper than El Nido.</p>
+            <div class="links">
+              <a href="https://www.google.com/search?tbm=isch&q=Kayangan+Lake+Coron" target="_blank" rel="noopener">Kayangan Lake</a>
+              <a href="https://www.google.com/search?tbm=isch&q=Twin+Lagoon+Coron" target="_blank" rel="noopener">Twin Lagoon</a>
+              <a href="https://www.google.com/search?tbm=isch&q=Coron+Palawan+island+tour" target="_blank" rel="noopener">Coron tours</a>
+            </div>
+          </div>
+        </article>
+
+        <article>
+          <div class="thumb" data-open="raja">
+            <img src="images/example-raja-ampat.jpg" alt="Raja Ampat Wayag" />
+            <span class="hint">Click to browse</span>
+          </div>
+          <div class="body">
+            <div class="meta">Indonesia · wildest · stronger Aug odds</div>
+            <h3>Raja Ampat (Wayag)</h3>
+            <p>Remote mushroom karsts — edge-of-the-map honeymoon.</p>
+            <div class="links">
+              <a href="https://www.google.com/search?tbm=isch&q=Raja+Ampat+Wayag+islands" target="_blank" rel="noopener">Wayag viewpoint</a>
+              <a href="https://www.google.com/search?tbm=isch&q=Raja+Ampat+overwater+bungalow" target="_blank" rel="noopener">Stay examples</a>
+              <a href="https://www.google.com/search?tbm=isch&q=Misool+Raja+Ampat" target="_blank" rel="noopener">Misool</a>
+            </div>
+          </div>
+        </article>
+
+        <article>
+          <div class="thumb" data-open="vietnam">
+            <img src="images/example-ang-thong.jpg" alt="Vietnam karst bay style" />
+            <span class="hint">Click to browse</span>
+          </div>
+          <div class="body">
+            <div class="meta">Vietnam · cheaper karst bays</div>
+            <h3>Lan Ha / Cat Ba</h3>
+            <p>Ha Long–style limestone islands; more boat-bay than beach resort.</p>
+            <div class="links">
+              <a href="https://www.google.com/search?tbm=isch&q=Lan+Ha+Bay+Vietnam" target="_blank" rel="noopener">Lan Ha Bay</a>
+              <a href="https://www.google.com/search?tbm=isch&q=Cat+Ba+Island+beach" target="_blank" rel="noopener">Cat Ba</a>
+              <a href="https://www.google.com/search?tbm=isch&q=Ha+Long+Bay+cruise+limestone" target="_blank" rel="noopener">Ha Long karsts</a>
+            </div>
+          </div>
+        </article>
+
+        <article>
+          <div class="thumb" data-open="langkawi">
+            <img src="images/example-krabi-rayavadee.jpg" alt="Langkawi softer karsts" />
+            <span class="hint">Click to browse</span>
+          </div>
+          <div class="body">
+            <div class="meta">Malaysia · easier / softer</div>
+            <h3>Langkawi</h3>
+            <p>Jungle + some karsts, easier logistics, less jaw-drop than Palawan/Krabi.</p>
+            <div class="links">
+              <a href="https://www.google.com/search?tbm=isch&q=Langkawi+Kilim+Geoforest+Park" target="_blank" rel="noopener">Kilim Geopark</a>
+              <a href="https://www.google.com/search?tbm=isch&q=Datai+Langkawi+beach" target="_blank" rel="noopener">Datai / beaches</a>
+              <a href="https://www.google.com/search?tbm=isch&q=Langkawi+island+hopping" target="_blank" rel="noopener">Island hopping</a>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <h2>Quick list · name + pic links</h2>
+      <div class="list">
+        <ol>
+          <li>
+            <strong>Rayavadee / Krabi / Railay (Thailand)</strong> —
+            <a href="https://www.google.com/search?tbm=isch&q=Rayavadee+Krabi" target="_blank" rel="noopener">pics</a>
+          </li>
+          <li>
+            <strong>Koh Samui (Thailand)</strong> —
+            <a href="https://www.google.com/search?tbm=isch&q=Four+Seasons+Koh+Samui" target="_blank" rel="noopener">Four Seasons</a> ·
+            <a href="https://www.google.com/search?tbm=isch&q=Six+Senses+Samui" target="_blank" rel="noopener">Six Senses</a>
+          </li>
+          <li>
+            <strong>Ang Thong Marine Park (Thailand)</strong> —
+            <a href="https://www.google.com/search?tbm=isch&q=Ang+Thong+National+Marine+Park" target="_blank" rel="noopener">pics</a>
+          </li>
+          <li>
+            <strong>Chiang Mai (Thailand)</strong> —
+            <a href="https://www.google.com/search?tbm=isch&q=Chiang+Mai+waterfall+jungle" target="_blank" rel="noopener">pics</a>
+          </li>
+          <li>
+            <strong>El Nido, Palawan (Philippines)</strong> —
+            <a href="https://www.google.com/search?tbm=isch&q=El+Nido+Palawan+limestone+lagoon" target="_blank" rel="noopener">pics</a>
+          </li>
+          <li>
+            <strong>Coron, Palawan (Philippines)</strong> —
+            <a href="https://www.google.com/search?tbm=isch&q=Kayangan+Lake+Coron+Palawan" target="_blank" rel="noopener">pics</a>
+          </li>
+          <li>
+            <strong>Raja Ampat / Wayag (Indonesia)</strong> —
+            <a href="https://www.google.com/search?tbm=isch&q=Raja+Ampat+Wayag" target="_blank" rel="noopener">pics</a>
+          </li>
+          <li>
+            <strong>Lan Ha Bay / Cat Ba (Vietnam)</strong> —
+            <a href="https://www.google.com/search?tbm=isch&q=Lan+Ha+Bay+Vietnam" target="_blank" rel="noopener">pics</a>
+          </li>
+          <li>
+            <strong>Langkawi (Malaysia)</strong> —
+            <a href="https://www.google.com/search?tbm=isch&q=Langkawi+Kilim+karst" target="_blank" rel="noopener">pics</a>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <footer>
+      Open this file in a browser, or with the site running go to
+      <code>/honeymoon-scout/</code>. Photos here are scout references — Google
+      Image links open more real-world examples.
+    </footer>
+
+    <div class="lightbox" id="lightbox" aria-hidden="true">
+      <img id="lb-img" alt="" />
+      <div class="ui">
+        <button type="button" id="lb-prev">Prev</button>
+        <div class="caption" id="lb-caption"></div>
+        <button type="button" id="lb-next">Next</button>
+        <button type="button" id="lb-close">Close</button>
+      </div>
+    </div>
+
+    <script>
+      const galleries = {
+        maps: [
+          {
+            src: "images/thailand-easy-world-map.png",
+            caption: "Thailand: 1 Chiang Mai · 2 Samui · 3 Krabi/Rayavadee",
+          },
+          {
+            src: "images/honeymoon-places-easy-world-map.png",
+            caption: "Neighborhood map of all scout places",
+          },
+        ],
+        krabi: [
+          {
+            src: "images/example-krabi-rayavadee.jpg",
+            caption: "Krabi / Railay — limestone cliffs into turquoise water",
+          },
+          {
+            src: "images/thailand-easy-world-map.png",
+            caption: "Where it sits: SW Thailand, Andaman Sea (pin 3)",
+          },
+        ],
+        samui: [
+          {
+            src: "images/example-ang-thong.jpg",
+            caption: "Ang Thong — wild Gulf limestone islands near Samui",
+          },
+          {
+            src: "images/thailand-easy-world-map.png",
+            caption: "Where it sits: east side / Gulf (pin 2)",
+          },
+        ],
+        chiangmai: [
+          {
+            src: "images/example-chiang-mai.jpg",
+            caption: "Chiang Mai — waterfalls & jungle up north",
+          },
+          {
+            src: "images/thailand-easy-world-map.png",
+            caption: "Where it sits: north Thailand (pin 1)",
+          },
+        ],
+        elnido: [
+          {
+            src: "images/example-el-nido.jpg",
+            caption: "El Nido — best lookalike to Rayavadee",
+          },
+          {
+            src: "images/honeymoon-places-easy-world-map.png",
+            caption: "Philippines · east of Thailand on the neighborhood map",
+          },
+        ],
+        coron: [
+          {
+            src: "images/example-el-nido.jpg",
+            caption: "Coron — lakes & karsts (same Palawan family as El Nido)",
+          },
+          {
+            src: "images/honeymoon-places-easy-world-map.png",
+            caption: "Still Palawan, Philippines",
+          },
+        ],
+        raja: [
+          {
+            src: "images/example-raja-ampat.jpg",
+            caption: "Raja Ampat / Wayag — remote karst islets",
+          },
+          {
+            src: "images/honeymoon-places-easy-world-map.png",
+            caption: "Far southeast Indonesia on the neighborhood map",
+          },
+        ],
+        vietnam: [
+          {
+            src: "images/example-ang-thong.jpg",
+            caption: "Lan Ha / Cat Ba vibe — limestone bay islands (Vietnam)",
+          },
+          {
+            src: "images/honeymoon-places-easy-world-map.png",
+            caption: "North of Thailand on the neighborhood map",
+          },
+        ],
+        langkawi: [
+          {
+            src: "images/example-krabi-rayavadee.jpg",
+            caption: "Langkawi — softer jungle/karst version south of Thailand",
+          },
+          {
+            src: "images/honeymoon-places-easy-world-map.png",
+            caption: "Malaysia · just under Thailand",
+          },
+        ],
+      };
+
+      const lb = document.getElementById("lightbox");
+      const lbImg = document.getElementById("lb-img");
+      const lbCap = document.getElementById("lb-caption");
+      let current = [];
+      let index = 0;
+
+      function show(i) {
+        index = (i + current.length) % current.length;
+        const slide = current[index];
+        lbImg.src = slide.src;
+        lbCap.textContent = `${index + 1}/${current.length} — ${slide.caption}`;
+      }
+
+      function openGallery(name, start = 0) {
+        current = galleries[name] || [];
+        if (!current.length) return;
+        lb.classList.add("open");
+        lb.setAttribute("aria-hidden", "false");
+        show(start);
+      }
+
+      function closeLb() {
+        lb.classList.remove("open");
+        lb.setAttribute("aria-hidden", "true");
+      }
+
+      document.querySelectorAll("[data-open]").forEach((el) => {
+        el.addEventListener("click", () => openGallery(el.getAttribute("data-open")));
+      });
+
+      document.querySelectorAll("img[data-gallery]").forEach((img) => {
+        img.addEventListener("click", () => {
+          const name = img.getAttribute("data-gallery");
+          const start = galleries[name].findIndex((s) => s.src === img.getAttribute("src"));
+          openGallery(name, Math.max(0, start));
+        });
+      });
+
+      document.getElementById("lb-prev").onclick = () => show(index - 1);
+      document.getElementById("lb-next").onclick = () => show(index + 1);
+      document.getElementById("lb-close").onclick = closeLb;
+      lb.addEventListener("click", (e) => {
+        if (e.target === lb) closeLb();
+      });
+      window.addEventListener("keydown", (e) => {
+        if (!lb.classList.contains("open")) return;
+        if (e.key === "Escape") closeLb();
+        if (e.key === "ArrowLeft") show(index - 1);
+        if (e.key === "ArrowRight") show(index + 1);
+      });
+    </script>
+  </body>
+</html>

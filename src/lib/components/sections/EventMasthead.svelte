@@ -1,5 +1,6 @@
 <script>
   import { useI18n } from '$lib/i18n/index.svelte.js';
+  import RsvpBanner from './RsvpBanner.svelte';
 
   let { hasSubmitted = false, showRsvp = true } = $props();
 
@@ -11,7 +12,9 @@
 
   const locationLine = $derived(e.venue || e.city || ui.toBeAnnounced);
   const attireLine = $derived(e.attire ? `${ui.attire}: ${e.attire}` : '');
-  const addressLines = $derived([e.address, e.city].filter(Boolean));
+  const addressLines = $derived(
+    e.mapLabel ? [e.address].filter(Boolean) : [e.address, e.city].filter(Boolean)
+  );
   const calHref = $derived.by(() => {
     const calStart = e.dateIso.replaceAll('-', '');
     const next = new Date(`${e.dateIso}T12:00:00`);
@@ -24,24 +27,7 @@
 <section class="masthead" id="details">
   <h1 class="names">{c.short}</h1>
 
-  {#if showRsvp}
-    <a class="rsvp-status" href={wedding.rsvp.href}>
-      {hasSubmitted ? ui.rsvpDone : ui.rsvpCta}
-    </a>
-  {:else}
-    <div class="rsvp-soon-block">
-      <p class="rsvp-status rsvp-soon">{ui.rsvpSoon}</p>
-      <p class="rsvp-status rsvp-soon rsvp-soon-hint">
-        {ui.rsvpSoonHint}
-        <a
-          class="rsvp-soon-link"
-          href={ui.rsvpSoonLinkHref}
-          target="_blank"
-          rel="noopener noreferrer"
-        >{ui.rsvpSoonLinkLabel}</a>
-      </p>
-    </div>
-  {/if}
+  <RsvpBanner {showRsvp} {hasSubmitted} />
 
   <div class="summary">
     <span class="heart" aria-hidden="true">♥︎</span>
@@ -74,10 +60,11 @@
     </div>
     <div class="fact">
       <p class="label">{ui.location}</p>
-      {#if e.mapUrl}
-        <a class="value link" href={e.mapUrl} target="_blank" rel="noopener noreferrer">{locationLine}</a>
-      {:else}
-        <p class="value">{locationLine}</p>
+      <p class="value">{locationLine}</p>
+      {#if e.mapLabel && e.mapUrl}
+        <p class="value muted">
+          <a class="link" href={e.mapUrl} target="_blank" rel="noopener noreferrer">{e.mapLabel}</a>{#if e.mapSuffix}, {e.mapSuffix}{/if}
+        </p>
       {/if}
       {#each addressLines as line}
         <p class="value muted">{line}</p>
@@ -103,43 +90,6 @@
     line-height: 1.1;
     letter-spacing: 0.01em;
     color: var(--color-text);
-  }
-
-  .rsvp-status {
-    display: inline-block;
-    margin-top: 1.35rem;
-    font-family: var(--font-body);
-    font-size: clamp(0.78rem, 1.3vw, 0.9rem);
-    font-weight: var(--font-weight-medium);
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--color-text);
-    text-decoration: underline;
-    text-underline-offset: 0.35em;
-  }
-
-  .rsvp-soon {
-    text-decoration: none;
-    letter-spacing: 0.18em;
-    color: var(--color-text-muted);
-  }
-
-  .rsvp-soon-block {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .rsvp-soon-hint {
-    margin-top: 0.65rem;
-    max-width: 28rem;
-    line-height: 1.55;
-  }
-
-  .rsvp-soon-link {
-    color: inherit;
-    text-decoration: underline;
-    text-underline-offset: 0.35em;
   }
 
   .summary {

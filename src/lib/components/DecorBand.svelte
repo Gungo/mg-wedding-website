@@ -2,7 +2,7 @@
   let {
     src,
     alt = '',
-    /** full | soft | wide-soft | pair */
+    /** full | soft | wide-soft | pair | soft-pair */
     variant = 'full'
   } = $props();
 </script>
@@ -12,9 +12,10 @@
   class:soft={variant === 'soft'}
   class:wide-soft={variant === 'wide-soft'}
   class:pair={variant === 'pair'}
+  class:soft-pair={variant === 'soft-pair'}
   aria-hidden={alt ? undefined : 'true'}
 >
-  {#if variant === 'pair'}
+  {#if variant === 'pair' || variant === 'soft-pair'}
     <img {src} {alt} />
     <img {src} alt="" />
   {:else}
@@ -83,9 +84,34 @@
     transform: scaleX(-1);
   }
 
+  /* Two centered accents, mirrored (e.g. shells) */
+  .band.soft-pair {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: clamp(1.25rem, 5vw, 3rem);
+    padding-block: clamp(0.5rem, 1.5vh, 1.25rem);
+  }
+
+  .band.soft-pair img {
+    width: min(29.4%, 336px);
+    max-width: 100%;
+    height: auto;
+    opacity: 0.95;
+  }
+
+  .band.soft-pair img:last-child {
+    transform: scaleX(-1);
+  }
+
   @media (max-width: 768px) {
     .band.soft img {
       width: min(68%, 420px);
+      opacity: 0.98;
+    }
+
+    .band.soft-pair img {
+      width: min(29.4%, 196px);
       opacity: 0.98;
     }
 

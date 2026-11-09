@@ -426,7 +426,7 @@
     }
 
     ctx.fillStyle = '#092F33';
-    ctx.font = `${Math.max(11, w * 0.028)}px Cinzel, serif`;
+    ctx.font = `${Math.max(11, w * 0.028)}px "Cormorant Garamond", Georgia, serif`;
     ctx.textAlign = 'right';
     ctx.fillText(`${ui.levelLabel} ${levelNumber}`, w - 10, 18);
   }
