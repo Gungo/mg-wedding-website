@@ -16,8 +16,15 @@ export const wedding = {
     'La boda es en Crook Point, Oregon, rodeado entre los pinos y adornado por la costa, el Sábado 7 de Agosto de 2027 a las 2:00 p.m.',
     'Usen esta página para ver todos los detalles. Que estén ahí significa todo para nosotros.'
   ],
-  introContactHint: 'Antes de irse, porfa compartan su dirección/contacto en este',
-  introContactLinkLabel: 'link',
+  todo: {
+    title: 'Dos cositas que necesitamos de ustedes',
+    note: 'Son dos formularios distintos, ¡porfa llenen los dos!',
+    contact: 'Compartan su dirección y contacto',
+    contactAction: 'Abrir formulario',
+    rsvp: 'Confirmen su asistencia (RSVP)',
+    rsvpDue: 'Antes del',
+    rsvpAction: 'Ir al RSVP'
+  },
 
   event: {
     dateIso: '2027-08-07',
@@ -495,6 +502,10 @@ export const wedding = {
       {
         q: '¿La boda es afuera?',
         a: 'La boda es al aire libre en un jardín/bosque junto a la costa. Más adelante les compartimos los detalles de la ceremonia y el plan B por el clima, y vamos a poner carpa si hace falta. También habrá calentadores de lámpara porque puede refrescar.'
+      },
+      {
+        q: '¿La cena es servida a la mesa o tipo buffet?',
+        a: 'La cena va a ser tipo buffet, así que pueden probar un poquito de todo lo del Menú, ¡y repetir si quieren!'
       },
       {
         q: '¿Y si tengo una restricción de comida?',

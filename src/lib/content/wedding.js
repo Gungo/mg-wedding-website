@@ -16,8 +16,15 @@ export const wedding = {
     'Our wedding will be held at Crook Point, Oregon, nestled among the evergreens and adorned by the coastal views, on Saturday, August 7, 2027, at 2:00 PM.',
     'Please take a moment to explore this site for all the details. Your presence means the world to us.'
   ],
-  introContactHint: 'Before you go please share your address/contact info to this',
-  introContactLinkLabel: 'link',
+  todo: {
+    title: 'Two things we need from you',
+    note: 'These are two separate forms, please fill out both!',
+    contact: 'Share your address & contact info',
+    contactAction: 'Open form',
+    rsvp: 'RSVP',
+    rsvpDue: 'Due',
+    rsvpAction: 'Go to RSVP'
+  },
 
   event: {
     dateIso: '2027-08-07',
@@ -499,6 +506,10 @@ export const wedding = {
       {
         q: 'Is the wedding outdoors?',
         a: 'The venue takes place outdoors on a forest lawn by the coast. We will share ceremony and weather backup notes as the weekend comes together, and will provide a tent if needed. Lamp heaters will also be available as it can get chilly.'
+      },
+      {
+        q: 'Will dinner be plated or buffet?',
+        a: 'Dinner will be served buffet style, so you can try a little of everything on the Menú, and go back for seconds!'
       },
       {
         q: 'What if I have a dietary restriction?',

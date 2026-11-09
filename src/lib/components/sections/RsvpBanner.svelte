@@ -46,6 +46,23 @@
   .rsvp-panel {
     width: 100%;
     margin-top: clamp(1.5rem, 4vh, 2.5rem);
+    scroll-margin-top: 2rem;
+  }
+
+  .rsvp-panel:target .btn {
+    animation: pulse 1.1s var(--ease-elegant) 0.6s 3;
+  }
+
+  @keyframes pulse {
+    0%,
+    100% {
+      box-shadow: 0 0 0 0 rgba(232, 223, 208, 0.9);
+    }
+    50% {
+      box-shadow: 0 0 0 14px rgba(232, 223, 208, 0);
+      background: rgba(232, 223, 208, 0.92);
+      color: #2a241c;
+    }
   }
 
   .frame {
